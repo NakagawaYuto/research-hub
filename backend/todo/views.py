@@ -11,5 +11,7 @@ class TodoViewSet(viewsets.ModelViewSet):
 class DetailViewSet(viewsets.ModelViewSet):
     queryset = Detail.objects.all()
     serializer_class = DetailSerializer
+
+
     
 
