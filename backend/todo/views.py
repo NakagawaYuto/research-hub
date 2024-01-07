@@ -1,10 +1,15 @@
-from django.shortcuts import render
-from django.views.generic import ListView
 
-from .models import Task
+from rest_framework import viewsets
+from .models import Todo, Detail
+from .serializer import TodoSerializer, DetailSerializer
 
 # Create your views here.
-class TodoList(ListView):
-    model = Task
-    context_object_name = "tasks"
+class TodoViewSet(viewsets.ModelViewSet):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+class DetailViewSet(viewsets.ModelViewSet):
+    queryset = Detail.objects.all()
+    serializer_class = DetailSerializer
+    
 
