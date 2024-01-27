@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'todo.apps.TodoConfig',
-    'home.apps.HomeConfig',
-    'trouble.apps.TroubleConfig',
+    # 'todo.apps.TodoConfig',
+    # 'home.apps.HomeConfig',
+    # 'trouble.apps.TroubleConfig',
 ]
 
 
