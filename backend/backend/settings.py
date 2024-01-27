@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     # 'todo.apps.TodoConfig',
     # 'home.apps.HomeConfig',
-    # 'trouble.apps.TroubleConfig',
+    'trouble.apps.TroubleConfig',
 ]
 
 
