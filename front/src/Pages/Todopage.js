@@ -57,7 +57,10 @@ const Home = () => {
       .then(() => {
         setTitle('');
         setDeadline('');
-        navigate('/edit');
+        axios.get(baseURL).then((response) => {
+          setBlogs(response.data);
+         });
+        
       })
     }
   }
@@ -76,11 +79,7 @@ const Home = () => {
             Todolist
           </Typography>
         </Grid>
-        <Grid item>
-          <Typography variant="subtitle1" style={{ marginBottom: 15, fontFamily:'serif' }} >
-            好きな本について紹介する掲示板です。
-          </Typography>
-        </Grid>
+        
       </Grid>
 
       <BlogCards Blogs={blogs}></BlogCards>
@@ -115,6 +114,7 @@ const Home = () => {
             label="追加する作業"
             multiline
             maxRows={4}
+            value={title}
             style={{ 
               margin: 20, 
               fontFamily:'serif',
@@ -129,6 +129,7 @@ const Home = () => {
             label="期限(YYYY-MM-DD)"
             multiline
             maxRows={4}
+            value={deadline}
             style={{ 
               margin: 20, 
               fontFamily:'serif',
