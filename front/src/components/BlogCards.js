@@ -11,6 +11,7 @@ const BlogCards = ({ Blogs }) => {
   for (let i = 0; i < Blogs.length; i++) {
     const blog = Blogs[i]
     const title = blog.title;
+    var deadline = blog.deadline;
     
    
     Cards.push(
@@ -26,6 +27,9 @@ const BlogCards = ({ Blogs }) => {
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 { title }
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                { deadline }
               </Typography>
               
             </CardContent>
