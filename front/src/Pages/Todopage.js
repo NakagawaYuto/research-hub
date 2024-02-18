@@ -23,6 +23,7 @@ const Home = () => {
   const [blogs, setBlogs] = React.useState(null);
   const navigate = useNavigate();
   const [title, setTitle] = React.useState('');
+  const [deadline, setDeadline] = React.useState('');
 
 
 
@@ -45,15 +46,17 @@ const Home = () => {
   
   const addBlog = async () => {
     const titleOk = title.length !== 0;
+    const deadlineOk = deadline.length == 10;
    
-    if (titleOk) {
+    if (titleOk && deadlineOk) {
       await axios.post(baseURL, {
         title: String(title),
-        deadline:'2024-02-17',
+        deadline: String(deadline),
         
       })
       .then(() => {
         setTitle('');
+        setDeadline('');
         navigate('/edit');
       })
     }
@@ -118,6 +121,20 @@ const Home = () => {
               width: '50vw',
             }}
             onChange={(e)=>{setTitle(e.target.value)}}
+          />
+          </Grid>
+        <Grid item>
+          <TextField
+            id="outlined-multiline-flexible"
+            label="期限(YYYY-MM-DD)"
+            multiline
+            maxRows={4}
+            style={{ 
+              margin: 20, 
+              fontFamily:'serif',
+              width: '50vw',
+            }}
+            onChange={(e)=>{setDeadline(e.target.value)}}
           />
         
         
