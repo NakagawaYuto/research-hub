@@ -11,6 +11,9 @@ import { useNavigate } from 'react-router-dom';
 
 // 自作コンポーネント
 import BlogCards from '../components/BlogCards';
+import DeleteConfirmDialog from '../components/DeleteConfirmDialog';
+import BlogCardsEdit from '../components/BlogCardsEdit';
+
 // import BlogEditButton from '../components/BlogEditButton';
 
 
@@ -24,6 +27,10 @@ const Home = () => {
   const navigate = useNavigate();
   const [title, setTitle] = React.useState('');
   const [deadline, setDeadline] = React.useState('');
+
+  const [delTarget, setDelTarget] = React.useState(null);
+
+  let blogid=2;
 
 
 
@@ -53,6 +60,7 @@ const Home = () => {
         title: String(title),
         deadline: String(deadline),
         
+        
       })
       .then(() => {
         setTitle('');
@@ -63,6 +71,21 @@ const Home = () => {
         
       })
     }
+  }
+
+
+
+
+
+  const deleteBlog = (id) => {
+    console.log(baseURL+String(id)+'/');
+    axios.delete(baseURL+String(id)+'/')
+    .then(() => {
+      setBlogs([]);
+      axios.get(baseURL).then((response) => {
+        setBlogs(response.data);
+      });
+    })
   }
 
 
@@ -82,7 +105,10 @@ const Home = () => {
         
       </Grid>
 
-      <BlogCards Blogs={blogs}></BlogCards>
+      <BlogCards 
+        Blogs={blogs}
+        delTarget={setDelTarget}
+      />
 
       {/* <BlogEditButton/> */}
 
@@ -160,7 +186,24 @@ const Home = () => {
         </Grid>
       </Grid>
       </Box>
+
+
+
+
+
     
+      
+      <DeleteConfirmDialog 
+        delTarget={delTarget}
+        setDelTarget={setDelTarget}
+        deleteBlog={deleteBlog}
+      />
+
+
+
+
+
+      
 
 
 
