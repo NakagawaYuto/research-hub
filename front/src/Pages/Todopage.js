@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import BlogCards from '../components/BlogCards';
 import DeleteConfirmDialog from '../components/DeleteConfirmDialog';
 import BlogCardsEdit from '../components/BlogCardsEdit';
+import DeleteButton from '../components/DeleteButton';
 
 // import BlogEditButton from '../components/BlogEditButton';
 
@@ -29,8 +30,9 @@ const Home = () => {
   const [deadline, setDeadline] = React.useState('');
 
   const [delTarget, setDelTarget] = React.useState(null);
+  const [Target, setTarget] = React.useState(null);
 
-  let blogid=2;
+ 
 
 
 
@@ -107,7 +109,7 @@ const Home = () => {
 
       <BlogCards 
         Blogs={blogs}
-        delTarget={setDelTarget}
+        Target={setTarget}
       />
 
       {/* <BlogEditButton/> */}
@@ -186,6 +188,14 @@ const Home = () => {
         </Grid>
       </Grid>
       </Box>
+
+
+      <DeleteButton 
+        Target={Target}
+        delTarget={setDelTarget}
+        
+       
+      />
 
 
 

@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-const Deletebutton = ({ blog,delTarget }) => {
+const Deletebutton = ({ delTarget,Target, }) => {
 
     
     return (
@@ -22,7 +22,7 @@ const Deletebutton = ({ blog,delTarget }) => {
                     boxShadow: '2px 2px 2px rgba(0,0,0,0.3)'
                   }}
                   onClick={() => {
-                    delTarget(blog);
+                    delTarget(Target);
                   }}
                 >
                   <DeleteIcon 
