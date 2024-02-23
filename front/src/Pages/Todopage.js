@@ -14,6 +14,8 @@ import BlogCards from '../components/BlogCards';
 import DeleteConfirmDialog from '../components/DeleteConfirmDialog';
 import BlogCardsEdit from '../components/BlogCardsEdit';
 import DeleteButton from '../components/DeleteButton';
+import EditButton from '../components/EditButton';
+import EditDialog from '../components/EditDialog';
 
 // import BlogEditButton from '../components/BlogEditButton';
 
@@ -31,6 +33,7 @@ const Home = () => {
 
   const [delTarget, setDelTarget] = React.useState(null);
   const [Target, setTarget] = React.useState(null);
+  const [editTarget, setEditTarget] = React.useState(null);
 
  
 
@@ -196,6 +199,12 @@ const Home = () => {
         
        
       />
+      <EditButton 
+        Target={Target}
+        editTarget={setEditTarget}
+        
+       
+      />
 
 
 
@@ -207,6 +216,11 @@ const Home = () => {
         delTarget={delTarget}
         setDelTarget={setDelTarget}
         deleteBlog={deleteBlog}
+      />
+      <EditDialog 
+        editTarget={editTarget}
+        setEditTarget={setEditTarget}
+        
       />
 
 
