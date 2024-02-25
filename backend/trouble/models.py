@@ -1,14 +1,17 @@
-from datetime import timezone
 from django.db import models
 
 
 class Trouble(models.Model):
     title = models.CharField(max_length=255)
-    body = models.Text()
-    created_date = models.DateTimeField(default=timezone.now())
-    updated_date = models.DateTimeField(default=timezone.now())
+    name = models.CharField(max_length=255, null=True)
+    slug = models.SlugField()
+    body = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
 
 class Comment(models.Model):
-    trouble = models.ForeignKey(Trouble, on_delete=models.CASCADE)
+    trouble = models.ForeignKey(Trouble, related_name="comments", on_delete=models.CASCADE)
+    name = models.CharField(max_length=255, null=True)
     body = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True, null=True)
