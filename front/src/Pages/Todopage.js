@@ -31,6 +31,9 @@ const Home = () => {
   const [title, setTitle] = React.useState('');
   const [deadline, setDeadline] = React.useState('');
 
+  const [edittitle, setEditTitle] = React.useState('');
+  const [editdeadline, setEditDeadline] = React.useState('');
+
   const [delTarget, setDelTarget] = React.useState(null);
   const [Target, setTarget] = React.useState(null);
   const [editTarget, setEditTarget] = React.useState(null);
@@ -91,6 +94,26 @@ const Home = () => {
         setBlogs(response.data);
       });
     })
+  }
+
+  const editBlog = async (editTarget) => {
+    const titleOk = edittitle.length !== 0;
+    const deadlineOk = editdeadline.length == 10;
+    
+    if (titleOk && deadlineOk) {
+      console.log(baseURL+String(editTarget)+'/');
+      await axios.put(baseURL+String(editTarget)+'/', {
+        title: String(edittitle),
+        deadline: String(editdeadline),
+      })
+      .then(() => {
+        setEditTitle('');
+        setEditDeadline('');
+        axios.get(baseURL).then((response) => {
+          setBlogs(response.data);
+         }); 
+      })
+    }
   }
 
 
@@ -220,7 +243,7 @@ const Home = () => {
       <EditDialog 
         editTarget={editTarget}
         setEditTarget={setEditTarget}
-        
+        setBlogs={setBlogs}
       />
 
 
