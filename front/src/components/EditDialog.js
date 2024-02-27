@@ -71,7 +71,7 @@ export default function AlertDialogSlide(
         <DialogTitle>{"編集"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            投稿を削除しようとしています．本当に消しますか？
+            Todoの編集
           </DialogContentText>
         </DialogContent>
 
