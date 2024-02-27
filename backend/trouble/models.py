@@ -4,7 +4,6 @@ from django.db import models
 class Trouble(models.Model):
     title = models.CharField(max_length=255)
     name = models.CharField(max_length=255, null=True)
-    slug = models.SlugField()
     body = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
