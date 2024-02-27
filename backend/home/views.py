@@ -1,11 +1,16 @@
 from rest_framework import viewsets
-from .models import User, Theme, Novelty
-from .serializer import UserSerializer, ThemeSerializer, NoveltySerializer
+from .models import User, TechTag, Theme, Novelty
+from .serializer import UserSerializer, TechTagSerializer, ThemeSerializer, NoveltySerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class TechTagViewSet(viewsets.ModelViewSet):
+    queryset = TechTag.objects.all()
+    serializer_class = TechTagSerializer
 
 
 class ThemeViewSet(viewsets.ModelViewSet):

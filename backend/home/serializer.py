@@ -1,10 +1,16 @@
 from rest_framework import serializers
-from .models import User, Theme, Novelty
+from .models import User, TechTag, Theme, Novelty
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        fields = "__all__"
+
+
+class TechTagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TechTag
         fields = "__all__"
 
 
