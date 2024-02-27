@@ -1,9 +1,10 @@
 from rest_framework import routers
-from .views import troublepage
+from .views import TroubleViewSet, CommentViewSet
 
 
 router = routers.DefaultRouter()
-router.register(r'trouble', troublepage)
+router.register(r'trouble', TroubleViewSet)
+router.register(r'comment', CommentViewSet)
 
 urlpatterns = [
 ]

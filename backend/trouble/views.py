@@ -1,7 +1,13 @@
-from django.shortcuts import render
-from .models import Trouble
+from rest_framework import viewsets
+from .models import Trouble, Comment
+from .serializer import TroubleSerializer, CommentSerializer
 
 
-def troublepage(request):
-    troubles = Trouble.objects.all()
-    return render(request, "trouble/troublepage.html", {"troubles": troubles})
+class TroubleViewSet(viewsets.ModelViewSet):
+    queryset = Trouble.objects.all()
+    serializer_class = TroubleSerializer
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
