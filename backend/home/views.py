@@ -1,6 +1,7 @@
 from rest_framework import viewsets
-from .models import User, TechTag, Theme, Novelty
-from .serializer import UserSerializer, TechTagSerializer, ThemeSerializer, NoveltySerializer
+from .models import User, TechTag, Theme, Novelty, Memo
+from .serializer import UserSerializer, TechTagSerializer, ThemeSerializer, NoveltySerializer, MemoSerializer
+
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -21,3 +22,8 @@ class ThemeViewSet(viewsets.ModelViewSet):
 class NoveltyViewSet(viewsets.ModelViewSet):
     queryset = Novelty.objects.all()
     serializer_class = NoveltySerializer
+
+
+class MemoViewSet(viewsets.ModelViewSet):
+    queryset = Memo.objects.all()
+    serializer_class = MemoSerializer

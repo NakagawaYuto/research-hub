@@ -11,9 +11,6 @@ class User(models.Model):
 class TechTag(models.Model):
     name = models.CharField(max_length=50)
 
-    def __str__(self):
-          return self.name
-
 
 class Theme(models.Model):
     title = models.CharField(max_length=200)
@@ -21,4 +18,8 @@ class Theme(models.Model):
 
 
 class Novelty(models.Model):
+    description = models.TextField()
+
+
+class Memo(models.Model):
     description = models.TextField()
