@@ -3,57 +3,68 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Container, Typography, Grid, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
+const baseURL = 'http://127.0.0.1:8080/users/'
 
 
 function UserPage() {
     const [user, setUser] = useState(null);
-    const { userId } = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/users/${userId}`);
-                setUser(response.name);
+                axios.get(`${baseURL}${id}/`).then((response) => {
+                    setUser(response.data);
+                });
             } catch (error) {
                 console.error(error);
             }
         };
 
         fetchData();
-    }, [userId]);
+    }, [id]);
 
     return (
         <Container>
             <Box sx={{ my: 4 }}>
-                <Typography variant="h4" align="center">
-                    {user ? user : 'Loading...'}
+                <Typography variant='h4' align='center'>
+                    {user ? user.name : 'Loading...'}
                 </Typography>
             </Box>
             <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Link to={`/user/${id}/theme`} style={{ textDecoration: 'none' }}>
+                        <Button variant='contained' fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
+                            <Typography variant='h4' align='center'>
+                                {user ? user.research_theme : 'Loading...'}
+                            </Typography>
+                        </Button>
+                    </Link>
+                </Grid>
                 <Grid item xs={6}>
-                    <Link to="/novelty" style={{ textDecoration: 'none' }}>
-                        <Button variant="contained" fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
+                    <Link to={`/user/${id}/novelty`} style={{ textDecoration: 'none' }}>
+                        <Button variant='contained' fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
                             新規性
                         </Button>
                     </Link>
                 </Grid>
                 <Grid item xs={6}>
-                    <Link to="/todo" style={{ textDecoration: 'none' }}>
-                        <Button variant="contained" fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
-                            TODO
+                    <Link to={`/user/${id}/todo`} style={{ textDecoration: 'none' }}>
+                        <Button variant='contained' fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
+                            todo
                         </Button>
                     </Link>
                 </Grid>
                 <Grid item xs={6}>
-                    <Link to="/trouble" style={{ textDecoration: 'none' }}>
-                        <Button variant="contained" fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
-                            Trouble
+                    <Link to={`/user/${id}/trouble`} style={{ textDecoration: 'none' }}>
+                        <Button variant='contained' fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
+                            課題・悩み
                         </Button>
                     </Link>
                 </Grid>
                 <Grid item xs={6}>
-                    <Link to="/memo" style={{ textDecoration: 'none' }}>
-                        <Button variant="contained" fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
+                    <Link to={`/user/${id}/memo`} style={{ textDecoration: 'none' }}>
+                        <Button variant='contained' fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
                             メモ
                         </Button>
                     </Link>
