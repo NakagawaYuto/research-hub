@@ -3,6 +3,7 @@ class Todo(models.Model):
     title=models.CharField(max_length=255)
     deadline = models.DateField()
     created_date=models.DateField(auto_now_add=True)
+    done = models.BooleanField(default=False)
     
 
 class Detail(models.Model):
