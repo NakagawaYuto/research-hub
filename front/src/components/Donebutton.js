@@ -4,13 +4,8 @@ import axios from "axios";
 
 const baseURL = "http://127.0.0.1:8080/todo/"
 
-const Donebutton = ({ Target, Card }) => {
-    const doneTodo=(Target) =>{
-        axios.get(baseURL+String(Target)+'/')
-        .then((response)=>{
-            Card.push(response.data);
-        })
-    }
+const Donebutton = ({ doneTarget,Target }) => {
+   
 
 
     
@@ -18,7 +13,7 @@ const Donebutton = ({ Target, Card }) => {
         <Button 
         variant="contained" 
         onClick={() => {
-            doneTodo(Target);
+            doneTarget(Target);
         }}
         style={{
           width: 100,

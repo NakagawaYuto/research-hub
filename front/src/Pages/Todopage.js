@@ -17,6 +17,7 @@ import DeleteButton from '../components/DeleteButton';
 import EditButton from '../components/EditButton';
 import EditDialog from '../components/EditDialog';
 import DoneButton from '../components/Donebutton';
+import DoneDialog from '../components/DoneDialog';
 
 // import BlogEditButton from '../components/BlogEditButton';
 
@@ -35,9 +36,10 @@ const Home = () => {
   const [delTarget, setDelTarget] = React.useState(null);
   const [Target, setTarget] = React.useState(null);
   const [editTarget, setEditTarget] = React.useState(null);
+  const [doneTarget, setDoneTarget] = React.useState(null);
  
   const [done, setDone] = React.useState(null);
-  var Card = [];
+
 
  
 
@@ -69,7 +71,6 @@ const Home = () => {
         title: String(title),
         deadline: String(deadline),
         
-        
       })
       .then(() => {
         setTitle('');
@@ -96,6 +97,11 @@ const Home = () => {
       });
     })
   }
+
+
+
+
+  
 
 
 
@@ -213,14 +219,14 @@ const Home = () => {
       />
       <DoneButton 
         Target={Target}
-        Card={Card}
-        
-        
+        doneTarget={setDoneTarget}
+     
+      
       />
       <Button 
             variant="contained" 
             onClick={() => {
-              navigate('/log/',{Card});
+              navigate('/log/');
             }}
             style={{
               width: 100,
@@ -250,6 +256,13 @@ const Home = () => {
         editTarget={editTarget}
         setEditTarget={setEditTarget}
         setBlogs={setBlogs}
+      />
+      <DoneDialog 
+        doneTarget={doneTarget}
+        setDoneTarget={setDoneTarget}
+        setBlogs={setBlogs}
+        deleteBlog={deleteBlog}
+       
       />
 
 
