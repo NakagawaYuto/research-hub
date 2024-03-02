@@ -1,17 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Container, Typography, Grid, Button, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
-const baseURL = 'http://127.0.0.1:8080/users/'
 
+const baseURL = 'http://127.0.0.1:8080/users/';
+
+const CustomButton = ({ to, children }) => (
+    <Link to={to} style={{ textDecoration: 'none' }}>
+        <Button variant='contained' fullWidth sx={buttonStyle}>
+            {children}
+        </Button>
+    </Link>
+);
+
+const buttonStyle = {
+    height: 200,
+    backgroundColor: 'white',
+    color: 'black',
+    borderColor: 'black',
+    borderWidth: 2,
+    borderStyle: 'solid'
+};
 
 function UserPage() {
     const [user, setUser] = useState(null);
     const { id } = useParams();
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = () => {
             try {
                 axios.get(`${baseURL}${id}/`).then((response) => {
                     setUser(response.data);
@@ -33,41 +49,23 @@ function UserPage() {
             </Box>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Link to={`/user/${id}/theme`} style={{ textDecoration: 'none' }}>
-                        <Button variant='contained' fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
-                            <Typography variant='h4' align='center'>
-                                {user ? user.research_theme : 'Loading...'}
-                            </Typography>
-                        </Button>
-                    </Link>
+                    <CustomButton to={`/user/${id}/theme`}>
+                        <Typography variant='h4' align='center'>
+                            {user ? user.research_theme : 'Loading...'}
+                        </Typography>
+                    </CustomButton>
                 </Grid>
                 <Grid item xs={6}>
-                    <Link to={`/user/${id}/novelty`} style={{ textDecoration: 'none' }}>
-                        <Button variant='contained' fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
-                            新規性
-                        </Button>
-                    </Link>
+                    <CustomButton to={`/user/${id}/novelty`}>新規性</CustomButton>
                 </Grid>
                 <Grid item xs={6}>
-                    <Link to={`/user/${id}/todo`} style={{ textDecoration: 'none' }}>
-                        <Button variant='contained' fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
-                            todo
-                        </Button>
-                    </Link>
+                    <CustomButton to={`/user/${id}/todo`}>todo</CustomButton>
                 </Grid>
                 <Grid item xs={6}>
-                    <Link to={`/user/${id}/trouble`} style={{ textDecoration: 'none' }}>
-                        <Button variant='contained' fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
-                            課題・悩み
-                        </Button>
-                    </Link>
+                    <CustomButton to={`/user/${id}/trouble`}>課題・悩み</CustomButton>
                 </Grid>
                 <Grid item xs={6}>
-                    <Link to={`/user/${id}/memo`} style={{ textDecoration: 'none' }}>
-                        <Button variant='contained' fullWidth sx={{ height: 200, backgroundColor: 'white', color: 'black', borderColor: 'black', borderWidth: 2, borderStyle: 'solid' }}>
-                            メモ
-                        </Button>
-                    </Link>
+                    <CustomButton to={`/user/${id}/memo`}>メモ</CustomButton>
                 </Grid>
             </Grid>
         </Container>
