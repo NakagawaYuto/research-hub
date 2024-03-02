@@ -3,8 +3,21 @@ import axios from 'axios';
 import { Container, Typography, Card, CardContent, Grid, Fab, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
-const baseURL = 'http://127.0.0.1:8080/users/'
 
+const baseURL = 'http://127.0.0.1:8080/users/';
+
+const UserCard = ({ user }) => (
+    <Link to={`/user/${user.id}`} style={{ textDecoration: 'none' }}>
+        <Card sx={{ mb: 2 }}>
+            <CardContent>
+                <Typography variant='h5'>{user.name}</Typography>
+                <Typography color='textSecondary'>{user.student_id}</Typography>
+                <Typography color='textSecondary'>{user.research_theme}</Typography>
+                <Typography color='textSecondary'>{user.tech_tags.name}</Typography>
+            </CardContent>
+        </Card>
+    </Link>
+);
 
 function UserList() {
     const [users, setUsers] = useState([]);
@@ -31,16 +44,7 @@ function UserList() {
                             ユーザーリスト
                         </Typography>
                         {users.map((user) => (
-                            <Link to={`/user/${user.id}`} style={{ textDecoration: 'none' }}>
-                                <Card key={user.id} sx={{ mb: 2 }}>
-                                    <CardContent>
-                                        <Typography variant='h5'>{user.name}</Typography>
-                                        <Typography color='textSecondary'>{user.student_id}</Typography>
-                                        <Typography color='textSecondary'>{user.research_theme}</Typography>
-                                        <Typography color='textSecondary'>{user.tech_tags.name}</Typography>
-                                    </CardContent>
-                                </Card>
-                            </Link>
+                            <UserCard key={user.id} user={user} />
                         ))}
                     </Grid>
                     <Grid item xs={12} md={4}>
