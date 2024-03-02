@@ -35,7 +35,7 @@ const MemoPage = () => {
         <Container>
             <Box sx={{ my: 4 }}>
                 <Typography variant='h4' align='center'>
-                    Memo Page
+                    メモ
                 </Typography>
             </Box>
             <Grid container spacing={2}>
@@ -43,14 +43,14 @@ const MemoPage = () => {
                     <TextField
                         fullWidth
                         variant='outlined'
-                        placeholder='Enter your memo'
+                        placeholder=''
                         value={memo}
                         onChange={(e) => setMemo(e.target.value)}
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <Button variant='contained' color='primary' onClick={saveMemo}>
-                        Save
+                        保存
                     </Button>
                 </Grid>
             </Grid>

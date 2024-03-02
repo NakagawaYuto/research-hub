@@ -34,7 +34,7 @@ const AddUserPage = () => {
     <Container>
       <Box sx={{ my: 4 }}>
         <Typography variant='h4' align='center'>
-          Add User Page
+          ユーザー追加
         </Typography>
       </Box>
       <Grid container spacing={2}>
@@ -42,7 +42,7 @@ const AddUserPage = () => {
           <TextField
             fullWidth
             variant='outlined'
-            placeholder='Enter name'
+            placeholder='名前（必須）'
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
@@ -52,7 +52,7 @@ const AddUserPage = () => {
           <TextField
             fullWidth
             variant='outlined'
-            placeholder='Enter student ID'
+            placeholder='学籍番号（必須）'
             value={studentId}
             onChange={(e) => setStudentId(e.target.value)}
             required
@@ -62,7 +62,7 @@ const AddUserPage = () => {
           <TextField
             fullWidth
             variant='outlined'
-            placeholder='Enter research theme'
+            placeholder='研究テーマ（任意）'
             value={researchTheme}
             onChange={(e) => setResearchTheme(e.target.value)}
           />
@@ -71,7 +71,7 @@ const AddUserPage = () => {
           <TextField
             fullWidth
             variant='outlined'
-            placeholder='Enter novelty'
+            placeholder='新規性（任意）'
             value={novelty}
             onChange={(e) => setNovelty(e.target.value)}
           />
@@ -80,14 +80,14 @@ const AddUserPage = () => {
           <TextField
             fullWidth
             variant='outlined'
-            placeholder='Enter memo'
+            placeholder='メモ（任意）'
             value={memo}
             onChange={(e) => setMemo(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
           <Button variant='contained' color='primary' onClick={addUser}>
-            Add User
+            追加
           </Button>
         </Grid>
       </Grid>

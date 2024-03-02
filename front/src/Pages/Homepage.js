@@ -13,7 +13,7 @@ const UserCard = ({ user }) => (
                 <Typography variant='h5'>{user.name}</Typography>
                 <Typography color='textSecondary'>{user.student_id}</Typography>
                 <Typography color='textSecondary'>{user.research_theme}</Typography>
-                <Typography color='textSecondary'>{user.tech_tags.name}</Typography>
+                <Typography color='textSecondary'>{user.tech_tags}</Typography>
             </CardContent>
         </Card>
     </Link>
@@ -23,10 +23,11 @@ function UserList() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = () => {
             try {
-                const response = await axios.get(baseURL);
-                setUsers(response.data);
+                axios.get(baseURL).then((response) => {
+                    setUsers(response.data);
+                });
             } catch (error) {
                 console.error(error);
             }
@@ -41,7 +42,7 @@ function UserList() {
                 <Grid container spacing={2} justifyContent='center'>
                     <Grid item xs={12} md={6}>
                         <Typography variant='h4' gutterBottom>
-                            ユーザーリスト
+                            ユーザー一覧
                         </Typography>
                         {users.map((user) => (
                             <UserCard key={user.id} user={user} />

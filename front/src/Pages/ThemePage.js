@@ -35,7 +35,7 @@ const ThemePage = () => {
         <Container>
             <Box sx={{ my: 4 }}>
                 <Typography variant='h4' align='center'>
-                    Theme Page
+                    テーマ
                 </Typography>
             </Box>
             <Grid container spacing={2}>
@@ -43,14 +43,14 @@ const ThemePage = () => {
                     <TextField
                         fullWidth
                         variant='outlined'
-                        placeholder='Enter your research theme'
+                        placeholder=''
                         value={theme}
                         onChange={(e) => setTheme(e.target.value)}
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <Button variant='contained' color='primary' onClick={saveTheme}>
-                        Save
+                        保存
                     </Button>
                 </Grid>
             </Grid>

@@ -35,7 +35,7 @@ const NoveltyPage = () => {
         <Container>
             <Box sx={{ my: 4 }}>
                 <Typography variant='h4' align='center'>
-                    Novelty Page
+                    新規性
                 </Typography>
             </Box>
             <Grid container spacing={2}>
@@ -43,14 +43,14 @@ const NoveltyPage = () => {
                     <TextField
                         fullWidth
                         variant='outlined'
-                        placeholder='Enter your novelty'
+                        placeholder=''
                         value={novelty}
                         onChange={(e) => setNovelty(e.target.value)}
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <Button variant='contained' color='primary' onClick={saveNovelty}>
-                        Save
+                        保存
                     </Button>
                 </Grid>
             </Grid>
