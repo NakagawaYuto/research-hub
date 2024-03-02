@@ -1,40 +1,97 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { Container, Typography, Grid, Button, Box, TextField } from '@mui/material';
 
+const baseURL = 'http://127.0.0.1:8080/users/';
 
 const AddUserPage = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [studentId, setStudentId] = useState('');
+  const [researchTheme, setResearchTheme] = useState('');
+  const [novelty, setNovelty] = useState('');
+  const [memo, setMemo] = useState('');
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
+  const addUser = () => {
+    const newUser = {
+      name: name,
+      student_id: studentId,
+      research_theme: researchTheme,
+      novelty: novelty,
+      memo: memo,
+    };
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add logic to handle form submission here
+    axios.post(baseURL, newUser)
+      .then((response) => {
+        console.log(response.data);
+        // ユーザー追加後の処理（成功メッセージの表示など）
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
-    <div>
-      <h1>Add User Page</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input type="text" value={username} onChange={handleUsernameChange} />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input type="email" value={email} onChange={handleEmailChange} />
-        </label>
-        <br />
-        <button type="submit">Add User</button>
-      </form>
-    </div>
+    <Container>
+      <Box sx={{ my: 4 }}>
+        <Typography variant='h4' align='center'>
+          Add User Page
+        </Typography>
+      </Box>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            variant='outlined'
+            placeholder='Enter name'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            variant='outlined'
+            placeholder='Enter student ID'
+            value={studentId}
+            onChange={(e) => setStudentId(e.target.value)}
+            required
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            variant='outlined'
+            placeholder='Enter research theme'
+            value={researchTheme}
+            onChange={(e) => setResearchTheme(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            variant='outlined'
+            placeholder='Enter novelty'
+            value={novelty}
+            onChange={(e) => setNovelty(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            variant='outlined'
+            placeholder='Enter memo'
+            value={memo}
+            onChange={(e) => setMemo(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant='contained' color='primary' onClick={addUser}>
+            Add User
+          </Button>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

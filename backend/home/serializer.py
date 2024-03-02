@@ -11,4 +11,9 @@ class TechTagSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ['id', 'name', 'student_id', 'research_theme', 'novelty', 'memo']
+        extra_kwargs = {
+            'research_theme': {'allow_blank': True},
+            'novelty': {'allow_blank': True},
+            'memo': {'allow_blank': True},
+        }
