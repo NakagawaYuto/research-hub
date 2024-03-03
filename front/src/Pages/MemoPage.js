@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { Container, Typography, Grid, Button, Box, TextField } from '@mui/material';
+import { useParams, Link } from 'react-router-dom';
+import { Container, Typography, Button, Box, TextField } from '@mui/material';
 
 const baseURL = 'http://127.0.0.1:8080/users/';
 
@@ -10,11 +10,10 @@ const MemoPage = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        const fetchData = () => {
+        const fetchData = async () => {
             try {
-                axios.get(`${baseURL}${id}/`).then((response) => {
-                    setMemo(response.data.memo);
-                });
+                const response = await axios.get(`${baseURL}${id}/`);
+                setMemo(response.data.memo);
             } catch (error) {
                 console.error(error);
             }
@@ -23,37 +22,48 @@ const MemoPage = () => {
         fetchData();
     }, [id]);
 
-    const saveMemo = () => {
+    const saveMemo = async () => {
         try {
-            axios.patch(`${baseURL}${id}/`, { memo: memo });
+            await axios.patch(`${baseURL}${id}/`, { memo: memo });
         } catch (error) {
             console.error(error);
         }
     }
 
     return (
-        <Container>
-            <Box sx={{ my: 4 }}>
-                <Typography variant='h4' align='center'>
-                    メモ
-                </Typography>
-            </Box>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <TextField
-                        fullWidth
-                        variant='outlined'
-                        placeholder=''
-                        value={memo}
-                        onChange={(e) => setMemo(e.target.value)}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <Button variant='contained' color='primary' onClick={saveMemo}>
-                        保存
+        <Container maxWidth="lg">
+            <Typography variant='h4' align='center' sx={{ mt: 6 }}>
+                メモ
+            </Typography>
+            <Box sx={{ position: 'relative', mt: 8 }}>
+                <TextField
+                    fullWidth
+                    multiline
+                    rows={8}
+                    variant='outlined'
+                    placeholder='メモを入力してください。'
+                    value={memo}
+                    onChange={(e) => setMemo(e.target.value)}
+                />
+                <Link to={`/user/${id}/`} style={{ textDecoration: 'none' }}>
+                    <Button
+                        variant='contained'
+                        color='primary'
+                        onClick={saveMemo}
+                        sx={{
+                            position: 'absolute',
+                            right: 0,
+                            bottom: -120,
+                            width: '150px',
+                            height: '50px',
+                        }}
+                    >
+                        <Typography variant="h6">
+                            保存
+                        </Typography>
                     </Button>
-                </Grid>
-            </Grid>
+                </Link>
+            </Box>
         </Container>
     );
 };

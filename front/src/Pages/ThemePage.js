@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { Container, Typography, Grid, Button, Box, TextField } from '@mui/material';
+import { useParams, Link } from 'react-router-dom';
+import { Container, Typography, Button, Box, TextField } from '@mui/material';
 
 const baseURL = 'http://127.0.0.1:8080/users/';
 
 const ThemePage = () => {
-    const [theme, setTheme] = useState(null);
+    const [theme, setTheme] = useState('');
     const { id } = useParams();
 
     useEffect(() => {
-        const fetchData = () => {
+        const fetchData = async () => {
             try {
-                axios.get(`${baseURL}${id}/`).then((response) => {
-                    setTheme(response.data.research_theme);
-                });
+                const response = await axios.get(`${baseURL}${id}/`);
+                setTheme(response.data.research_theme);
             } catch (error) {
                 console.error(error);
             }
@@ -23,37 +22,46 @@ const ThemePage = () => {
         fetchData();
     }, [id]);
 
-    const saveTheme = () => {
+    const saveTheme = async () => {
         try {
-            axios.patch(`${baseURL}${id}/`, { research_theme: theme });
+            await axios.patch(`${baseURL}${id}/`, { research_theme: theme });
         } catch (error) {
             console.error(error);
         }
     }
 
     return (
-        <Container>
-            <Box sx={{ my: 4 }}>
-                <Typography variant='h4' align='center'>
-                    テーマ
-                </Typography>
-            </Box>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <TextField
-                        fullWidth
-                        variant='outlined'
-                        placeholder=''
-                        value={theme}
-                        onChange={(e) => setTheme(e.target.value)}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <Button variant='contained' color='primary' onClick={saveTheme}>
-                        保存
+        <Container maxWidth="lg">
+            <Typography variant='h4' align='center' sx={{ mt: 6 }}>
+                テーマ
+            </Typography>
+            <Box sx={{ position: 'relative', mt: 8 }}>
+                <TextField
+                    fullWidth
+                    variant='outlined'
+                    placeholder='テーマを入力してください。'
+                    value={theme}
+                    onChange={(e) => setTheme(e.target.value)}
+                />
+                <Link to={`/user/${id}/`} style={{ textDecoration: 'none' }}>
+                    <Button
+                        variant='contained'
+                        color='primary'
+                        onClick={saveTheme}
+                        sx={{
+                            position: 'absolute',
+                            right: 0,
+                            bottom: -120,
+                            width: '150px',
+                            height: '50px',
+                        }}
+                    >
+                        <Typography variant="h6">
+                            保存
+                        </Typography>
                     </Button>
-                </Grid>
-            </Grid>
+                </Link>
+            </Box>
         </Container>
     );
 };
