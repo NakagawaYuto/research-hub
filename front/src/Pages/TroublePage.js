@@ -5,9 +5,13 @@ import axios from "axios";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
 
 // 自作コンポーネント
 import BlogCards from '../Components/BlogCards';
+import TroubleAddButton from '../Components/TroubleAddButton';
 
 
 const baseURL = "http://127.0.0.1:8080/trouble/"
@@ -15,6 +19,11 @@ const baseURL = "http://127.0.0.1:8080/trouble/"
 const Home = () => {
     // ページ内で値を保持するために使う.
     const [blogs, setBlogs] = React.useState(null);
+    const navigate = useNavigate();
+    const [title, setTitle] = React.useState('');
+    function goToAddPage() {
+      navigate('/add/');
+    }
   
     // 初回ロード時の処理を記述する.
     React.useEffect(() => 
@@ -47,6 +56,7 @@ const Home = () => {
         <BlogCards Blogs={blogs}></BlogCards>
   
         {/* <BlogEditButton/> */}
+        <TroubleAddButton onClick={goToAddPage}></TroubleAddButton>
   
       </Box>
       </>
