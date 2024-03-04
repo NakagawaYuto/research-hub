@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
 
 // 自作コンポーネント
-import BlogCards from '../Components/BlogCards';
+import TroubleCards from '../Components/TroubleCards';
 import TroubleAddButton from '../Components/TroubleAddButton';
 
 
@@ -18,7 +18,7 @@ const baseURL = "http://127.0.0.1:8080/trouble/"
 
 const Home = () => {
     // ページ内で値を保持するために使う.
-    const [blogs, setBlogs] = React.useState(null);
+    const [troubles, setTroubles] = React.useState(null);
     const navigate = useNavigate();
     const [title, setTitle] = React.useState('');
     function goToAddPage() {
@@ -30,11 +30,11 @@ const Home = () => {
       {
   
         axios.get(baseURL).then((response) => {
-          setBlogs(response.data);
+          setTroubles(response.data);
          });
   
       }, []);
-    if (!blogs) return null;
+    if (!troubles) return null;
   
     return (
       <>
@@ -53,9 +53,8 @@ const Home = () => {
           </Grid>
         </Grid>
   
-        <BlogCards Blogs={blogs}></BlogCards>
+        <TroubleCards Troubles={troubles}></TroubleCards>
   
-        {/* <BlogEditButton/> */}
         <TroubleAddButton onClick={goToAddPage}></TroubleAddButton>
   
       </Box>
