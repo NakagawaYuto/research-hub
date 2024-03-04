@@ -6,19 +6,6 @@ import AddIcon from '@mui/icons-material/Add';
 
 const baseURL = 'http://127.0.0.1:8080/users/';
 
-const UserCard = ({ user }) => (
-  <Link to={`/user/${user.id}`} style={{ textDecoration: 'none' }}>
-    <Card sx={{ mb: 2 }}>
-      <CardContent>
-        <Typography variant='h5'>{user.name}</Typography>
-        <Typography color='textSecondary'>{user.student_id}</Typography>
-        <Typography color='textSecondary'>{user.research_theme}</Typography>
-        <Typography color='textSecondary'>{user.tech_tags}</Typography>
-      </CardContent>
-    </Card>
-  </Link>
-);
-
 function UserList() {
   const [users, setUsers] = useState([]);
 
@@ -41,11 +28,17 @@ function UserList() {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2} justifyContent='center'>
           <Grid item xs={12} md={6}>
-            <Typography variant='h4' gutterBottom>
-              ユーザー一覧
-            </Typography>
             {users.map((user) => (
-              <UserCard key={user.id} user={user} />
+              <Link to={`/user/${user.id}`} style={{ textDecoration: 'none' }}>
+                <Card sx={{ mb: 2 }}>
+                  <CardContent>
+                    <Typography variant='h5'>{user.name}</Typography>
+                    <Typography color='textSecondary'>{user.student_id}</Typography>
+                    <Typography color='textSecondary'>{user.research_theme}</Typography>
+                    <Typography color='textSecondary'>{user.tech_tags}</Typography>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </Grid>
           <Grid item xs={12} md={4}>
