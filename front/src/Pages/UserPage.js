@@ -67,7 +67,7 @@ function UserPage() {
               }}
             >
               <Typography variant='h5' align='center'>
-                {user ? user.research_theme : 'Loading...'}
+                {user ? (user.research_theme ? user.research_theme : 'テーマ') : 'Loading...'}
               </Typography>
             </Button>
           </Link>
