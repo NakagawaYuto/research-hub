@@ -5,16 +5,16 @@ import CardContent from '@mui/material/CardContent';
 import CardActionArea from '@mui/material/CardActionArea';
 import { useNavigate } from 'react-router-dom';
 
-const BlogCards = ({ Blogs }) => {
+const TroubleCards = ({ Troubles }) => {
   const navigate = useNavigate();
   var Cards = [];
-  for (let i = 0; i < Blogs.length; i++) {
-    const blog = Blogs[i]
-    const title = blog.title;
+  for (let i = 0; i < Troubles.length; i++) {
+    const trouble = Troubles[i]
+    const title = trouble.title;
 
 
     Cards.push(
-      <Grid item key={blog.id}>
+      <Grid item key={trouble.id}>
         <Card 
           sx={{ width: '50vw' }} 
           elevation={4} 
@@ -22,7 +22,7 @@ const BlogCards = ({ Blogs }) => {
             margin: 10,
           }}
         >
-          <CardActionArea onClick={() => { navigate('/trouble/'+String(blog.id))}}>
+          <CardActionArea onClick={() => { navigate('/trouble/'+String(trouble.id))}}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 { title }
@@ -44,4 +44,4 @@ const BlogCards = ({ Blogs }) => {
 }
 
 
-export default BlogCards;
+export default TroubleCards;
