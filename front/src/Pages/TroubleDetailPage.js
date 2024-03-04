@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
 import CommentCards from '../Components/CommentCards';
+import CommentAddForm from '../Components/CommentAddForm';
 
 
 
@@ -13,14 +14,12 @@ const TroubleDetailPage = () => {
   // パラメータから値を取得する.
   const params = useParams();
   const [trouble, setTrouble] = React.useState(null);
-  //const [comment, setComments] = React.useState(null);
   const baseURL = "http://127.0.0.1:8080/trouble/" + String(params.id) + "/"
 
   React.useEffect(() => 
     {
       axios.get(baseURL).then((response) => {
         setTrouble(response.data);
-        //setComments(response.comments);
       });
     }, []);
   if (!trouble) return null;
@@ -45,6 +44,7 @@ const TroubleDetailPage = () => {
 
       <CommentCards comments={trouble.comments} />
 
+      <CommentAddForm postId={params.id} />
     </>
   );
 };
