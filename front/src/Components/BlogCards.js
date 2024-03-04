@@ -22,7 +22,7 @@ const BlogCards = ({ Blogs }) => {
             margin: 10,
           }}
         >
-          <CardActionArea onClick={() => { navigate('/blog/'+String(blog.id))}}>
+          <CardActionArea onClick={() => { navigate('/trouble/'+String(blog.id))}}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 { title }
