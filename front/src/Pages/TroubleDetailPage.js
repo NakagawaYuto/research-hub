@@ -38,6 +38,9 @@ const TroubleDetailPage = () => {
           <Typography variant="subtitle1" style={{ marginBottom: 15, fontFamily:'serif' }} >
             {trouble.body}
           </Typography>
+          <Typography variant="subtitle1" style={{ marginBottom: 15, fontFamily:'serif' }} >
+            {trouble.created_date}
+          </Typography>
         </Grid>
 
       </Grid>
