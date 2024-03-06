@@ -32,7 +32,7 @@ const CommentAddForm = ({ postId }) => {
 
   return (
     <div>
-      <Typography variant="h4" gutterBottom style={{ margin: '20px 0', fontFamily: 'serif' }}>
+      <Typography variant="h4" align="left" style={{ fontFamily: 'Meiryo', fontSize: '20px', fontWeight: 'bold', color: '#333', marginTop: '30px', marginBottom: '10px'}}>
         コメントを入力する
       </Typography>
       <form>
@@ -54,7 +54,7 @@ const CommentAddForm = ({ postId }) => {
           onChange={(e) => setBody(e.target.value)}
           margin="normal"
         />
-        <Button type="submit" variant="contained" color="primary"　onClick={() => {
+        <Button type="submit" variant="contained" color="primary" style={{marginTop: '15px'}}onClick={() => {
               addComment();
             }}>
           投稿

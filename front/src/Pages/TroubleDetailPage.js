@@ -5,10 +5,14 @@ import { useParams } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
+import DetailCard from '../Components/DetailCard';
 import CommentCards from '../Components/CommentCards';
-import CommentAddForm from '../Components/CommentAddForm';
 
 
+const pageStyle = {
+  backgroundColor: '#f5f5f5', // 薄いグレー
+  minHeight: '100vh', // 画面全体の高さに背景を広げる
+};
 
 const TroubleDetailPage = () => {
   // パラメータから値を取得する.
@@ -24,31 +28,13 @@ const TroubleDetailPage = () => {
     }, []);
   if (!trouble) return null;
   return (
-    <>
-      <Grid container alignItems='center' justify='center' direction="column">
-        <Grid item>
-          <Typography variant="h3" gutterBottom style={{ margin: 20, fontFamily:'serif' }}>
-            {trouble.title}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="subtitle1" style={{ marginBottom: 15, fontFamily:'serif' }} >
-            {trouble.name}
-          </Typography>
-          <Typography variant="subtitle1" style={{ marginBottom: 15, fontFamily:'serif' }} >
-            {trouble.body}
-          </Typography>
-          <Typography variant="subtitle1" style={{ marginBottom: 15, fontFamily:'serif' }} >
-            {trouble.created_date}
-          </Typography>
-        </Grid>
-
-      </Grid>
+    <div style={pageStyle}>
+      <DetailCard />
 
       <CommentCards comments={trouble.comments} />
 
-      <CommentAddForm postId={params.id} />
-    </>
+      
+    </div>
   );
 };
 
