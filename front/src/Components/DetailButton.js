@@ -12,10 +12,11 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
-export default function LongMenu() {
+export default function LongMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
+  const { TroubleId } = props;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -24,7 +25,7 @@ export default function LongMenu() {
     setAnchorEl(null);
   };
   const handleEdit = () => { // 編集ボタンがクリックされたときの処理
-    navigate('/edit'); // 編集ページに遷移
+    navigate('/edit/'+String(TroubleId)); // 編集ページに遷移
     handleClose(); // メニューを閉じる
   };
 

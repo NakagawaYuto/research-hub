@@ -38,7 +38,7 @@ const TroubleCards = ({ Troubles }) => {
 
             </CardContent>
           </CardActionArea>
-          <DetailButton />
+          <DetailButton TroubleId = {trouble.id}></DetailButton>
         </Card>
       </Grid>
       
