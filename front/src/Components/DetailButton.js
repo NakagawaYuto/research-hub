@@ -5,6 +5,8 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 
+import DeleteConfirmCard from '../Components/DeleteConfirmCard';
+
 const options = [
   '編集',
   '削除',
@@ -14,6 +16,7 @@ const ITEM_HEIGHT = 48;
 
 export default function LongMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = React.useState(false);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
   const { TroubleId } = props;
@@ -31,8 +34,13 @@ export default function LongMenu(props) {
 
   const handleDelete = () => { // 削除ボタンがクリックされたときの処理
     //削除するか表示する機能を作る
+    setShowDeleteConfirm(true);
 
     handleClose(); // メニューを閉じる
+  };
+
+  const handleNoClick = () => {
+    setShowDeleteConfirm(false); // いいえボタンがクリックされたときに確認ダイアログを非表示にする
   };
 
   return (
@@ -63,8 +71,9 @@ export default function LongMenu(props) {
         }}
       >
         <MenuItem key="edit" onClick={handleEdit}>編集</MenuItem> {/* 編集ボタン */}
-        <MenuItem key="delete" onClick={handleDelete}>削除</MenuItem> {/* 削除ボタン */}
+        <MenuItem key="delete" onClick={handleDelete} style={{ color: 'red' }}>削除</MenuItem> {/* 削除ボタン */}
       </Menu>
+      {showDeleteConfirm && <DeleteConfirmCard onNoClick={handleNoClick} TroubleId={TroubleId} />} {/* 削除確認カードを表示 */}
     </div>
   );
 }
