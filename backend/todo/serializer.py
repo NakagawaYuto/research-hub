@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Todo, Detail
 
+
 class DetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Detail
