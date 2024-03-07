@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 
 import CommentAddForm from '../Components/CommentAddForm';
 import DateConvert from '../Components/DateConvert';
+import CommentDetailButton from '../Components/CommentDetailButton';
 
 const CommentList = ({ comments }) => {
   const params = useParams();
@@ -41,9 +42,13 @@ const CommentList = ({ comments }) => {
                     {DateConvert(comment.created_date)}
                   </Typography>
                 </div>
-                <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '18px', fontWeight: 'nomal', color: '#333' }}>
-                  {comment.body}
-                </Typography>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '18px', fontWeight: 'nomal', color: '#333' }}>
+                    {comment.body}
+                  </Typography>
+                  <CommentDetailButton CommentId = {comment.id}></CommentDetailButton>
+                </div>
+                
                 {index < comments.length - 1 && <Divider style={{ width: '55vw', marginTop: '10px', marginBottom: '10px' }}/>}
               </div>
             ))}
