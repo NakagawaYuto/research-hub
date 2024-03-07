@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, TextField, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import Grid from '@mui/material/Grid';
 
 
 
@@ -9,6 +9,7 @@ const CommentAddForm = ({ postId }) => {
   //const navigate = useNavigate();
   const [name, setName] = useState('');
   const [body, setBody] = useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const baseURL = "http://127.0.0.1:8080/comment/"
 
@@ -24,9 +25,11 @@ const CommentAddForm = ({ postId }) => {
       .then(() => {
         setName('');
         setBody('');
-        //navigate('/');
         window.location.reload();
       })
+    }
+    else{
+      setErrorMessage('全ての項目を入力してください');
     }
   }
 
@@ -35,6 +38,22 @@ const CommentAddForm = ({ postId }) => {
       <Typography variant="h4" align="left" style={{ fontFamily: 'Meiryo', fontSize: '20px', fontWeight: 'bold', color: '#333', marginTop: '30px', marginBottom: '10px'}}>
         コメントを入力する
       </Typography>
+
+      {errorMessage && ( // エラーメッセージがある場合に表示
+        <Grid item>
+          <Typography 
+            variant="body1" 
+            style={{ 
+              margin: 10, 
+              fontFamily:'serif',
+              color: 'red'
+            }}
+          >
+            {errorMessage}
+          </Typography>
+        </Grid>
+      )}
+
       <form>
         <TextField
           fullWidth
@@ -54,12 +73,12 @@ const CommentAddForm = ({ postId }) => {
           onChange={(e) => setBody(e.target.value)}
           margin="normal"
         />
-        <Button type="submit" variant="contained" color="primary" style={{marginTop: '15px'}}onClick={() => {
-              addComment();
-            }}>
-          投稿
-        </Button>
       </form>
+      <Button type="submit" variant="contained" color="primary" style={{marginTop: '15px'}}onClick={() => {
+        addComment();
+        }}>
+        投稿
+      </Button>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-// DeleteConfirmCard コンポーネント
 import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -6,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import DeleteMessage from '../Components/DeleteMessage';
 
@@ -43,11 +44,18 @@ const buttonStyle = {
 const DeleteConfirmCard = ({ onNoClick, TroubleId }) => {
   const baseURL = "http://127.0.0.1:8080/trouble/" + String(TroubleId) + "/"
   const [isDeleted, setIsDeleted] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const deleteTrouble = () => { //削除する
     axios.delete(baseURL).then(() => {
-      
-      window.location.reload();
+      if (location.pathname === '/') {
+        // '/' の場合の処理
+        window.location.reload();
+      } else {
+        // それ以外の場合の処理
+        navigate('/');
+      }
       setIsDeleted(true);
     });
   }

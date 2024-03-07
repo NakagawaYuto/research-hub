@@ -11,6 +11,7 @@ import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
 
 import DateConvert from '../Components/DateConvert';
+import DetailButton from '../Components/DetailButton';
 
 
 const DetailCards = () => {
@@ -43,12 +44,16 @@ const DetailCards = () => {
           }}
         >
           <CardContent>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20 }}/>
               <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '16px', fontWeight: 'normal', color: '#333', marginLeft: '8px' }}>
                 {trouble.name}
-              </Typography>
+              </Typography>   
             </div>
+            <DetailButton TroubleId = {params.id}></DetailButton>
+          </div>
+            
             <Typography variant="h4" align="left" style={{ fontFamily: 'Meiryo', fontSize: '30px', fontWeight: 'bold', color: '#333', marginTop: '10px', marginBottom: '10px'}}>
               {trouble.title}
             </Typography>
@@ -60,8 +65,9 @@ const DetailCards = () => {
 
             <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '16px', fontWeight: 'nomal', color: '#333' }}>
               {trouble.body}
-            </Typography>  
+            </Typography>
           </CardContent>
+          
         </Card>
       </Grid>
     </>
@@ -70,3 +76,4 @@ const DetailCards = () => {
 
 
 export default DetailCards;
+

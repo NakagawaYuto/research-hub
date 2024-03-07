@@ -16,6 +16,11 @@ import TroubleAddButton from '../Components/TroubleAddButton';
 
 const baseURL = "http://127.0.0.1:8080/trouble/"
 
+const pageStyle = {
+  backgroundColor: '#f5f5f5', // 薄いグレー
+  minHeight: '100vh', // 画面全体の高さに背景を広げる
+};
+
 const Home = () => {
     // ページ内で値を保持するために使う.
     const [troubles, setTroubles] = React.useState(null);
@@ -31,18 +36,18 @@ const Home = () => {
   
         axios.get(baseURL).then((response) => {
           setTroubles(response.data);
-         });
+        });
   
       }, []);
     if (!troubles) return null;
   
     return (
-      <>
+      <div style={pageStyle}>
       <Box sx={{ flexGrow: 1 }}>
   
         <Grid container alignItems='center' justify='center' direction="column">
           <Grid item>
-            <Typography variant="h3" gutterBottom style={{ margin: 20, fontFamily:'serif' }}>
+            <Typography variant="h3" gutterBottom style={{ margin: 20, fontFamily:'serif', fontWeight: 'bold' }}>
               悩み投稿
             </Typography>
           </Grid>
@@ -58,7 +63,7 @@ const Home = () => {
         <TroubleAddButton onClick={goToAddPage}></TroubleAddButton>
   
       </Box>
-      </>
+      </div>
     );
   };
   
