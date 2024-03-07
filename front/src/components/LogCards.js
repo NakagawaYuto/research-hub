@@ -13,31 +13,35 @@ const LogCards = ({ Blogs }) => {
     const blog = Blogs[i]
     const title = blog.title;
     var deadline = blog.deadline;
+    var done = blog.done;
     
+    if(done==true){
+      Cards.push(
+        <Grid item key={blog.id}>
+          <Card 
+            sx={{ width: '50vw' }} 
+            elevation={4} 
+            style={{
+              margin: 10,
+            }}
+          >
+            <CardActionArea onClick={() => { }}>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  { title }
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  { deadline }
+                </Typography>
+                
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
+      );
+    }
    
-    Cards.push(
-      <Grid item key={blog.id}>
-        <Card 
-          sx={{ width: '50vw' }} 
-          elevation={4} 
-          style={{
-            margin: 10,
-          }}
-        >
-          <CardActionArea onClick={() => { }}>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                { title }
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                { deadline }
-              </Typography>
-              
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-    );
+    
   }
   return (
     <>

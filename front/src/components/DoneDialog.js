@@ -18,17 +18,27 @@ export default function AlertDialogSlide(
     doneTarget, 
     setDoneTarget,
     setBlogs,
-    deleteBlog,
+    
   }) {
   const [open, setOpen] = React.useState(false);
+  const [done, setDone] = React.useState(null);
 
   const handleClose = () => {
     setOpen(false);
-    setDoneTarget(null);
+    // setDoneTarget(null);
   };
   const doneTodo= async(Target) =>{
+    
+    axios.get(baseURL+String(Target)+'/').then((response) => {
+      setDone(response.data);
+     });
+     
+    
     console.log(baseURL+String(Target)+'/');
     await axios.put(baseURL+String(Target)+'/', {
+      id:done.id,
+      title:String(done.title),
+      deadline: String(done.deadline),
       done: true,
     })
     .then(() => {
@@ -63,7 +73,6 @@ export default function AlertDialogSlide(
         <DialogActions>
           <Button onClick={()=> {
             doneTodo(doneTarget);
-            deleteBlog(doneTarget);
             handleClose()
           }}>完了</Button>
         </DialogActions>
