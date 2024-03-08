@@ -21,24 +21,26 @@ export default function AlertDialogSlide(
     
   }) {
   const [open, setOpen] = React.useState(false);
-  const [done, setDone] = React.useState(null);
+  // const [done, setDone] = React.useState(null);
 
   const handleClose = () => {
     setOpen(false);
     // setDoneTarget(null);
   };
   const doneTodo= async(Target) =>{
+    let todo = null;
     
-    axios.get(baseURL+String(Target)+'/').then((response) => {
-      setDone(response.data);
-     });
+    await axios.get(baseURL+String(Target)+'/').then((response) => {
+      console.log(response.data);
+      todo = response.data;
+      // setDone(response.data);
+    });
      
     
-    console.log(baseURL+String(Target)+'/');
     await axios.put(baseURL+String(Target)+'/', {
-      id:done.id,
-      title:String(done.title),
-      deadline: String(done.deadline),
+      id:todo.id,
+      title:String(todo.title),
+      deadline: String(todo.deadline),
       done: true,
     })
     .then(() => {

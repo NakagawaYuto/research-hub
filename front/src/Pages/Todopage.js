@@ -18,6 +18,7 @@ import EditButton from '../components/EditButton';
 import EditDialog from '../components/EditDialog';
 import DoneButton from '../components/Donebutton';
 import DoneDialog from '../components/DoneDialog';
+import CustomTabPanel from '../components/Todotab';
 
 // import BlogEditButton from '../components/BlogEditButton';
 
@@ -29,6 +30,7 @@ const baseURL = "http://127.0.0.1:8080/todo/"
 const Home = () => {
   // ページ内で値を保持するために使う.
   const [blogs, setBlogs] = React.useState(null);
+ 
   const navigate = useNavigate();
   const [title, setTitle] = React.useState('');
   const [deadline, setDeadline] = React.useState('');
@@ -39,6 +41,7 @@ const Home = () => {
   const [doneTarget, setDoneTarget] = React.useState(null);
  
   const [done, setDone] = React.useState(null);
+ 
 
 
  
@@ -53,9 +56,11 @@ const Home = () => {
       axios.get(baseURL).then((response) => {
         setBlogs(response.data);
        });
+     
       
     }, []);
   if (!blogs) return null;
+  
 
 
 
@@ -263,6 +268,9 @@ const Home = () => {
         setBlogs={setBlogs}
         deleteBlog={deleteBlog}
        
+      />
+      <CustomTabPanel
+        blogs={blogs}
       />
 
 
