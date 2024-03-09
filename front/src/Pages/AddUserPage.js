@@ -59,7 +59,7 @@ const AddUserPage = () => {
         <TextField
           fullWidth
           variant='outlined'
-          placeholder='名前（必須）'
+          placeholder='名前'
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
@@ -68,34 +68,11 @@ const AddUserPage = () => {
         <TextField
           fullWidth
           variant='outlined'
-          placeholder='学籍番号（必須）'
+          placeholder='学籍番号'
           value={student_id}
           onChange={(e) => setStudent_id(e.target.value)}
           required
           sx={{ mb: 4 }}
-        />
-        <TextField
-          fullWidth
-          variant='outlined'
-          placeholder='研究テーマ（任意）'
-          value={research_theme}
-          onChange={(e) => setResearch_theme(e.target.value)}
-          sx={{ mb: 4 }}
-        />
-        <TextField
-          fullWidth
-          variant='outlined'
-          placeholder='新規性（任意）'
-          value={novelty}
-          onChange={(e) => setNovelty(e.target.value)}
-          sx={{ mb: 4 }}
-        />
-        <TextField
-          fullWidth
-          variant='outlined'
-          placeholder='メモ（任意）'
-          value={memo}
-          onChange={(e) => setMemo(e.target.value)}
         />
         <Link to={`/`} style={{ textDecoration: 'none' }}>
           <Button
