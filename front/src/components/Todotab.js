@@ -4,6 +4,11 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import axios from "axios";
+import DetailCards from '../components/DetailCards';
+
+const baseURL = "http://127.0.0.1:8080/todo/"
+
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -38,13 +43,48 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs({blogs}) {
+
+
+export default function BasicTabs ({blogs,details}) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const item="Item"+String(3)
+ 
+    
+
+
+  const tabs = [];
+  const id = [];
+
+
+  
+  for (let i = 0; i < blogs.length; i++){
+    
+    tabs[i]=String(blogs.title)
+    id[i]=blogs.id
+    
+  }
+  
+  const generateTabs = () => {
+    return tabs.map((tab, index) => (
+      <Tab label={tab} {...a11yProps(index)} key={index} />
+    ));
+  };
+  const generateTabPanels = () => {
+    return id.map((id, index) => (
+      <CustomTabPanel value={value} index={index}>
+        Item{index}
+        <DetailCards 
+        Details={details}
+        id={id}
+       />
+       
+      </CustomTabPanel>
+    ));
+  };
+  
 
   return (
    
@@ -53,25 +93,15 @@ export default function BasicTabs({blogs}) {
         
       
 
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="先行研究を調べる 2022‐02‐02" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
-          <Tab label="Item" {...a11yProps(3)}/>
-        </Tabs>
+      <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+          {generateTabs()}
+      </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        Item One
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        Item Two
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        Item Three
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
-        Item 
-      </CustomTabPanel>
+     
+       {generateTabPanels()}
+       
+      
+    
     </Box>
   );
 }
