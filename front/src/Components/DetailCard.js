@@ -10,8 +10,8 @@ import { useParams } from "react-router-dom";
 import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
 
-import DateConvert from '../Components/DateConvert';
-import DetailButton from '../Components/DetailButton';
+import DateConvert from './DateConvert';
+import DetailButton from './DetailButton';
 
 
 const DetailCards = () => {

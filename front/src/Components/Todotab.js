@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import axios from "axios";
-import DetailCards from '../components/DetailCards';
+import DetailCards from './DetailCards';
 
 const baseURL = "http://127.0.0.1:8080/todo/"
 const detailURL = "http://127.0.0.1:8080/detail/"
