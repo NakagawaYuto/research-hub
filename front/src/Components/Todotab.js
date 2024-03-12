@@ -8,6 +8,7 @@ import axios from "axios";
 import DetailCards from '../components/DetailCards';
 
 const baseURL = "http://127.0.0.1:8080/todo/"
+const detailURL = "http://127.0.0.1:8080/detail/"
 
 
 function CustomTabPanel(props) {
@@ -45,6 +46,7 @@ function a11yProps(index) {
 
 
 
+
 export default function BasicTabs ({blogs,details}) {
   const [value, setValue] = React.useState(0);
 
@@ -61,18 +63,26 @@ export default function BasicTabs ({blogs,details}) {
 
   
   for (let i = 0; i < blogs.length; i++){
+    console.log(blogs)
     
-    tabs[i]=String(blogs.title)
-    id[i]=blogs.id
+    tabs[i]=String(blogs[i].title)
+    id[i]=blogs[i].id
     
   }
+  
+  
   
   const generateTabs = () => {
     return tabs.map((tab, index) => (
       <Tab label={tab} {...a11yProps(index)} key={index} />
     ));
   };
+  
+  
   const generateTabPanels = () => {
+   
+    
+  
     return id.map((id, index) => (
       <CustomTabPanel value={value} index={index}>
         Item{index}
@@ -84,6 +94,7 @@ export default function BasicTabs ({blogs,details}) {
       </CustomTabPanel>
     ));
   };
+  
   
 
   return (
@@ -97,6 +108,7 @@ export default function BasicTabs ({blogs,details}) {
           {generateTabs()}
       </Tabs>
       </Box>
+    
      
        {generateTabPanels()}
        

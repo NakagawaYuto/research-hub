@@ -53,13 +53,16 @@ const Home = () => {
   // 初回ロード時の処理を記述する.
   React.useEffect(() => 
     {
-      
+     
+    
       axios.get(baseURL).then((response) => {
         setBlogs(response.data);
        });
       axios.get(detailURL).then((response) => {
         setDetails(response.data);
       });
+    
+    
       
     }, []);
   if (!blogs) return null;
