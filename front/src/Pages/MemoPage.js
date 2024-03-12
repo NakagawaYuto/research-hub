@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, Link } from 'react-router-dom';
-import { Container, Typography, Button, Box, TextField } from '@mui/material';
+import { Link, useParams } from 'react-router-dom';
+import { Button, Container, Typography, Box, TextField } from '@mui/material';
 
 const baseURL = 'http://127.0.0.1:8080/users/';
 
 const MemoPage = () => {
   const [memo, setMemo] = useState('');
-  const { id } = useParams();
+  const { user_id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${baseURL}${id}/`);
+        const response = await axios.get(`${baseURL}${user_id}/`);
         setMemo(response.data.memo);
       } catch (error) {
         console.error(error);
@@ -20,22 +20,46 @@ const MemoPage = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [user_id]);
 
-  const saveMemo = async () => {
+  const saveMemo = async (updatedMemo) => {
     try {
-      await axios.patch(`${baseURL}${id}/`, { memo: memo });
+      await axios.patch(`${baseURL}${user_id}/`, { memo: updatedMemo });
     } catch (error) {
       console.error(error);
     }
   }
 
+  const handleMemoChange = (e) => {
+    const updatedMemo = e.target.value;
+    setMemo(updatedMemo);
+    saveMemo(updatedMemo);
+  };
+
   return (
     <Container maxWidth="lg">
-      <Typography variant='h4' align='center' sx={{ mt: 6 }}>
-        メモ
-      </Typography>
-      <Box sx={{ position: 'relative', mt: 8 }}>
+      <Box sx={{ position: 'relative', mt: 6 }}>
+        <Link to={`/user/${user_id}`} style={{ textDecoration: 'none', position: 'absolute', top: '-25px', left: 0 }}>
+          <Button
+            variant='contained'
+            sx={{
+              width: '65px',
+              height: '40px',
+              backgroundColor: 'white',
+              color: 'black',
+              borderColor: 'black',
+              borderWidth: 2,
+              borderStyle: 'solid'
+            }}
+          >
+            <Typography variant="h7">
+              戻る
+            </Typography>
+          </Button>
+        </Link>
+        <Typography variant='h4' align='center'>
+          メモ
+        </Typography>
         <TextField
           fullWidth
           multiline
@@ -43,26 +67,9 @@ const MemoPage = () => {
           variant='outlined'
           placeholder='メモを入力してください。'
           value={memo}
-          onChange={(e) => setMemo(e.target.value)}
+          onChange={handleMemoChange}
+          sx={{ mt: 2 }}
         />
-        <Link to={`/user/${id}/`} style={{ textDecoration: 'none' }}>
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={saveMemo}
-            sx={{
-              position: 'absolute',
-              right: 0,
-              bottom: -120,
-              width: '150px',
-              height: '50px',
-            }}
-          >
-            <Typography variant="h6">
-              保存
-            </Typography>
-          </Button>
-        </Link>
       </Box>
     </Container>
   );
