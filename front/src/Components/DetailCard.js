@@ -17,9 +17,8 @@ import DetailButton from './DetailButton';
 const DetailCards = () => {
   const navigate = useNavigate();
   const [trouble, setTrouble] = React.useState(null);
-  const params = useParams();
-  const { user_id } = useParams();
-  const baseURL = "http://127.0.0.1:8080/trouble/" + String(params.id) + "/"
+  const { trouble_id } = useParams();
+  const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/"
 
 
   React.useEffect(() => 
@@ -52,7 +51,7 @@ const DetailCards = () => {
                 {trouble.name}
               </Typography>   
             </div>
-            <DetailButton TroubleId = {params.id}></DetailButton>
+            <DetailButton trouble_id = {trouble_id}></DetailButton>
           </div>
             
             <Typography variant="h4" align="left" style={{ fontFamily: 'Meiryo', fontSize: '30px', fontWeight: 'bold', color: '#333', marginTop: '10px', marginBottom: '10px'}}>

@@ -16,9 +16,9 @@ const pageStyle = {
 
 const TroubleDetailPage = () => {
   // パラメータから値を取得する.
-  const params = useParams();
+  const {trouble_id} = useParams();
   const [trouble, setTrouble] = React.useState(null);
-  const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(params.id) + "/"
+  const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/";
 
   React.useEffect(() => 
     {

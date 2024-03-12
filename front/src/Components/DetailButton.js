@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import DeleteConfirmCard from './DeleteConfirmCard';
 
@@ -14,12 +14,12 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
-export default function LongMenu(props) {
+export default function DetailButton({trouble_id}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = React.useState(false);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
-  const { TroubleId } = props;
+  const { user_id } = useParams();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -28,7 +28,7 @@ export default function LongMenu(props) {
     setAnchorEl(null);
   };
   const handleEdit = () => { // 編集ボタンがクリックされたときの処理
-    navigate('/edit/'+String(TroubleId)); // 編集ページに遷移
+    navigate('/user/'+String(user_id)+'/edit/'+String(trouble_id)+'/'); // 編集ページに遷移
     handleClose(); // メニューを閉じる
   };
 
@@ -73,7 +73,7 @@ export default function LongMenu(props) {
         <MenuItem key="edit" onClick={handleEdit}>編集</MenuItem> {/* 編集ボタン */}
         <MenuItem key="delete" onClick={handleDelete} style={{ color: 'red' }}>削除</MenuItem> {/* 削除ボタン */}
       </Menu>
-      {showDeleteConfirm && <DeleteConfirmCard onNoClick={handleNoClick} TroubleId={TroubleId} />} {/* 削除確認カードを表示 */}
+      {showDeleteConfirm && <DeleteConfirmCard onNoClick={handleNoClick} trouble_id={trouble_id} />} {/* 削除確認カードを表示 */}
     </div>
   );
 }

@@ -3,7 +3,6 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useNavigate } from 'react-router-dom';
 
 import CommentDeleteConfirmCard from './CommentDeleteConfirmCard';
 
@@ -13,12 +12,10 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
-export default function LongMenu(props) {
+export default function CommentDetailButton({comment_id}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = React.useState(false);
   const open = Boolean(anchorEl);
-  const navigate = useNavigate();
-  const { CommentId } = props;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -67,7 +64,7 @@ export default function LongMenu(props) {
       >
         <MenuItem key="delete" onClick={handleDelete} style={{ color: 'red' }}>削除</MenuItem> {/* 削除ボタン */}
       </Menu>
-      {showDeleteConfirm && <CommentDeleteConfirmCard onNoClick={handleNoClick} CommentId={CommentId} />} {/* 削除確認カードを表示 */}
+      {showDeleteConfirm && <CommentDeleteConfirmCard onNoClick={handleNoClick} comment_id={comment_id} />} {/* 削除確認カードを表示 */}
     </div>
   );
 }

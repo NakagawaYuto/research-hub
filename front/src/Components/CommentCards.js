@@ -11,7 +11,7 @@ import DateConvert from './DateConvert';
 import CommentDetailButton from './CommentDetailButton';
 
 const CommentList = ({ comments }) => {
-  const params = useParams();
+  const { trouble_id } = useParams();
   const flag = comments.length === 0;
   return (
     <div>
@@ -46,7 +46,7 @@ const CommentList = ({ comments }) => {
                   <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '18px', fontWeight: 'nomal', color: '#333' }}>
                     {comment.body}
                   </Typography>
-                  <CommentDetailButton CommentId = {comment.id}></CommentDetailButton>
+                  <CommentDetailButton comment_id = {comment.id}></CommentDetailButton>
                 </div>
                 
                 {index < comments.length - 1 && <Divider style={{ width: '55vw', marginTop: '10px', marginBottom: '10px' }}/>}
@@ -54,7 +54,7 @@ const CommentList = ({ comments }) => {
             ))}
             <Divider style={{ width: '55vw', marginTop: '30px', marginBottom: '20px' }}/>
             {/*ここからコメント追加フォーム*/ }
-            <CommentAddForm postId={params.id}/>
+            <CommentAddForm trouble_id={trouble_id}/>
           </CardContent>
         </Card>
       </Grid>

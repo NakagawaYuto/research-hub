@@ -17,8 +17,8 @@ const TroubleCards = ({ Troubles, user_id }) => {
   const navigate = useNavigate();
   const [hoveredTitle, setHoveredTitle] = useState(null);
 
-  const handleTitleMouseEnter = (troubleId) => {
-    setHoveredTitle(troubleId);
+  const handleTitleMouseEnter = (trouble_id) => {
+    setHoveredTitle(trouble_id);
   };
 
   const handleTitleMouseLeave = () => {
@@ -81,7 +81,7 @@ const TroubleCards = ({ Troubles, user_id }) => {
             </CardContent>
           </CardActions>
           <div style={{ position: 'relative', top: '-60px' }}>
-            <DetailButton TroubleId={trouble.id} onClick={(e) => {e.stopPropagation();}}></DetailButton>
+            <DetailButton trouble_id={trouble.id} onClick={(e) => {e.stopPropagation();}}></DetailButton>
           </div>
         </Card>
       </Grid>

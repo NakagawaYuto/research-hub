@@ -12,13 +12,14 @@ import { useParams } from "react-router-dom";
 
 const Edit = () => {
   const navigate = useNavigate();
-  const params = useParams();
-  const baseURL = "http://127.0.0.1:8080/trouble/" + String(params.id) + "/"
+  const {trouble_id} = useParams();
+  const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/";
   const [trouble, setTrouble] = React.useState(null);
   const [title, setTitle] = React.useState('');
   const [name, setName] = React.useState('');
   const [body, setBody] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
+  const { user_id } = useParams();
 
   const pageStyle = {
     backgroundColor: '#f5f5f5', // 薄いグレー
@@ -51,7 +52,7 @@ const Edit = () => {
         setTitle('');
         setName('');
         setBody('');
-        navigate('/');
+        navigate('/user/'+String(user_id)+'/trouble/');
       })
     } else {
       setErrorMessage('全ての項目を入力してください');

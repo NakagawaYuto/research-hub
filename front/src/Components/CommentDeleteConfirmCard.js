@@ -39,8 +39,8 @@ const buttonStyle = {
   margin: '0 10px',
 };
 
-const CommentDeleteConfirmCard = ({ onNoClick, CommentId }) => {
-  const baseURL = "http://127.0.0.1:8080/comment/" + String(CommentId) + "/"
+const CommentDeleteConfirmCard = ({ onNoClick, comment_id }) => {
+  const baseURL = "http://127.0.0.1:8080/trouble/comment/" + String(comment_id) + "/";
   const [isDeleted, setIsDeleted] = useState(false);
 
   const deleteTrouble = () => { //削除する
