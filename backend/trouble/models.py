@@ -1,7 +1,9 @@
 from django.db import models
+from home.models import User
 
 
 class Trouble(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     name = models.CharField(max_length=255, null=True)
     body = models.TextField()
