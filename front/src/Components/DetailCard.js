@@ -18,6 +18,7 @@ const DetailCards = () => {
   const navigate = useNavigate();
   const [trouble, setTrouble] = React.useState(null);
   const params = useParams();
+  const { user_id } = useParams();
   const baseURL = "http://127.0.0.1:8080/trouble/" + String(params.id) + "/"
 
 

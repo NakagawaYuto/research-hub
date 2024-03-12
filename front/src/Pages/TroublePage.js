@@ -7,14 +7,14 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 // 自作コンポーネント
 import TroubleCards from '../components/TroubleCards';
 import TroubleAddButton from '../components/TroubleAddButton';
 
 
-const baseURL = "http://127.0.0.1:8080/trouble/"
+
 
 const pageStyle = {
   backgroundColor: '#f5f5f5', // 薄いグレー
@@ -23,17 +23,21 @@ const pageStyle = {
 
 const Home = () => {
     // ページ内で値を保持するために使う.
+    
     const [troubles, setTroubles] = React.useState(null);
     const navigate = useNavigate();
     const [title, setTitle] = React.useState('');
+    const { user_id } = useParams();
+
+    const baseURL = "http://127.0.0.1:8080/trouble/trouble/?user=" + String(user_id);
+
     function goToAddPage() {
-      navigate('/add/');
+      navigate('/user/'+String(user_id)+'/add/');
     }
   
     // 初回ロード時の処理を記述する.
     React.useEffect(() => 
       {
-  
         axios.get(baseURL).then((response) => {
           setTroubles(response.data);
         });
@@ -58,7 +62,7 @@ const Home = () => {
           </Grid>
         </Grid>
   
-        <TroubleCards Troubles={troubles}></TroubleCards>
+        <TroubleCards Troubles={troubles} user_id={user_id}></TroubleCards>
   
         <TroubleAddButton onClick={goToAddPage}></TroubleAddButton>
   

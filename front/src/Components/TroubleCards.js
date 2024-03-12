@@ -13,7 +13,7 @@ import { useState } from 'react';
 import DateConvert from './DateConvert';
 import DetailButton from './DetailButton';
 
-const TroubleCards = ({ Troubles }) => {
+const TroubleCards = ({ Troubles, user_id }) => {
   const navigate = useNavigate();
   const [hoveredTitle, setHoveredTitle] = useState(null);
 
@@ -27,7 +27,7 @@ const TroubleCards = ({ Troubles }) => {
 
   var Cards = [];
   for (let i = 0; i < Troubles.length; i++) {
-    const trouble = Troubles[i]
+    const trouble = Troubles[i];
 
     Cards.push(
       <Grid item key={trouble.id}>
@@ -42,7 +42,7 @@ const TroubleCards = ({ Troubles }) => {
             cursor: 'pointer',
           }}
         >
-          <CardActions onClick={() => { navigate('/trouble/'+String(trouble.id))}}>
+          <CardActions onClick={() => { navigate("/user/"+String(user_id)+"/trouble/"+String(trouble.id))}}>
             <CardContent>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20 }}/>

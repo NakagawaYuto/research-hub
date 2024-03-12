@@ -6,9 +6,7 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
-
-const baseURL = "http://127.0.0.1:8080/trouble/"
+import { useParams, useNavigate } from 'react-router-dom';
 
 const Add = () => {
   const navigate = useNavigate();
@@ -16,6 +14,9 @@ const Add = () => {
   const [name, setName] = React.useState('');
   const [body, setBody] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
+  const { user_id } = useParams();
+
+  const baseURL = "http://127.0.0.1:8080/trouble/trouble/";
 
   const pageStyle = {
     backgroundColor: '#f5f5f5', // 薄いグレー
@@ -31,12 +32,13 @@ const Add = () => {
         title: String(title),
         name: String(name),
         body: String(body),
+        user: String(user_id),
       })
       .then(() => {
         setTitle('');
         setName('');
         setBody('');
-        navigate('/');
+        navigate('/user/'+String(user_id)+'/trouble/');
       })
     } else {
       setErrorMessage('全ての項目を入力してください');
