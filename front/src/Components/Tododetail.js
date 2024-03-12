@@ -4,13 +4,26 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActionArea from '@mui/material/CardActionArea';
 import { useNavigate } from 'react-router-dom';
+const detailURL = "http://127.0.0.1:8080/detail/"
 
 
-const LogCards = ({ Blogs }) => {
+const Tododetail = ({ Target }) => {
+
   const navigate = useNavigate();
   var Cards = [];
-  for (let i = 0; i < Blogs.length; i++) {
-    const blog = Blogs[i]
+  const [details, setDetails] = React.useState(null);
+  axios.get(detailURL).then((response) => {
+    setDetails(response.data);
+   });
+   if (details !== null){
+    for (let i = 0; i < details.length; i++) {
+      if(details[i].blog === Target){
+        comments_for_this_blog.push(comments[i])
+      }
+    }
+  }
+  for (let i = 0; i < details.length; i++) {
+    const detail = details[i]
     const title = blog.title;
     var deadline = blog.deadline;
     var done = blog.done;
@@ -55,4 +68,4 @@ const LogCards = ({ Blogs }) => {
 }
 
 
-export default LogCards;
+export default Tododetail;

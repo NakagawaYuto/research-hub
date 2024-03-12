@@ -18,17 +18,19 @@ import EditButton from '../components/EditButton';
 import EditDialog from '../components/EditDialog';
 import DoneButton from '../components/Donebutton';
 import DoneDialog from '../components/DoneDialog';
+import CustomTabPanel from '../components/Todotab';
 
 // import BlogEditButton from '../components/BlogEditButton';
 
 
 const baseURL = "http://127.0.0.1:8080/todo/"
-
+const detailURL = "http://127.0.0.1:8080/detail/"
 
 
 const Home = () => {
   // ページ内で値を保持するために使う.
   const [blogs, setBlogs] = React.useState(null);
+  const [details, setDetails] = React.useState(null);
   const navigate = useNavigate();
   const [title, setTitle] = React.useState('');
   const [deadline, setDeadline] = React.useState('');
@@ -39,6 +41,8 @@ const Home = () => {
   const [doneTarget, setDoneTarget] = React.useState(null);
  
   const [done, setDone] = React.useState(null);
+  const details_for_this_blog = []
+ 
 
 
  
@@ -53,9 +57,20 @@ const Home = () => {
       axios.get(baseURL).then((response) => {
         setBlogs(response.data);
        });
+      axios.get(detailURL).then((response) => {
+        setDetails(response.data);
+      });
       
     }, []);
   if (!blogs) return null;
+  if (details !== null){
+    for (let i = 0; i < details.length; i++) {
+      if(details[i].department === blogs.id){
+        details_for_this_blog.push(details[i])
+      }
+    }
+  }
+  
 
 
 
@@ -152,6 +167,7 @@ const Home = () => {
           </Typography>
         </Grid>
         <Grid item>
+        <Grid item>
           <TextField
             id="outlined-multiline-flexible"
             label="追加する作業"
@@ -166,7 +182,7 @@ const Home = () => {
             onChange={(e)=>{setTitle(e.target.value)}}
           />
           </Grid>
-        <Grid item>
+        
           <TextField
             id="outlined-multiline-flexible"
             label="期限(YYYY-MM-DD)"
@@ -180,9 +196,10 @@ const Home = () => {
             }}
             onChange={(e)=>{setDeadline(e.target.value)}}
           />
+        </Grid>
         
         
-        
+      
           <Button 
             variant="contained" 
             onClick={() => {
@@ -201,7 +218,9 @@ const Home = () => {
             size="large"
           >追加</Button>
         </Grid>
-      </Grid>
+        
+       
+      
       </Box>
 
 
@@ -263,6 +282,10 @@ const Home = () => {
         setBlogs={setBlogs}
         deleteBlog={deleteBlog}
        
+      />
+      <CustomTabPanel
+        blogs={blogs}
+        details={details}
       />
 
 

@@ -6,16 +6,17 @@ import CardActionArea from '@mui/material/CardActionArea';
 import { useNavigate } from 'react-router-dom';
 
 
-const LogCards = ({ Blogs }) => {
+const DetailCards = ({ Details,id }) => {
   const navigate = useNavigate();
   var Cards = [];
-  for (let i = 0; i < Blogs.length; i++) {
-    const blog = Blogs[i]
-    const title = blog.title;
-    var deadline = blog.deadline;
+  for (let i = 0; i < Details.length; i++) {
+    const blog = Details[i]
+    const title = blog.detail_title;
+    var deadline = blog.detail_deadline;
     var done = blog.done;
+    var department = blog.department;
     
-    if(done==true){
+    if(done==false && department==id){
       Cards.push(
         <Grid item key={blog.id}>
           <Card 
@@ -25,7 +26,7 @@ const LogCards = ({ Blogs }) => {
               margin: 10,
             }}
           >
-            <CardActionArea onClick={() => { }}>
+            <CardActionArea onClick={() => {}}>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   { title }
@@ -55,4 +56,4 @@ const LogCards = ({ Blogs }) => {
 }
 
 
-export default LogCards;
+export default DetailCards;
