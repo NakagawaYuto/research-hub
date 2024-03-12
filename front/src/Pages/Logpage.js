@@ -1,13 +1,17 @@
 import * as React from 'react';
 import axios from "axios";
 import LogCards from '../components/LogCards';
-const baseURL = "http://127.0.0.1:8080/todo/"
+import {useParams} from 'react-router-dom';
+
+const baseURL = "http://127.0.0.1:8080/todo/todo/"
+
 const Logpage = () => {
   const [blogs, setBlogs] = React.useState(null);
+  const {user_id}=useParams();
   React.useEffect(() => 
   {
     
-    axios.get(baseURL).then((response) => {
+    axios.get(`${baseURL}${user_id}/`).then((response) => {
       setBlogs(response.data);
      });
     

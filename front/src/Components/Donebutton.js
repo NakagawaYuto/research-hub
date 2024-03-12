@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import axios from "axios";
 
-const baseURL = "http://127.0.0.1:8080/todo/"
+const baseURL = "http://127.0.0.1:8080/todo/todo/"
 
 const Donebutton = ({ doneTarget,Target }) => {
    

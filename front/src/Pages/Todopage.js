@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 // 自作コンポーネント
 import BlogCards from '../components/BlogCards';
@@ -23,8 +23,8 @@ import CustomTabPanel from '../components/Todotab';
 // import BlogEditButton from '../components/BlogEditButton';
 
 
-const baseURL = "http://127.0.0.1:8080/todo/"
-const detailURL = "http://127.0.0.1:8080/detail/"
+const baseURL = "http://127.0.0.1:8080/todo/todo/"
+const detailURL = "http://127.0.0.1:8080/todo/detail/"
 
 
 const Home = () => {
@@ -44,7 +44,7 @@ const Home = () => {
   const details_for_this_blog = []
  
 
-
+  const {user_id}=useParams();
  
 
 
@@ -55,10 +55,10 @@ const Home = () => {
     {
      
     
-      axios.get(baseURL).then((response) => {
+      axios.get(`${baseURL}`).then((response) => {
         setBlogs(response.data);
        });
-      axios.get(detailURL).then((response) => {
+      axios.get(`${detailURL}`).then((response) => {
         setDetails(response.data);
       });
     
@@ -85,15 +85,16 @@ const Home = () => {
     const deadlineOk = deadline.length == 10;
    
     if (titleOk && deadlineOk) {
-      await axios.post(baseURL, {
+      await axios.post(`${baseURL}`, {
         title: String(title),
         deadline: String(deadline),
+        user: user_id,
         
       })
       .then(() => {
         setTitle('');
         setDeadline('');
-        axios.get(baseURL).then((response) => {
+        axios.get(`${baseURL}${user_id}/`).then((response) => {
           setBlogs(response.data);
          });
         
@@ -106,11 +107,11 @@ const Home = () => {
 
 
   const deleteBlog = (id) => {
-    console.log(baseURL+String(id)+'/');
-    axios.delete(baseURL+String(id)+'/')
+    console.log(`${baseURL}${user_id}/`+String(id)+'/');
+    axios.delete(`${baseURL}${user_id}/`+String(id)+'/')
     .then(() => {
       setBlogs([]);
-      axios.get(baseURL).then((response) => {
+      axios.get(`${baseURL}${user_id}/`).then((response) => {
         setBlogs(response.data);
       });
     })
@@ -248,7 +249,7 @@ const Home = () => {
       <Button 
             variant="contained" 
             onClick={() => {
-              navigate('/log/');
+              navigate(`/user/${user_id}/log/`);
             }}
             style={{
               width: 100,

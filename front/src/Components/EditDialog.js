@@ -9,9 +9,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
+import {useParams} from 'react-router-dom';
 
 
-const baseURL = "http://127.0.0.1:8080/todo/"
+
+const baseURL = "http://127.0.0.1:8080/todo/todo/"
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -24,9 +27,11 @@ export default function AlertDialogSlide(
   
    
   }) {
+ 
   const [open, setOpen] = React.useState(false);
   const [edited_title, setEditedTitle] = React.useState();
   const [edited_deadline, setEditedDeadline] = React.useState();
+  const {user_id}=useParams()
 
   const handleClose = () => {
     setOpen(false);
@@ -37,15 +42,15 @@ export default function AlertDialogSlide(
     const deadlineOk = edited_deadline.length == 10;
     
     if (titleOk && deadlineOk) {
-      console.log(baseURL+String(editTarget)+'/');
-      await axios.put(baseURL+String(editTarget)+'/', {
+      console.log(`${baseURL}${user_id}/`+String(editTarget)+'/');
+      await axios.put(`${baseURL}${user_id}/`+String(editTarget)+'/', {
         title: String(edited_title),
         deadline: String(edited_deadline),
       })
       .then(() => {
         setEditedTitle('');
         setEditedDeadline('');
-        axios.get(baseURL).then((response) => {
+        axios.get(`${baseURL}${user_id}/`).then((response) => {
           setBlogs(response.data);
          }); 
       })

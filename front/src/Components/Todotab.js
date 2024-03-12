@@ -7,8 +7,8 @@ import Box from '@mui/material/Box';
 import axios from "axios";
 import DetailCards from './DetailCards';
 
-const baseURL = "http://127.0.0.1:8080/todo/"
-const detailURL = "http://127.0.0.1:8080/detail/"
+const baseURL = "http://127.0.0.1:8080/todo/todo/"
+const detailURL = "http://127.0.0.1:8080/todo/detail/"
 
 
 function CustomTabPanel(props) {
@@ -61,9 +61,10 @@ export default function BasicTabs ({blogs,details}) {
   const id = [];
 
 
-  
+  console.log(blogs)
+  console.log(blogs.length)
   for (let i = 0; i < blogs.length; i++){
-    console.log(blogs)
+    
     
     tabs[i]=String(blogs[i].title)
     id[i]=blogs[i].id

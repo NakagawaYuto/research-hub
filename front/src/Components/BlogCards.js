@@ -3,10 +3,12 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActionArea from '@mui/material/CardActionArea';
-import { useNavigate } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 
 
 const BlogCards = ({ Blogs, Target }) => {
+  
+  const {use_id}=useParams();
   const navigate = useNavigate();
   var Cards = [];
   for (let i = 0; i < Blogs.length; i++) {
@@ -40,6 +42,7 @@ const BlogCards = ({ Blogs, Target }) => {
         </Grid>
       );
     }
+    
    
     
   }

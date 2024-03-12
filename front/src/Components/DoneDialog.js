@@ -7,7 +7,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-const baseURL = "http://127.0.0.1:8080/todo/"
+import {useParams} from 'react-router-dom';
+const baseURL = "http://127.0.0.1:8080/todo/todo/"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -21,6 +22,7 @@ export default function AlertDialogSlide(
     
   }) {
   const [open, setOpen] = React.useState(false);
+  const {user_id} = useParams();
   // const [done, setDone] = React.useState(null);
 
   const handleClose = () => {
@@ -30,21 +32,21 @@ export default function AlertDialogSlide(
   const doneTodo= async(Target) =>{
     let todo = null;
     
-    await axios.get(baseURL+String(Target)+'/').then((response) => {
+    await axios.get(`${baseURL}${user_id}/`+String(Target)+'/').then((response) => {
       console.log(response.data);
       todo = response.data;
       // setDone(response.data);
     });
      
     
-    await axios.put(baseURL+String(Target)+'/', {
+    await axios.put(`${baseURL}${user_id}/`+String(Target)+'/', {
       id:todo.id,
       title:String(todo.title),
       deadline: String(todo.deadline),
       done: true,
     })
     .then(() => {
-      axios.get(baseURL).then((response) => {
+      axios.get(`${baseURL}${user_id}/`).then((response) => {
         setBlogs(response.data);
         });
     })
