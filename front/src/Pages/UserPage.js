@@ -1,20 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, Link, useHistory } from 'react-router-dom';
-import { Container, Typography, Grid, Button, Box } from '@mui/material';
+import { useParams, Link } from 'react-router-dom';
+import { Container, Typography, Grid, Button, Box, TextField, Modal } from '@mui/material';
 
 const baseURL = 'http://127.0.0.1:8080/users/';
 
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
 function UserPage() {
   const [user, setUser] = useState(null);
+  const [theme, setTheme] = useState('');
+  const [novelty, setNovelty] = useState('');
+  const [themeModalOpen, setThemeModalOpen] = useState(false);
+  const [noveltyModalOpen, setNoveltyModalOpen] = useState(false);
   const { user_id } = useParams();
 
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
-        axios.get(`${baseURL}${user_id}/`).then((response) => {
-          setUser(response.data);
-        });
+        const response = await axios.get(`${baseURL}${user_id}/`);
+        setUser(response.data);
+        setTheme(response.data.research_theme);
+        setNovelty(response.data.novelty);
       } catch (error) {
         console.error(error);
       }
@@ -22,6 +39,24 @@ function UserPage() {
 
     fetchData();
   }, [user_id]);
+
+  const saveTheme = async () => {
+    try {
+      await axios.patch(`${baseURL}${user_id}/`, { research_theme: theme });
+      setThemeModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const saveNovelty = async () => {
+    try {
+      await axios.patch(`${baseURL}${user_id}/`, { novelty: novelty });
+      setNoveltyModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Container maxWidth="lg">
@@ -53,44 +88,100 @@ function UserPage() {
           </Button>
         </Link>
         <Grid item xs={12}>
-          <Link to={`/user/${user_id}/theme`} style={{ textDecoration: 'none' }}>
-            <Button
-              variant='contained'
-              fullWidth
-              sx={{
-                height: 200,
-                backgroundColor: 'white',
-                color: 'black',
-                borderColor: 'black',
-                borderWidth: 2,
-                borderStyle: 'solid'
-              }}
-            >
-              <Typography variant='h5' align='center'>
-                {user ? (user.research_theme ? user.research_theme : 'テーマ') : 'Loading...'}
+          <Button
+            variant='contained'
+            fullWidth
+            onClick={() => setThemeModalOpen(true)}
+            sx={{
+              height: 200,
+              backgroundColor: 'white',
+              color: 'black',
+              borderColor: 'black',
+              borderWidth: 2,
+              borderStyle: 'solid'
+            }}
+          >
+            <Typography variant='h5' align='center'>
+              {theme || 'テーマ'}
+            </Typography>
+          </Button>
+          <Modal
+            open={themeModalOpen}
+            onClose={() => setThemeModalOpen(false)}
+            aria-labelledby="theme-modal-title"
+            aria-describedby="theme-modal-description"
+          >
+            <Box sx={modalStyle}>
+              <Typography id="theme-modal-title" variant="h6" component="h2">
+                テーマ
               </Typography>
-            </Button>
-          </Link>
+              <TextField
+                fullWidth
+                variant='outlined'
+                placeholder='テーマを入力してください。'
+                value={theme}
+                onChange={(e) => setTheme(e.target.value)}
+                sx={{ mt: 2 }}
+              />
+              <Button
+                variant='contained'
+                color='primary'
+                onClick={saveTheme}
+                sx={{ mt: 2 }}
+              >
+                保存
+              </Button>
+            </Box>
+          </Modal>
         </Grid>
         <Grid item xs={6}>
-          <Link to={`/user/${user_id}/novelty`} style={{ textDecoration: 'none' }}>
-            <Button
-              variant='contained'
-              fullWidth
-              sx={{
-                height: 200,
-                backgroundColor: 'white',
-                color: 'black',
-                borderColor: 'black',
-                borderWidth: 2,
-                borderStyle: 'solid'
-              }}
-            >
-              <Typography variant='h5' align='center'>
+          <Button
+            variant='contained'
+            fullWidth
+            onClick={() => setNoveltyModalOpen(true)}
+            sx={{
+              height: 200,
+              backgroundColor: 'white',
+              color: 'black',
+              borderColor: 'black',
+              borderWidth: 2,
+              borderStyle: 'solid'
+            }}
+          >
+            <Typography variant='h5' align='center' sx={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
+              {novelty || '新規性'}
+            </Typography>
+          </Button>
+          <Modal
+            open={noveltyModalOpen}
+            onClose={() => setNoveltyModalOpen(false)}
+            aria-labelledby="novelty-modal-title"
+            aria-describedby="novelty-modal-description"
+          >
+            <Box sx={modalStyle}>
+              <Typography id="novelty-modal-title" variant="h6" component="h2">
                 新規性
               </Typography>
-            </Button>
-          </Link>
+              <TextField
+                fullWidth
+                multiline
+                rows={4}
+                variant='outlined'
+                placeholder='新規性を入力してください。'
+                value={novelty}
+                onChange={(e) => setNovelty(e.target.value)}
+                sx={{ mt: 2 }}
+              />
+              <Button
+                variant='contained'
+                color='primary'
+                onClick={saveNovelty}
+                sx={{ mt: 2 }}
+              >
+                保存
+              </Button>
+            </Box>
+          </Modal>
         </Grid>
         <Grid item xs={6}>
           <Link to={`/user/${user_id}/todo`} style={{ textDecoration: 'none' }}>
