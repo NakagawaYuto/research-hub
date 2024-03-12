@@ -10,8 +10,8 @@ import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
 
 // 自作コンポーネント
-import TroubleCards from '../Components/TroubleCards';
-import TroubleAddButton from '../Components/TroubleAddButton';
+import TroubleCards from '../components/TroubleCards';
+import TroubleAddButton from '../components/TroubleAddButton';
 
 
 const baseURL = "http://127.0.0.1:8080/trouble/"

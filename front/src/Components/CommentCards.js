@@ -6,9 +6,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useParams } from "react-router-dom";
 
-import CommentAddForm from '../Components/CommentAddForm';
-import DateConvert from '../Components/DateConvert';
-import CommentDetailButton from '../Components/CommentDetailButton';
+import CommentAddForm from './CommentAddForm';
+import DateConvert from './DateConvert';
+import CommentDetailButton from './CommentDetailButton';
 
 const CommentList = ({ comments }) => {
   const params = useParams();

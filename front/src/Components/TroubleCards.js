@@ -10,8 +10,8 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 
-import DateConvert from '../Components/DateConvert';
-import DetailButton from '../Components/DetailButton';
+import DateConvert from './DateConvert';
+import DetailButton from './DetailButton';
 
 const TroubleCards = ({ Troubles }) => {
   const navigate = useNavigate();

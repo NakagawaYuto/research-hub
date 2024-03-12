@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import axios from "axios";
 
-import DeleteMessage from '../Components/DeleteMessage';
+import DeleteMessage from './DeleteMessage';
 
 const overlayStyle = {
   position: 'fixed',

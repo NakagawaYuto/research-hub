@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 
-import DeleteConfirmCard from '../Components/DeleteConfirmCard';
+import DeleteConfirmCard from './DeleteConfirmCard';
 
 const options = [
   '編集',

@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
-import DetailCard from '../Components/DetailCard';
-import CommentCards from '../Components/CommentCards';
+import DetailCard from '../components/DetailCard';
+import CommentCards from '../components/CommentCards';
 
 
 const pageStyle = {

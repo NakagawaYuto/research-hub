@@ -7,12 +7,12 @@ const baseURL = 'http://127.0.0.1:8080/users/';
 
 function UserPage() {
   const [user, setUser] = useState(null);
-  const { id } = useParams();
+  const { user_id } = useParams();
 
   useEffect(() => {
     const fetchData = () => {
       try {
-        axios.get(`${baseURL}${id}/`).then((response) => {
+        axios.get(`${baseURL}${user_id}/`).then((response) => {
           setUser(response.data);
         });
       } catch (error) {
@@ -21,7 +21,7 @@ function UserPage() {
     };
 
     fetchData();
-  }, [id]);
+  }, [user_id]);
 
   return (
     <Container maxWidth="lg">
@@ -53,7 +53,7 @@ function UserPage() {
           </Button>
         </Link>
         <Grid item xs={12}>
-          <Link to={`/user/${id}/theme`} style={{ textDecoration: 'none' }}>
+          <Link to={`/user/${user_id}/theme`} style={{ textDecoration: 'none' }}>
             <Button
               variant='contained'
               fullWidth
@@ -73,7 +73,7 @@ function UserPage() {
           </Link>
         </Grid>
         <Grid item xs={6}>
-          <Link to={`/user/${id}/novelty`} style={{ textDecoration: 'none' }}>
+          <Link to={`/user/${user_id}/novelty`} style={{ textDecoration: 'none' }}>
             <Button
               variant='contained'
               fullWidth
@@ -93,7 +93,7 @@ function UserPage() {
           </Link>
         </Grid>
         <Grid item xs={6}>
-          <Link to={`/user/${id}/todo`} style={{ textDecoration: 'none' }}>
+          <Link to={`/user/${user_id}/todo`} style={{ textDecoration: 'none' }}>
             <Button
               variant='contained'
               fullWidth
@@ -113,7 +113,7 @@ function UserPage() {
           </Link>
         </Grid>
         <Grid item xs={6}>
-          <Link to={`/user/${id}/trouble`} style={{ textDecoration: 'none' }}>
+          <Link to={`/user/${user_id}/trouble`} style={{ textDecoration: 'none' }}>
             <Button
               variant='contained'
               fullWidth
@@ -133,7 +133,7 @@ function UserPage() {
           </Link>
         </Grid>
         <Grid item xs={6}>
-          <Link to={`/user/${id}/memo`} style={{ textDecoration: 'none' }}>
+          <Link to={`/user/${user_id}/memo`} style={{ textDecoration: 'none' }}>
             <Button
               variant='contained'
               fullWidth
