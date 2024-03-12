@@ -1,7 +1,8 @@
 from django.db import models
-
+from home.models import User
 
 class Todo(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     deadline = models.DateField()
     created_date = models.DateField(auto_now_add=True)
