@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { Routes, Route } from "react-router-dom";
+
 import HomePage from './Pages/Homepage';
 import UserPage from './Pages/UserPage';
 import AddUserPage from './Pages/AddUserPage';
@@ -9,6 +10,10 @@ import MemoPage from './Pages/MemoPage';
 import NoveltyPage from './Pages/NoveltyPage';
 import TodoPage from './Pages/Todopage';
 import LogPage from './Pages/Logpage';
+import TroublePage from './Pages/TroublePage';
+import AddPage from './Pages/AddPage';
+import TroubleDetailPage from './Pages/TroubleDetailPage';
+import EditPage from './Pages/EditPage';
 
 
 function App() {
@@ -24,6 +29,11 @@ function App() {
 
         <Route path="/todo/" element={<TodoPage/>} />
         <Route path="/log/" element={<LogPage/>} />
+
+        <Route path="/" element={<TroublePage/>} />
+        <Route path="/add/" element={<AddPage/>} />
+        <Route path="/trouble/:id" element={<TroubleDetailPage/>}/>
+        <Route path="/edit/:id" element={<EditPage/>} />
       </Routes>
     </div>
   );
