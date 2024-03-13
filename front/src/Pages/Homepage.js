@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import HomeHeader from '../components/HomeHeader';
+import Header from '../components/Header';
 import UserCard from '../components/UserCard';
 import AddButton from '../components/AddButton';
 
@@ -17,23 +17,22 @@ const HomePage = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = () => {
-      try {
-        axios.get(baseURL).then((response) => {
-          setUsers(response.data);
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(baseURL);
+      setUsers(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <div style={pageStyle}>
-      <HomeHeader />
+      <Header />
 
       <Box sx={{ flexGrow: 1, padding: '20px' }}>
         <Grid container spacing={4}>
@@ -55,7 +54,6 @@ const HomePage = () => {
       </Box>
       <AddButton onClick={() => navigate('/user/add/')}></AddButton>
     </div>
-
   );
 };
 
