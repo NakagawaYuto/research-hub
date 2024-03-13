@@ -14,10 +14,12 @@ import DateConvert from './DateConvert';
 import DetailButton from './DetailButton';
 
 
-const DetailCards = () => {
+const DetailCard = () => {
   const navigate = useNavigate();
   const [trouble, setTrouble] = React.useState(null);
+  const [users, setUsers] = React.useState(null);
   const { trouble_id } = useParams();
+  const { user_id } = useParams();
   const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/"
 
 
@@ -26,8 +28,18 @@ const DetailCards = () => {
       axios.get(baseURL).then((response) => {
         setTrouble(response.data);
       });
-    }, []);
-    if (!trouble) return null;
+
+      //ユーザーデータ取得
+      axios.get("http://127.0.0.1:8080/users/").then((userResponse) => {
+        setUsers(userResponse.data);
+      });
+    }, []
+  );
+  if (!trouble || !users) return null;
+  const user = users.find(user => user.id === parseInt(user_id));
+  const userName = user ? user.name : '';
+  console.log("user_id:", user_id);
+  console.log("users:", users);
 
 
   return (
@@ -37,7 +49,7 @@ const DetailCards = () => {
           sx={{ width: '60vw' }} 
           elevation={1} 
           style={{
-          margin: '50px 0px 30px 0px',
+          margin: '0px 0px 30px 0px',
           display: 'flex',
           justifyContent: 'center', // カードの内部で要素を左右に配置
           alignItems: 'center', // カードの内部で要素を中央に配置
@@ -48,7 +60,7 @@ const DetailCards = () => {
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20 }}/>
               <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '16px', fontWeight: 'normal', color: '#333', marginLeft: '8px' }}>
-                {trouble.name}
+                {userName}
               </Typography>   
             </div>
             <DetailButton trouble_id = {trouble_id}></DetailButton>
@@ -75,5 +87,5 @@ const DetailCards = () => {
 }
 
 
-export default DetailCards;
+export default DetailCard;
 

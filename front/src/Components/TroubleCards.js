@@ -7,13 +7,12 @@ import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import Box from '@mui/material/Box';
 import { useState } from 'react';
 
 import DateConvert from './DateConvert';
 import DetailButton from './DetailButton';
 
-const TroubleCards = ({ Troubles, user_id }) => {
+const TroubleCards = ({ Troubles, user_id, Users }) => {
   const navigate = useNavigate();
   const [hoveredTitle, setHoveredTitle] = useState(null);
 
@@ -24,6 +23,9 @@ const TroubleCards = ({ Troubles, user_id }) => {
   const handleTitleMouseLeave = () => {
     setHoveredTitle(null);
   };
+
+  const user = Users.find(user => user.id === parseInt(user_id));
+  const userName = user ? user.name : '';
 
   var Cards = [];
   for (let i = 0; i < Troubles.length; i++) {
@@ -47,7 +49,7 @@ const TroubleCards = ({ Troubles, user_id }) => {
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20 }}/>
                 <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '16px', fontWeight: 'normal', color: '#333', marginLeft: '8px' }}>
-                  {trouble.name}
+                  {userName}
                 </Typography>
               </div>
               <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '14px', fontWeight: 'nomal', color: '#666' }}>

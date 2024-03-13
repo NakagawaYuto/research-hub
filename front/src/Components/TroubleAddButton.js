@@ -5,11 +5,10 @@ const TroubleAddButton = ({onClick}) => {
   return (
     <>
       <IconButton 
-        edge='start' 
-        color='inherit' 
+        edge='start'  
         aria-label='menu' 
         style={{
-          background: '#607d8b',
+          background: '#007bff',
           borderRadius: '50',
           position: 'fixed',
           bottom: 50,
