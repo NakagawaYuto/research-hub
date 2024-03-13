@@ -6,10 +6,9 @@ const AddButton = ({ onClick }) => {
         <>
             <IconButton
                 edge='start'
-                color='inherit'
                 aria-label='menu'
                 style={{
-                    background: '#607d8b',
+                    background: '#007bff',
                     borderRadius: '50',
                     position: 'fixed',
                     bottom: 50,
