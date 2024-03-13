@@ -19,7 +19,7 @@ const pageStyle = {
 
 const Home = () => {
   // ページ内で値を保持するために使う.
-  
+
   const [troubles, setTroubles] = React.useState(null);
   const [users, setUsers] = React.useState(null);
   const navigate = useNavigate();
@@ -28,41 +28,40 @@ const Home = () => {
   const baseURL = "http://127.0.0.1:8080/trouble/trouble/?user=" + String(user_id);
 
   function goToAddPage() {
-    navigate('/user/'+String(user_id)+'/add/');
+    navigate('/user/' + String(user_id) + '/add/');
   }
 
   // 初回ロード時の処理を記述する.
-  React.useEffect(() => 
-    {
-      axios.get(baseURL).then((response) => {
-        setTroubles(response.data);
-      });
-      //ユーザーデータ取得
-      axios.get("http://127.0.0.1:8080/users/").then((userResponse) => {
-        setUsers(userResponse.data);
-      });
-    }, []);
+  React.useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setTroubles(response.data);
+    });
+    //ユーザーデータ取得
+    axios.get("http://127.0.0.1:8080/users/").then((userResponse) => {
+      setUsers(userResponse.data);
+    });
+  }, []);
   if (!troubles || !users) return null;
 
   return (
     <div style={pageStyle}>
-      <Header/>
+      <Header />
 
       <Grid container item xs={12}>
         <Grid item xs={3}>
-        <IconButton onClick={() => navigate('/user/'+String(user_id)+'/')} style={{ fontFamily: 'Meiryo', fontSize: '20px', fontWeight: 'bold', color: '#666', marginTop: '0px', marginLeft: '20px'}}>
-          <ArrowBackIosIcon />
-          <Typography>
-            ユーザーページへ戻る
-          </Typography>
-        </IconButton>
+          <IconButton onClick={() => navigate('/user/' + String(user_id) + '/')} style={{ fontFamily: 'Meiryo', fontSize: '20px', fontWeight: 'bold', color: '#666', marginTop: '0px', marginLeft: '20px' }}>
+            <ArrowBackIosIcon />
+            <Typography>
+              ユーザーページへ
+            </Typography>
+          </IconButton>
         </Grid>
         <Grid item xs={6}>
-        <TroubleCards Troubles={troubles} user_id={user_id} Users={users}></TroubleCards>
+          <TroubleCards Troubles={troubles} user_id={user_id} Users={users}></TroubleCards>
         </Grid>
       </Grid>
 
-      
+
 
       <TroubleAddButton onClick={goToAddPage}></TroubleAddButton>
     </div>

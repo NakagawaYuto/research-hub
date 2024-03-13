@@ -49,12 +49,12 @@ const DeleteConfirmCard = ({ onNoClick, trouble_id }) => {
 
   const deleteTrouble = () => { //削除する
     axios.delete(baseURL).then(() => {
-      if (location.pathname === '/user/'+String(user_id)+'/trouble/') {
+      if (location.pathname === '/user/' + String(user_id) + '/trouble/') {
         // '/' の場合の処理
         window.location.reload();
       } else {
         // それ以外の場合の処理
-        navigate('/user/'+String(user_id)+'/trouble/');
+        navigate('/user/' + String(user_id) + '/trouble/');
       }
       setIsDeleted(true);
     });

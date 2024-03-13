@@ -51,11 +51,11 @@ const Add = () => {
         body: String(body),
         user: String(user_id),
       })
-      .then(() => {
-        setTitle('');
-        setBody('');
-        navigate('/user/'+String(user_id)+'/trouble/');
-      })
+        .then(() => {
+          setTitle('');
+          setBody('');
+          navigate('/user/' + String(user_id) + '/trouble/');
+        })
     } else {
       setErrorMessage('全ての項目を入力してください');
       window.scrollTo({ top: 0, behavior: 'smooth' }); // ページ上部にスクロール
@@ -63,108 +63,108 @@ const Add = () => {
   }
   return (
     <div style={pageStyle}>
-      <Header/>
+      <Header />
       <Grid container item xs={12}>
-      <Grid item xs={2}>
-      <IconButton onClick={() => navigate('/user/'+String(user_id)+'/trouble/')} style={{ fontFamily: 'Meiryo', fontSize: '20px', fontWeight: 'bold', color: '#666', marginLeft: '30px'}}>
-        <ArrowBackIosIcon />
-        <Typography>
-          悩みホームへ戻る
-        </Typography>
-      </IconButton>
-      </Grid>
-      
-      <Grid item xs={8}>
-    <Box
-      component="form"
-      noValidate
-      autoComplete="off"
-    >
-      <Grid container alignItems='center' justify='center' direction="column">
-      <Card
-        sx={{ width: '55vw', pt: 3, pb: 3, pl: 1, pr: 1}} 
-        elevation={1} 
-        style={{
-        margin: '10px 0px 30px 0px',
-        display: 'flex',
-        justifyContent: 'center', // カードの内部で要素を左右に配置
-        alignItems: 'center', // カードの内部で要素を中央に配置
-        }}
-      >
-      <Grid container alignItems='center' justify='center' direction="column">
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20 }}/>
-          <Typography>
-            {userName}
-          </Typography>
-        </div>
-        {errorMessage && ( // エラーメッセージがある場合に表示
-          <Grid item>
-            <Typography 
-              variant="body1" 
-              style={{ 
-                margin: 10, 
-                fontFamily:'serif',
-                color: 'red'
-              }}
-            >
-              {errorMessage}
+        <Grid item xs={2}>
+          <IconButton onClick={() => navigate('/user/' + String(user_id) + '/trouble/')} style={{ fontFamily: 'Meiryo', fontSize: '20px', fontWeight: 'bold', color: '#666', marginLeft: '30px' }}>
+            <ArrowBackIosIcon />
+            <Typography>
+              悩みホームへ戻る
             </Typography>
-          </Grid>
-        )}
-        <Grid item>
-          <TextField
-            id="outlined-multiline-flexible"
-            label="タイトル"
-            multiline
-            maxRows={4}
-            style={{ 
-              margin: 10, 
-              fontFamily:'serif',
-              width: '50vw',
-            }}
-            onChange={(e)=>{setTitle(e.target.value)}}
-          />
+          </IconButton>
         </Grid>
-        <Grid item>
-          <TextField
-            id="outlined-multiline-static"
-            label="悩みや課題"
-            multiline
-            rows={15}
-            style={{ 
-              margin: 10, 
-              fontFamily:'serif',
-              width: '50vw',
-            }}
-            onChange={(e)=>{setBody(e.target.value)}}
-          />
+
+        <Grid item xs={8}>
+          <Box
+            component="form"
+            noValidate
+            autoComplete="off"
+          >
+            <Grid container alignItems='center' justify='center' direction="column">
+              <Card
+                sx={{ width: '55vw', pt: 3, pb: 3, pl: 1, pr: 1 }}
+                elevation={1}
+                style={{
+                  margin: '10px 0px 30px 0px',
+                  display: 'flex',
+                  justifyContent: 'center', // カードの内部で要素を左右に配置
+                  alignItems: 'center', // カードの内部で要素を中央に配置
+                }}
+              >
+                <Grid container alignItems='center' justify='center' direction="column">
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20, color: '#FFFFFF', backgroundColor: 'primary.main' }} />
+                    <Typography style={{ marginLeft: '8px' }}>
+                      {userName}
+                    </Typography>
+                  </div>
+                  {errorMessage && ( // エラーメッセージがある場合に表示
+                    <Grid item>
+                      <Typography
+                        variant="body1"
+                        style={{
+                          margin: 10,
+                          fontFamily: 'serif',
+                          color: 'red'
+                        }}
+                      >
+                        {errorMessage}
+                      </Typography>
+                    </Grid>
+                  )}
+                  <Grid item>
+                    <TextField
+                      id="outlined-multiline-flexible"
+                      label="タイトル"
+                      multiline
+                      maxRows={4}
+                      style={{
+                        margin: 10,
+                        fontFamily: 'serif',
+                        width: '50vw',
+                      }}
+                      onChange={(e) => { setTitle(e.target.value) }}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <TextField
+                      id="outlined-multiline-static"
+                      label="悩みや課題"
+                      multiline
+                      rows={15}
+                      style={{
+                        margin: 10,
+                        fontFamily: 'serif',
+                        width: '50vw',
+                      }}
+                      onChange={(e) => { setBody(e.target.value) }}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                        addBlog();
+                      }}
+                      style={{
+                        width: 100,
+                        color: "white",
+                        fontSize: 20,
+                        fontFamily: 'Meiryo',
+                        fontWeight: 'normal',
+                        background: "primary",
+                        padding: 5,
+                        borderRadius: 5,
+                        boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
+                      }}
+                      size="large"
+                    >投稿</Button>
+                  </Grid>
+                </Grid>
+              </Card>
+            </Grid>
+          </Box>
         </Grid>
-        <Grid item>
-          <Button 
-            variant="contained" 
-            onClick={() => {
-              addBlog();
-            }}
-            style={{
-              width: 100,
-              color: "white",
-              fontSize: 20,
-              fontFamily: 'Meiryo',
-              fontWeight: 'normal',
-              background: "primary",
-              padding: 5,
-              borderRadius: 5,
-              boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
-            }}
-            size="large"
-          >投稿</Button>
-        </Grid>
-      </Grid>
-      </Card>
-      </Grid>
-      </Box>
-      </Grid>
       </Grid>
     </div>
   )

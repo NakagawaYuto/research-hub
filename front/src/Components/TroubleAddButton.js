@@ -1,12 +1,12 @@
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 
-const TroubleAddButton = ({onClick}) => {
+const TroubleAddButton = ({ onClick }) => {
   return (
     <>
-      <IconButton 
-        edge='start'  
-        aria-label='menu' 
+      <IconButton
+        edge='start'
+        aria-label='menu'
         style={{
           background: '#007bff',
           borderRadius: '50',
@@ -15,9 +15,9 @@ const TroubleAddButton = ({onClick}) => {
           right: 50,
           boxShadow: '3px 3px 3px rgba(0,0,0,0.3)',
         }}
-        onClick={() => {onClick()}}
+        onClick={() => { onClick() }}
       >
-        <AddIcon 
+        <AddIcon
           fontSize='large'
           style={{
             color: '#eceff1',

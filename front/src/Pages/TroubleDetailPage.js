@@ -20,40 +20,39 @@ const pageStyle = {
 
 const TroubleDetailPage = () => {
   // パラメータから値を取得する.
-  const {trouble_id} = useParams();
-  const {user_id} = useParams();
+  const { trouble_id } = useParams();
+  const { user_id } = useParams();
   const [trouble, setTrouble] = React.useState(null);
   const navigate = useNavigate();
   const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/";
 
-  React.useEffect(() => 
-    {
-      axios.get(baseURL).then((response) => {
-        setTrouble(response.data);
-      });
-    }, []);
+  React.useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setTrouble(response.data);
+    });
+  }, []);
   if (!trouble) return null;
   return (
     <div style={pageStyle}>
-      <Header/>
+      <Header />
       <Grid container item xs={12}>
-      <Grid item xs={2}>
-      <IconButton onClick={() => navigate('/user/'+String(user_id)+'/trouble/')} style={{ fontFamily: 'Meiryo', fontSize: '20px', fontWeight: 'bold', color: '#666', marginLeft: '30px'}}>
-        <ArrowBackIosIcon />
-        <Typography>
-          悩みホームへ戻る
-        </Typography>
-      </IconButton>
-      </Grid>
-      <Grid item xs={8}>
-      <DetailCard />
-      <CommentCards comments={trouble.comments} />
-      </Grid>
+        <Grid item xs={2}>
+          <IconButton onClick={() => navigate('/user/' + String(user_id) + '/trouble/')} style={{ fontFamily: 'Meiryo', fontSize: '20px', fontWeight: 'bold', color: '#666', marginLeft: '30px' }}>
+            <ArrowBackIosIcon />
+            <Typography>
+              悩みホームへ戻る
+            </Typography>
+          </IconButton>
+        </Grid>
+        <Grid item xs={8}>
+          <DetailCard />
+          <CommentCards comments={trouble.comments} />
+        </Grid>
       </Grid>
 
-      
 
-      
+
+
     </div>
   );
 };

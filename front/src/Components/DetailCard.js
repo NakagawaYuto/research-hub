@@ -23,17 +23,16 @@ const DetailCard = () => {
   const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/"
 
 
-  React.useEffect(() => 
-    {
-      axios.get(baseURL).then((response) => {
-        setTrouble(response.data);
-      });
+  React.useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setTrouble(response.data);
+    });
 
-      //ユーザーデータ取得
-      axios.get("http://127.0.0.1:8080/users/").then((userResponse) => {
-        setUsers(userResponse.data);
-      });
-    }, []
+    //ユーザーデータ取得
+    axios.get("http://127.0.0.1:8080/users/").then((userResponse) => {
+      setUsers(userResponse.data);
+    });
+  }, []
   );
   if (!trouble || !users) return null;
   const user = users.find(user => user.id === parseInt(user_id));
@@ -46,40 +45,51 @@ const DetailCard = () => {
     <>
       <Grid container alignItems='center' justify='center' direction="column">
         <Card
-          sx={{ width: '60vw' }} 
-          elevation={1} 
+          sx={{ width: '60vw' }}
+          elevation={1}
           style={{
-          margin: '0px 0px 30px 0px',
-          display: 'flex',
-          justifyContent: 'center', // カードの内部で要素を左右に配置
-          alignItems: 'center', // カードの内部で要素を中央に配置
+
+            margin: '0px 0px 30px 0px',
+
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <CardContent>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20 }}/>
-              <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '16px', fontWeight: 'normal', color: '#333', marginLeft: '8px' }}>
-                {userName}
-              </Typography>   
-            </div>
-            <DetailButton trouble_id = {trouble_id}></DetailButton>
-          </div>
-            
-            <Typography variant="h4" align="left" style={{ fontFamily: 'Meiryo', fontSize: '30px', fontWeight: 'bold', color: '#333', marginTop: '10px', marginBottom: '10px'}}>
-              {trouble.title}
-            </Typography>
-            <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '16px', fontWeight: 'nomal', color: '#666' }}>
-              最終更新日 {DateConvert(trouble.updated_date)} &nbsp;&nbsp; 投稿日 {DateConvert(trouble.created_date)}
-            </Typography>
-                
-            <Divider style={{ width: '55vw', marginTop: '10px', marginBottom: '10px' }}/>
+            <Grid container>
+              <Grid item xs={1} />
+              <Grid item xs={10}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20, color: '#FFFFFF', backgroundColor: 'primary.main' }} />
+                    <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '16px', fontWeight: 'normal', color: '#333', marginLeft: '8px' }}>
+                      {userName}
+                    </Typography>
+                  </div>
+                  <DetailButton trouble_id={trouble_id}></DetailButton>
+                </div>
 
-            <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '16px', fontWeight: 'nomal', color: '#333' }}>
-              {trouble.body}
-            </Typography>
+                <Typography variant="h4" align="left" style={{ fontFamily: 'Meiryo', fontSize: '30px', fontWeight: 'bold', color: '#333', marginTop: '10px', marginBottom: '10px' }}>
+                  {trouble.title}
+                </Typography>
+                <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '16px', fontWeight: 'nomal', color: '#666' }}>
+                  最終更新日 {DateConvert(trouble.updated_date)} &nbsp;&nbsp; 投稿日 {DateConvert(trouble.created_date)}
+                </Typography>
+
+                <Divider style={{ width: '48vw', marginTop: '10px', marginBottom: '10px' }} />
+
+
+                {trouble.body.split('\n').map((line, index) => (
+                  <React.Fragment key={index}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))}
+              </Grid>
+              <Grid item xs={1} />
+            </Grid>
           </CardContent>
-          
+
         </Card>
       </Grid>
     </>

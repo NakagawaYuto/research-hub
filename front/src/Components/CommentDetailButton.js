@@ -12,7 +12,7 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
-export default function CommentDetailButton({comment_id}) {
+export default function CommentDetailButton({ comment_id }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = React.useState(false);
   const open = Boolean(anchorEl);
