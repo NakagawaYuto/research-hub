@@ -51,7 +51,7 @@ const TroubleCards = ({ Troubles, user_id, Users }) => {
           <CardActions onClick={() => { navigate("/user/" + String(user_id) + "/trouble/" + String(trouble.id)) }}>
             <CardContent>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20, color: '#FFFFFF', backgroundColor: 'primary.main' }} />
+                <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20 }} />
                 <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '16px', fontWeight: 'normal', color: '#333', marginLeft: '8px' }}>
                   {userName}
                 </Typography>

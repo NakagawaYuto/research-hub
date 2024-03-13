@@ -61,7 +61,7 @@ const DetailCard = () => {
               <Grid item xs={10}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20, color: '#FFFFFF', backgroundColor: 'primary.main' }} />
+                    <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20 }} />
                     <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '16px', fontWeight: 'normal', color: '#333', marginLeft: '8px' }}>
                       {userName}
                     </Typography>

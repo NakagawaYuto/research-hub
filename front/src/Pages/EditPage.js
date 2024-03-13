@@ -100,7 +100,7 @@ const Edit = () => {
 
                 <Grid container alignItems='center' justify='center' direction="column">
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20, color: '#FFFFFF', backgroundColor: 'primary.main' }} />
+                    <Avatar src="/broken-image.jpg" sx={{ width: 20, height: 20 }} />
                     <Typography style={{ marginLeft: '8px' }}>
                       {userName}
                     </Typography>
