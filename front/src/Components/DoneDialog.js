@@ -17,7 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function AlertDialogSlide(
   {
     doneTarget, 
-    setDoneTarget,
+    
     setBlogs,
     
   }) {
@@ -32,21 +32,22 @@ export default function AlertDialogSlide(
   const doneTodo= async(Target) =>{
     let todo = null;
     
-    await axios.get(`${baseURL}${user_id}/`+String(Target)+'/').then((response) => {
+    await axios.get(`${baseURL}`+String(Target)+'/').then((response) => {
       console.log(response.data);
       todo = response.data;
       // setDone(response.data);
     });
      
     
-    await axios.put(`${baseURL}${user_id}/`+String(Target)+'/', {
+    await axios.put(`${baseURL}`+String(Target)+'/', {
       id:todo.id,
       title:String(todo.title),
       deadline: String(todo.deadline),
       done: true,
+      user: user_id,
     })
     .then(() => {
-      axios.get(`${baseURL}${user_id}/`).then((response) => {
+      axios.get(`${baseURL}`).then((response) => {
         setBlogs(response.data);
         });
     })

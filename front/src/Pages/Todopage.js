@@ -39,6 +39,8 @@ const Home = () => {
   const [Target, setTarget] = React.useState(null);
   const [editTarget, setEditTarget] = React.useState(null);
   const [doneTarget, setDoneTarget] = React.useState(null);
+
+  
  
   const [done, setDone] = React.useState(null);
   const details_for_this_blog = []
@@ -54,18 +56,21 @@ const Home = () => {
   React.useEffect(() => 
     {
      
-    
       axios.get(`${baseURL}`).then((response) => {
         setBlogs(response.data);
        });
       axios.get(`${detailURL}`).then((response) => {
+        console.log("GETのレスポンスのデータ (ここにデータはある): ", response.data);
         setDetails(response.data);
+        console.log("setDetail直後のdetails (まだデータが入ってない, setは速度遅め) : ", details);
       });
+    
     
     
       
     }, []);
   if (!blogs) return null;
+  if (!details) return null;
   if (details !== null){
     for (let i = 0; i < details.length; i++) {
       if(details[i].department === blogs.id){
@@ -73,6 +78,10 @@ const Home = () => {
       }
     }
   }
+  else{
+    console.log("details null!  ここの実行が早い.");
+  }
+ 
   
 
 
@@ -107,11 +116,11 @@ const Home = () => {
 
 
   const deleteBlog = (id) => {
-    console.log(`${baseURL}${user_id}/`+String(id)+'/');
-    axios.delete(`${baseURL}${user_id}/`+String(id)+'/')
+    console.log(`${baseURL}`+String(id)+'/');
+    axios.delete(`${baseURL}`+String(id)+'/')
     .then(() => {
       setBlogs([]);
-      axios.get(`${baseURL}${user_id}/`).then((response) => {
+      axios.get(`${baseURL}`).then((response) => {
         setBlogs(response.data);
       });
     })
@@ -120,14 +129,15 @@ const Home = () => {
 
 
 
-  
-
-
-
-
 
   
 
+
+
+
+
+  
+  
   return (
     <>
     <Box sx={{ flexGrow: 1 }}>
@@ -140,6 +150,7 @@ const Home = () => {
         </Grid>
         
       </Grid>
+      
 
       <BlogCards 
         Blogs={blogs}
@@ -282,15 +293,18 @@ const Home = () => {
       />
       <DoneDialog 
         doneTarget={doneTarget}
-        setDoneTarget={setDoneTarget}
+        // setDoneTarget={setDoneTarget}
         setBlogs={setBlogs}
-        deleteBlog={deleteBlog}
+        // deleteBlog={deleteBlog}
        
       />
+      
       <CustomTabPanel
-        blogs={blogs}
-        details={details}
-      />
+        blogs={blogs} 
+        details={details} 
+        setDetails={setDetails}
+      /> 
+   
 
 
 

@@ -42,15 +42,16 @@ export default function AlertDialogSlide(
     const deadlineOk = edited_deadline.length == 10;
     
     if (titleOk && deadlineOk) {
-      console.log(`${baseURL}${user_id}/`+String(editTarget)+'/');
-      await axios.put(`${baseURL}${user_id}/`+String(editTarget)+'/', {
+      console.log(`${baseURL}`+String(editTarget)+'/');
+      await axios.put(`${baseURL}`+String(editTarget)+'/', {
         title: String(edited_title),
         deadline: String(edited_deadline),
+        user: user_id,
       })
       .then(() => {
         setEditedTitle('');
         setEditedDeadline('');
-        axios.get(`${baseURL}${user_id}/`).then((response) => {
+        axios.get(`${baseURL}`).then((response) => {
           setBlogs(response.data);
          }); 
       })
