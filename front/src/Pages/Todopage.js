@@ -103,7 +103,7 @@ const Home = () => {
       .then(() => {
         setTitle('');
         setDeadline('');
-        axios.get(`${baseURL}${user_id}/`).then((response) => {
+        axios.get(`${baseURL}`).then((response) => {
           setBlogs(response.data);
          });
         
@@ -303,6 +303,7 @@ const Home = () => {
         blogs={blogs} 
         details={details} 
         setDetails={setDetails}
+        Target={setTarget}
       /> 
    
 

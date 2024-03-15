@@ -58,7 +58,7 @@ function a11yProps(index) {
 
 
 
-export default function BasicTabs ({blogs,details,setDetails}) {
+export default function BasicTabs ({blogs,details,setDetails,Target}) {
   const [value, setValue] = React.useState(0);
   const [title, setTitle] = React.useState('');
   const [detailTarget, setDetailTarget] = React.useState(null);
@@ -70,7 +70,10 @@ export default function BasicTabs ({blogs,details,setDetails}) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    // Target(event);
+    console.log("実行");
   };
+  
   const adddetail = async (id) => {
     const titleOk = title.length !== 0;
     const deadlineOk = deadline.length == 10;
@@ -114,8 +117,10 @@ export default function BasicTabs ({blogs,details,setDetails}) {
   console.log(blogs.length)
   for (let i = 0; i < blogs.length; i++){
     
-    
+    if(blogs[i].done==false){
     tabs[i]=String(blogs[i].title)
+    
+    }
     id[i]=blogs[i].id
     
   }
