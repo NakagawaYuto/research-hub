@@ -304,6 +304,7 @@ const Home = () => {
         details={details} 
         setDetails={setDetails}
         Target={setTarget}
+        setBlogs={setBlogs}
       /> 
    
 

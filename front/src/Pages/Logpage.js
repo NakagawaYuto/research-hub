@@ -1,7 +1,7 @@
 import * as React from 'react';
 import axios from "axios";
 import LogCards from '../components/LogCards';
-import LogTable from '../components/LogTable';
+
 import {useParams} from 'react-router-dom';
 
 const baseURL = "http://127.0.0.1:8080/todo/todo/"
@@ -29,12 +29,7 @@ if (!blogs) return null;
         Blogs={blogs}
        
       />
-      < LogTable 
-        Todo={blogs}
-       
-      
-       
-      />
+     
     
       </>
       

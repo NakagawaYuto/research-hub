@@ -58,7 +58,8 @@ function a11yProps(index) {
 
 
 
-export default function BasicTabs ({blogs,details,setDetails,Target}) {
+export default function BasicTabs ({blogs,details,setDetails,Target,setBlogs}) {
+  
   const [value, setValue] = React.useState(0);
   const [title, setTitle] = React.useState('');
   const [detailTarget, setDetailTarget] = React.useState(null);
@@ -68,10 +69,20 @@ export default function BasicTabs ({blogs,details,setDetails,Target}) {
   const [doneTarget, setDoneTarget] = React.useState(null);
   const {user_id}=useParams();
 
+  React.useEffect(() => {
+    // コンポーネントがマウントされたときとblogsの状態が変更されたときに、選択されたタブのIDをTargetに渡す
+    Target(blogs[value]?.id); // valueが範囲外の場合に備えて?.演算子を使用して安全にアクセス
+  }, [blogs, value, Target]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    // Target(event);
-    console.log("実行");
+    console.log(blogs[newValue]);
+    console.log(blogs[newValue].id);
+    Target(blogs[newValue].id);
+    axios.get(`${baseURL}`).then((response) => {
+      setBlogs(response.data); // blogsを更新
+    });
+    
   };
   
   const adddetail = async (id) => {
@@ -82,7 +93,7 @@ export default function BasicTabs ({blogs,details,setDetails,Target}) {
       await axios.post(`${detailURL}`, {
         detail_title: String(title),
         detail_deadline: String(deadline),
-        department: id,
+        department: blogs[value].id,
         
       })
       .then(() => {
