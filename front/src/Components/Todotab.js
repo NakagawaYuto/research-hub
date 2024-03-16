@@ -93,7 +93,7 @@ export default function BasicTabs ({blogs,details,setDetails,Target,setBlogs}) {
       await axios.post(`${detailURL}`, {
         detail_title: String(title),
         detail_deadline: String(deadline),
-        department: blogs[value].id,
+        department: id,
         
       })
       .then(() => {

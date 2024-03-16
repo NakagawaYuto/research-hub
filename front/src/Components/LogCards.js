@@ -6,7 +6,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 import { useNavigate } from 'react-router-dom';
 
 
-const LogCards = ({ Blogs }) => {
+const LogCards = ({ Blogs,Target }) => {
   const navigate = useNavigate();
   var Cards = [];
   for (let i = 0; i < Blogs.length; i++) {
@@ -25,7 +25,7 @@ const LogCards = ({ Blogs }) => {
               margin: 10,
             }}
           >
-            <CardActionArea onClick={() => { }}>
+            <CardActionArea onClick={() => {Target(blog.id); }}>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   { title }
