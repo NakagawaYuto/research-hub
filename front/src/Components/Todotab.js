@@ -71,6 +71,17 @@ export default function BasicTabs ({blogs,details,setDetails,Target,setBlogs}) {
   const {user_id}=useParams();
 
   React.useEffect(() => {
+    // 初期の選択タブのインデックスを見つける
+    let initialTabIndex = -1;
+    tabs.forEach((tab, index) => {
+      if (initialTabIndex === -1 && tab) {
+        initialTabIndex = index;
+      }
+    });
+    setSelectedTabIndex(initialTabIndex); // 初期の選択タブのインデックスを設定
+  }, [blogs]);
+
+  React.useEffect(() => {
     // コンポーネントがマウントされたときとblogsの状態が変更されたときに、選択されたタブのIDをTargetに渡す
     Target(blogs[value]?.id); // valueが範囲外の場合に備えて?.演算子を使用して安全にアクセス
   }, [blogs, value, Target]);
@@ -148,6 +159,7 @@ export default function BasicTabs ({blogs,details,setDetails,Target,setBlogs}) {
   
   
   const generateTabs = () => {
+   
     
     return tabs.map((tab, index) => (
       <Tab label={tab} {...a11yProps(index)} key={index} onClick={() => { TargetTodo(index); setSelectedTabIndex(index);}}/>
