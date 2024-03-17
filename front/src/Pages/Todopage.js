@@ -306,7 +306,7 @@ const Home = () => {
       />
       
       <CustomTabPanel
-        blogs={blogs} 
+        todo={blogs} 
         details={details} 
         setDetails={setDetails}
         Target={setTarget}

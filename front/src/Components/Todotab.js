@@ -58,7 +58,7 @@ function a11yProps(index) {
 
 
 
-export default function BasicTabs ({blogs,details,setDetails,Target,setBlogs}) {
+export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
   
   const [value, setValue] = React.useState(0);
   const [title, setTitle] = React.useState('');
@@ -67,19 +67,9 @@ export default function BasicTabs ({blogs,details,setDetails,Target,setBlogs}) {
   const [delTarget, setDelTarget] = React.useState(null);
   const [editTarget, setEditTarget] = React.useState(null);
   const [doneTarget, setDoneTarget] = React.useState(null);
-  const [selectedTabIndex, setSelectedTabIndex] = React.useState(0);
   const {user_id}=useParams();
 
-  React.useEffect(() => {
-    // 初期の選択タブのインデックスを見つける
-    let initialTabIndex = -1;
-    tabs.forEach((tab, index) => {
-      if (initialTabIndex === -1 && tab) {
-        initialTabIndex = index;
-      }
-    });
-    setSelectedTabIndex(initialTabIndex); // 初期の選択タブのインデックスを設定
-  }, [blogs]);
+  const blogs = todo.filter(evaluation => evaluation.done === false);
 
   React.useEffect(() => {
     // コンポーネントがマウントされたときとblogsの状態が変更されたときに、選択されたタブのIDをTargetに渡す
@@ -88,13 +78,14 @@ export default function BasicTabs ({blogs,details,setDetails,Target,setBlogs}) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    setSelectedTabIndex(newValue);
+    console.log(newValue);
+    console.log(blogs);
     console.log(blogs[newValue]);
     console.log(blogs[newValue].id);
-    // Target(blogs[newValue].id);
-    // axios.get(`${baseURL}`).then((response) => {
-    //   setBlogs(response.data); // blogsを更新
-    // });
+    Target(blogs[newValue].id);
+    axios.get(`${baseURL}`).then((response) => {
+      setBlogs(response.data); // blogsを更新
+    });
     
   };
   
@@ -137,8 +128,8 @@ export default function BasicTabs ({blogs,details,setDetails,Target,setBlogs}) {
   const id = [];
 
 
-  // console.log(blogs)
-  // console.log(blogs.length)
+  console.log(blogs)
+  console.log(blogs.length)
   for (let i = 0; i < blogs.length; i++){
     
     if(blogs[i].done==false){
@@ -148,21 +139,12 @@ export default function BasicTabs ({blogs,details,setDetails,Target,setBlogs}) {
     id[i]=blogs[i].id
     
   }
-  const TargetTodo = (index) => {
-    console.log("Tabのindex", index);
-    console.log("id", blogs[index].id);
-    console.log("title", blogs[index].title);
-    Target(blogs[index].id)
-  }
-  
   
   
   
   const generateTabs = () => {
-   
-    
     return tabs.map((tab, index) => (
-      <Tab label={tab} {...a11yProps(index)} key={index} onClick={() => { TargetTodo(index); setSelectedTabIndex(index);}}/>
+      <Tab label={tab} {...a11yProps(index)} key={index} />
     ));
   };
   
@@ -172,15 +154,12 @@ export default function BasicTabs ({blogs,details,setDetails,Target,setBlogs}) {
     
   
     return id.map((id, index) => (
-      
-      <CustomTabPanel value={selectedTabIndex} index={index}>
-        Item{index}
+      <CustomTabPanel value={value} index={index}>
+       
         <DetailCards 
         Details={details}
-        id={blogs[selectedTabIndex].id}
+        id={id}
         detailTarget={setDetailTarget}
-        
-        
        />
        <Grid container alignItems='center' justify='center' direction="column">
         <Grid item>
@@ -204,7 +183,7 @@ export default function BasicTabs ({blogs,details,setDetails,Target,setBlogs}) {
             value={title}
             style={{ 
               margin: 20, 
-              fontFamily: 'Meiryo',
+              fontFamily:'serif',
               width: '50vw',
             }}
             onChange={(e)=>{setTitle(e.target.value)}}
@@ -219,7 +198,7 @@ export default function BasicTabs ({blogs,details,setDetails,Target,setBlogs}) {
             value={deadline}
             style={{ 
               margin: 20, 
-              fontFamily:'Meiryo',
+              fontFamily:'serif',
               width: '50vw',
             }}
             onChange={(e)=>{setDeadline(e.target.value)}}
@@ -229,15 +208,14 @@ export default function BasicTabs ({blogs,details,setDetails,Target,setBlogs}) {
         <Button 
             variant="contained" 
             onClick={() => {
-              adddetail(blogs[selectedTabIndex].id);
-              console.log(blogs[selectedTabIndex].id,"詳細を追加するTodo");
+              adddetail(id);
             }}
             style={{
               width: 100,
               color: "#e0f2f1",
               fontSize: 25,
               fontFamily: 'serif',
-              background: '#1976d2',
+              background: "#3c3c3c",
               padding: 3,
               borderRadius: 5,
               boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
