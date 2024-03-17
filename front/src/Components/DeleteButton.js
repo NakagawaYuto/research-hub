@@ -23,7 +23,7 @@ const Deletebutton = ({ delTarget,Target, }) => {
                   aria-label="delete" 
                   size="inherit"
                   style={{ 
-                    background: '#8d6e63', 
+                    background: '#1976d2', 
                     margin:5,
                     boxShadow: '2px 2px 2px rgba(0,0,0,0.3)'
                   }}

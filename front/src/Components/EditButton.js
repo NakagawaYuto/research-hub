@@ -24,7 +24,7 @@ const Editbutton = ({ editTarget,Target, }) => {
           color: "#e0f2f1",
           fontSize: 25,
           fontFamily: 'serif',
-          background: "#3c3c3c",
+          background: '#1976d2',
           padding: 3,
           borderRadius: 5,
           boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',

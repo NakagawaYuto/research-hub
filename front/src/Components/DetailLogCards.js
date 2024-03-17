@@ -52,10 +52,10 @@ const DetailLogCards = ({ Details,id }) => {
           >
             
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h5" component="div" fontFamily='Meiryo'>
                   { title }
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" fontFamily='Meiryo'>
                   { deadline }
                 </Typography>
                 

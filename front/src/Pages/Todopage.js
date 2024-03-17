@@ -19,6 +19,7 @@ import EditDialog from '../components/EditDialog';
 import DoneButton from '../components/Donebutton';
 import DoneDialog from '../components/DoneDialog';
 import CustomTabPanel from '../components/Todotab';
+import Header from '../components/Header';
 
 // import BlogEditButton from '../components/BlogEditButton';
 
@@ -47,6 +48,10 @@ const Home = () => {
  
 
   const {user_id}=useParams();
+  const pageStyle = {
+    backgroundColor: '#f5f5f5', // 薄いグレー
+    minHeight: '100vh', // 画面全体の高さに背景を広げる
+  };
  
 
 
@@ -139,7 +144,8 @@ const Home = () => {
   
   
   return (
-    <>
+    <div style={pageStyle}>
+      <Header />
     <Box sx={{ flexGrow: 1 }}>
 
       <Grid container alignItems='center' justify='center' direction="column">
@@ -191,7 +197,7 @@ const Home = () => {
             value={title}
             style={{ 
               margin: 20, 
-              fontFamily:'serif',
+              fontFamily: 'Meiryo',
               width: '50vw',
             }}
             onChange={(e)=>{setTitle(e.target.value)}}
@@ -206,7 +212,7 @@ const Home = () => {
             value={deadline}
             style={{ 
               margin: 20, 
-              fontFamily:'serif',
+              fontFamily: 'Meiryo',
               width: '50vw',
             }}
             onChange={(e)=>{setDeadline(e.target.value)}}
@@ -225,7 +231,7 @@ const Home = () => {
               color: "#e0f2f1",
               fontSize: 25,
               fontFamily: 'serif',
-              background: "#3c3c3c",
+              background: '#1976d2',
               padding: 3,
               borderRadius: 5,
               boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
@@ -266,8 +272,8 @@ const Home = () => {
               width: 100,
               color: "#e0f2f1",
               fontSize: 25,
-              fontFamily: 'serif',
-              background: "#3c3c3c",
+              fontFamily:'serif',
+              background: '#1976d2',
               padding: 3,
               borderRadius: 5,
               boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
@@ -316,7 +322,7 @@ const Home = () => {
 
 
 
-    </>
+    </div>
   );
 };
 

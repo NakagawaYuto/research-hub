@@ -42,9 +42,9 @@ export default function AlertDialogSlide(
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"詳細"}</DialogTitle>
+        <DialogTitle fontFamily='Meiryo'>{"詳細"}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
+          <DialogContentText id="alert-dialog-slide-description" fontFamily='Meiryo'>
             Todoの詳細を表示しています
           </DialogContentText>
         </DialogContent>

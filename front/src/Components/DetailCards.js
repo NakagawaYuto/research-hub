@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const DetailCards = ({ Details,id,detailTarget }) => {
+  console.log(id,"詳細を表示するTodo");
   
   const navigate = useNavigate();
   var Cards = [];
@@ -29,10 +30,10 @@ const DetailCards = ({ Details,id,detailTarget }) => {
           >
             <CardActionArea onClick={() => {detailTarget(blog.id);}}>
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h5" component="div" fontFamily='Meiryo'>
                   { title }
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" fontFamily='Meiryo'>
                   { deadline }
                 </Typography>
                 
