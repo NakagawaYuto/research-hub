@@ -88,7 +88,7 @@ const AddUserPage = () => {
               required
               sx={textFieldStyle}
             />
-            <Box display="flex" justifyContent="flex-end">
+            <Box display="flex" justifyContent="center">
               <Button
                 variant='contained'
                 onClick={addUser}
