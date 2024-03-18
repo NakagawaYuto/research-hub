@@ -20,6 +20,7 @@ import DoneButton from '../components/Donebutton';
 import DoneDialog from '../components/DoneDialog';
 import CustomTabPanel from '../components/Todotab';
 import Header from '../components/Header';
+import AddButton from '../components/AddButton';
 
 // import BlogEditButton from '../components/BlogEditButton';
 
@@ -158,10 +159,10 @@ const Home = () => {
       </Grid>
       
 
-      <BlogCards 
+      {/* <BlogCards 
         Blogs={blogs}
         Target={setTarget}
-      />
+      /> */}
 
       {/* <BlogEditButton/> */}
 
@@ -280,6 +281,7 @@ const Home = () => {
             }}
             size="large"
           >ログ</Button>
+          <AddButton />
 
 
 
