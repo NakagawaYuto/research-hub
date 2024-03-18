@@ -7,30 +7,35 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Editbutton = ({ editTarget,Target, }) => {
 
     
     return (
-        <Button 
-        variant="contained" 
-        onClick={() => {
-            editTarget(Target);
-        }}
-        style={{
-          width: 100,
-          color: "#e0f2f1",
-          fontSize: 25,
-          fontFamily: 'serif',
-          background: '#1976d2',
-          padding: 3,
-          borderRadius: 5,
-          boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
-        }}
-        size="large"
-      >編集</Button>
+      
+
+
+      
+        
+        <IconButton 
+                  aria-label="delete" 
+                  size="inherit"
+                  style={{ 
+                    background: '#1976d2', 
+                    margin:5,
+                    boxShadow: '2px 2px 2px rgba(0,0,0,0.3)'
+                  }}
+                  onClick={() => {
+                    editTarget(Target);
+                  }}
+                >
+                  <EditIcon 
+                    fontSize="large"
+                    style={{ color: '#eceff1' }}
+                  />
+                </IconButton>
     )
 }
   

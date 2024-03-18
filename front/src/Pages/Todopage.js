@@ -21,6 +21,7 @@ import DoneDialog from '../components/DoneDialog';
 import CustomTabPanel from '../components/Todotab';
 import Header from '../components/Header';
 import AddButton from '../components/AddButton';
+import AddDialog from '../components/AddDialog';
 
 // import BlogEditButton from '../components/BlogEditButton';
 
@@ -41,6 +42,8 @@ const Home = () => {
   const [Target, setTarget] = React.useState(null);
   const [editTarget, setEditTarget] = React.useState(null);
   const [doneTarget, setDoneTarget] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+ 
 
   
  
@@ -149,14 +152,12 @@ const Home = () => {
       <Header />
     <Box sx={{ flexGrow: 1 }}>
 
-      <Grid container alignItems='center' justify='center' direction="column">
-        <Grid item>
+      {/* <Grid container alignItems='center' justify='center' direction="column">
+       
           <Typography variant="h3" gutterBottom style={{ margin: 20, fontFamily:'serif' }}>
             Todolist
           </Typography>
-        </Grid>
-        
-      </Grid>
+      </Grid> */}
       
 
       {/* <BlogCards 
@@ -177,8 +178,8 @@ const Home = () => {
       autoComplete="off"
     >
       <Grid container alignItems='center' justify='center' direction="column">
-        <Grid item>
-          <Typography 
+       
+          {/* <Typography 
             variant="h4" 
             style={{ 
               margin: 20, 
@@ -186,11 +187,11 @@ const Home = () => {
             }}
           >
             Todoの追加
-          </Typography>
-        </Grid>
-        <Grid item>
-        <Grid item>
-          <TextField
+          </Typography> */}
+        
+        
+        
+          {/* <TextField
             id="outlined-multiline-flexible"
             label="追加する作業"
             multiline
@@ -202,10 +203,10 @@ const Home = () => {
               width: '50vw',
             }}
             onChange={(e)=>{setTitle(e.target.value)}}
-          />
-          </Grid>
+          /> */}
+          
         
-          <TextField
+          {/* <TextField
             id="outlined-multiline-flexible"
             label="期限(YYYY-MM-DD)"
             multiline
@@ -217,12 +218,10 @@ const Home = () => {
               width: '50vw',
             }}
             onChange={(e)=>{setDeadline(e.target.value)}}
-          />
-        </Grid>
+          /> */}
         
         
-      
-          <Button 
+          {/* <Button 
             variant="contained" 
             onClick={() => {
               addBlog();
@@ -238,19 +237,37 @@ const Home = () => {
               boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
             }}
             size="large"
-          >追加</Button>
+          >追加</Button> */}
         </Grid>
         
        
       
       </Box>
+      <Button 
+          variant="contained" 
+          onClick={() => {
+            navigate(`/user/${user_id}/log/`);
+          }}
+          style={{
+            width: 100,
+            color: "#e0f2f1",
+            fontSize: 25,
+            fontFamily:'serif',
+            background: '#1976d2',
+            padding: 3,
+            borderRadius: 5,
+            boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
+          }}
+          size="large"
+      >ログ</Button>
 
-
+     <Grid container justifyContent="flex-end">
+      <Grid item>
+      
       <DeleteButton 
         Target={Target}
         delTarget={setDelTarget}
         
-       
       />
       <EditButton 
         Target={Target}
@@ -264,24 +281,25 @@ const Home = () => {
      
       
       />
-      <Button 
-            variant="contained" 
-            onClick={() => {
-              navigate(`/user/${user_id}/log/`);
-            }}
-            style={{
-              width: 100,
-              color: "#e0f2f1",
-              fontSize: 25,
-              fontFamily:'serif',
-              background: '#1976d2',
-              padding: 3,
-              borderRadius: 5,
-              boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
-            }}
-            size="large"
-          >ログ</Button>
-          <AddButton />
+      <AddButton 
+          setOpen={setOpen}
+          />
+      </Grid>
+      </Grid>
+     
+      
+      
+          
+          
+          <AddDialog 
+           open={open}
+           setOpen = {setOpen}
+           title = {title}
+           setTitle = {setTitle}
+           deadline = {deadline}
+           setDeadline = {setDeadline}
+           addBlog ={addBlog}
+          />
 
 
 
@@ -313,6 +331,7 @@ const Home = () => {
         setDetails={setDetails}
         Target={setTarget}
         setBlogs={setBlogs}
+        
       /> 
    
 

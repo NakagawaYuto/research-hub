@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
 import Add from '@mui/icons-material/Add';
 
-const Addbutton = ({setOpen}) => {
+const AddDetailButton = ({setOpen}) => {
 
     
     return (
@@ -30,6 +30,7 @@ const Addbutton = ({setOpen}) => {
                   }}
                   onClick={() => {
                     setOpen(true);
+                    
                   }}
                 >
                   <Add
@@ -41,4 +42,4 @@ const Addbutton = ({setOpen}) => {
 }
   
   
-export default Addbutton;
+export default AddDetailButton;

@@ -15,10 +15,13 @@ import EditButton from '../components/EditButton';
 import EditDetailDialog from '../components/EditDetailDialog';
 import DoneButton from '../components/Donebutton';
 import DoneDetailDialog from '../components/DoneDetailDialog';
+import AddDetailDialog from '../components/AddDetailDialog';
+import AddDetailButton from '../components/AddDetailButton';
 import { useParams } from 'react-router-dom';
 
 const baseURL = "http://127.0.0.1:8080/todo/todo/"
 const detailURL = "http://127.0.0.1:8080/todo/detail/"
+
 
 
 
@@ -67,6 +70,8 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
   const [delTarget, setDelTarget] = React.useState(null);
   const [editTarget, setEditTarget] = React.useState(null);
   const [doneTarget, setDoneTarget] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+  
   const {user_id}=useParams();
 
   const blogs = todo.filter(evaluation => evaluation.done === false);
@@ -162,8 +167,8 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
         detailTarget={setDetailTarget}
        />
        <Grid container alignItems='center' justify='center' direction="column">
-        <Grid item>
-          <Typography 
+        
+          {/* <Typography 
             variant="h4" 
             style={{ 
               margin: 20, 
@@ -171,11 +176,11 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
             }}
           >
             詳細の追加
-          </Typography>
-        </Grid>
-        <Grid item>
-        <Grid item>
-          <TextField
+          </Typography> */}
+        
+        
+        
+          {/* <TextField
             id="outlined-multiline-flexible"
             label="追加する作業"
             multiline
@@ -187,10 +192,10 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
               width: '50vw',
             }}
             onChange={(e)=>{setTitle(e.target.value)}}
-          />
-          </Grid>
+          /> */}
+          
         
-          <TextField
+          {/* <TextField
             id="outlined-multiline-flexible"
             label="期限(YYYY-MM-DD)"
             multiline
@@ -202,10 +207,13 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
               width: '50vw',
             }}
             onChange={(e)=>{setDeadline(e.target.value)}}
-          />
+          /> */}
         </Grid>
-        </Grid>
-        <Button 
+      
+
+        
+      <Grid>
+        {/* <Button 
             variant="contained" 
             onClick={() => {
               adddetail(id);
@@ -215,40 +223,46 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
               color: "#e0f2f1",
               fontSize: 25,
               fontFamily: 'serif',
-              background: "#3c3c3c",
+              background: '#1976d2',
               padding: 3,
               borderRadius: 5,
               boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
             }}
             size="large"
-          >追加</Button>
-        <DeleteButton 
-        Target={detailTarget}
-        delTarget={setDelTarget}
-        />
-        <DeleteConfirmDialog 
-        delTarget={delTarget}
-        setDelTarget={setDelTarget}
-        deleteBlog={deletedetail}
-      />
-      <EditButton 
-        Target={detailTarget}
-        editTarget={setEditTarget}
-        
-       
-      />
+          >追加</Button> */}
+          <Grid container justifyContent="flex-end">
+          <Grid item>
+          <DeleteButton 
+          Target={detailTarget}
+          delTarget={setDelTarget}
+          />
+          <EditButton 
+          Target={detailTarget}
+          editTarget={setEditTarget}
+          />
+          <DoneButton 
+          Target={detailTarget}
+          doneTarget={setDoneTarget}
+     
+          />
+          <AddDetailButton 
+          setOpen={setOpen}
+          />
+          </Grid>
+          </Grid>
+          <DeleteConfirmDialog 
+          delTarget={delTarget}
+          setDelTarget={setDelTarget}
+          deleteBlog={deletedetail}
+          />
+          
       <EditDetailDialog 
         editTarget={editTarget}
         setEditTarget={setEditTarget}
         setDetails={setDetails}
         id={id}
       />
-      <DoneButton 
-        Target={detailTarget}
-        doneTarget={setDoneTarget}
-     
       
-      />
       <DoneDetailDialog 
         doneTarget={doneTarget}
         // setDoneTarget={setDoneTarget}
@@ -257,6 +271,18 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
         id={id}
        
       />
+      
+      <AddDetailDialog 
+        open={open}
+        setOpen = {setOpen}
+        title = {title}
+        setTitle = {setTitle}
+        deadline = {deadline}
+        setDeadline = {setDeadline}
+        adddetail ={adddetail}
+        id={id}
+      />
+      </Grid>
        
       </CustomTabPanel>
     ));
