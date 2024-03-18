@@ -37,9 +37,6 @@ const HomePage = () => {
       <Box sx={{ flexGrow: 1, padding: '20px' }}>
         <Grid container spacing={4}>
           <Grid item xs={6}>
-            <Typography variant='h4' gutterBottom>
-              ユーザー
-            </Typography>
             {users.map((user) => (
               <UserCard key={user.id} user={user} />
             ))}

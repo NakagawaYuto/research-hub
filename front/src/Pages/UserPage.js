@@ -1,9 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, Link } from 'react-router-dom';
-import { Container, Typography, Grid, Button, Box, TextField, Modal } from '@mui/material';
+import { Button, Grid, IconButton, Typography } from '@mui/material';
+import { useParams, useNavigate } from 'react-router-dom';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import Header from '../components/Header';
+import EditModal from '../components/EditModal';
 
 const baseURL = 'http://127.0.0.1:8080/users/';
+
+const pageStyle = {
+  backgroundColor: '#f5f5f5',
+  minHeight: '100vh',
+};
+
+const fieldStyle = {
+  height: 200,
+  backgroundColor: 'white',
+  color: 'black',
+  borderColor: 'black',
+  borderWidth: 2,
+  borderStyle: 'solid'
+}
 
 const modalStyle = {
   position: 'absolute',
@@ -17,13 +34,14 @@ const modalStyle = {
   p: 4,
 };
 
-function UserPage() {
+const UserPage = () => {
   const [user, setUser] = useState(null);
   const [theme, setTheme] = useState('');
   const [novelty, setNovelty] = useState('');
   const [themeModalOpen, setThemeModalOpen] = useState(false);
   const [noveltyModalOpen, setNoveltyModalOpen] = useState(false);
   const { user_id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,192 +77,108 @@ function UserPage() {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ mt: 6, mb: 6 }}>
-        <Typography variant='h4' align='center'>
-          {user ? user.name : 'Loading...'}
-        </Typography>
-      </Box>
-      <Grid container spacing={4}>
-        <Link to={`/`} style={{ textDecoration: 'none' }}>
-          <Button
-            variant='contained'
-            sx={{
-              position: 'relative',
-              left: 30,
-              top: -55,
-              width: '65px',
-              height: '40px',
-              backgroundColor: 'white',
-              color: 'black',
-              borderColor: 'black',
-              borderWidth: 2,
-              borderStyle: 'solid'
-            }}
-          >
-            <Typography variant="h7">
+    <div style={pageStyle}>
+      <Header />
+
+      <Grid container item xs={12}>
+        <Grid item xs={3}>
+          <IconButton onClick={() => navigate('/')} style={{ fontFamily: 'Meiryo', fontSize: '20px', fontWeight: 'bold', color: '#666', marginTop: '0px', marginLeft: '20px' }}>
+            <ArrowBackIosIcon />
+            <Typography>
               戻る
             </Typography>
-          </Button>
-        </Link>
-        <Grid item xs={12}>
-          <Button
-            variant='contained'
-            fullWidth
-            onClick={() => setThemeModalOpen(true)}
-            sx={{
-              height: 200,
-              backgroundColor: 'white',
-              color: 'black',
-              borderColor: 'black',
-              borderWidth: 2,
-              borderStyle: 'solid'
-            }}
-          >
-            <Typography variant='h5' align='center'>
-              {theme || 'テーマ'}
-            </Typography>
-          </Button>
-          <Modal
-            open={themeModalOpen}
-            onClose={() => setThemeModalOpen(false)}
-            aria-labelledby="theme-modal-title"
-            aria-describedby="theme-modal-description"
-          >
-            <Box sx={modalStyle}>
-              <Typography id="theme-modal-title" variant="h6" component="h2">
-                テーマ
-              </Typography>
-              <TextField
-                fullWidth
-                variant='outlined'
-                placeholder='テーマを入力してください。'
-                value={theme}
-                onChange={(e) => setTheme(e.target.value)}
-                sx={{ mt: 2 }}
-              />
-              <Button
-                variant='contained'
-                color='primary'
-                onClick={saveTheme}
-                sx={{ mt: 2 }}
-              >
-                保存
-              </Button>
-            </Box>
-          </Modal>
+          </IconButton>
         </Grid>
         <Grid item xs={6}>
-          <Button
-            variant='contained'
-            fullWidth
-            onClick={() => setNoveltyModalOpen(true)}
-            sx={{
-              height: 200,
-              backgroundColor: 'white',
-              color: 'black',
-              borderColor: 'black',
-              borderWidth: 2,
-              borderStyle: 'solid'
-            }}
-          >
-            <Typography variant='h5' align='center' sx={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
-              {novelty || '新規性'}
-            </Typography>
-          </Button>
-          <Modal
-            open={noveltyModalOpen}
-            onClose={() => setNoveltyModalOpen(false)}
-            aria-labelledby="novelty-modal-title"
-            aria-describedby="novelty-modal-description"
-          >
-            <Box sx={modalStyle}>
-              <Typography id="novelty-modal-title" variant="h6" component="h2">
-                新規性
-              </Typography>
-              <TextField
-                fullWidth
-                multiline
-                rows={4}
-                variant='outlined'
-                placeholder='新規性を入力してください。'
-                value={novelty}
-                onChange={(e) => setNovelty(e.target.value)}
-                sx={{ mt: 2 }}
-              />
-              <Button
-                variant='contained'
-                color='primary'
-                onClick={saveNovelty}
-                sx={{ mt: 2 }}
-              >
-                保存
-              </Button>
-            </Box>
-          </Modal>
+          <Typography variant='h4' style={{ fontFamily: 'Meiryo' }} align='center' sx={{ mt: 4, mb: 6 }}>
+            {user ? user.name : 'Loading...'}
+          </Typography>
         </Grid>
-        <Grid item xs={6}>
-          <Link to={`/user/${user_id}/todo`} style={{ textDecoration: 'none' }}>
+      </Grid>
+
+      <Grid container item xs={12} justifyContent="center">
+        <Grid container item xs={8} justifyContent="center" spacing={4}>
+          <Grid item xs={12}>
             <Button
               variant='contained'
               fullWidth
-              sx={{
-                height: 200,
-                backgroundColor: 'white',
-                color: 'black',
-                borderColor: 'black',
-                borderWidth: 2,
-                borderStyle: 'solid'
-              }}
+              onClick={() => setThemeModalOpen(true)}
+              sx={fieldStyle}
+            >
+              <Typography variant='h5' align='center'>
+                {theme || '研究テーマ'}
+              </Typography>
+            </Button>
+            <EditModal
+              open={themeModalOpen}
+              onClose={() => setThemeModalOpen(false)}
+              title="研究テーマ"
+              value={theme}
+              onChange={setTheme}
+              onSave={saveTheme}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant='contained'
+              fullWidth
+              onClick={() => setNoveltyModalOpen(true)}
+              sx={fieldStyle}
+            >
+              <Typography variant='h5' align='center' sx={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
+                {novelty || '新規性'}
+              </Typography>
+            </Button>
+            <EditModal
+              open={noveltyModalOpen}
+              onClose={() => setNoveltyModalOpen(false)}
+              title="新規性"
+              value={novelty}
+              onChange={setNovelty}
+              onSave={saveNovelty}
+              multiline
+              rows={4}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant='contained'
+              fullWidth
+              sx={fieldStyle}
+              onClick={() => navigate(`/user/${user_id}/todo`)}
             >
               <Typography variant='h5' align='center'>
                 TODO
               </Typography>
             </Button>
-          </Link>
-        </Grid>
-        <Grid item xs={6}>
-          <Link to={`/user/${user_id}/trouble`} style={{ textDecoration: 'none' }}>
+          </Grid>
+          <Grid item xs={6}>
             <Button
               variant='contained'
               fullWidth
-              sx={{
-                height: 200,
-                backgroundColor: 'white',
-                color: 'black',
-                borderColor: 'black',
-                borderWidth: 2,
-                borderStyle: 'solid'
-              }}
+              sx={fieldStyle}
+              onClick={() => navigate(`/user/${user_id}/trouble`)}
             >
               <Typography variant='h5' align='center'>
                 課題・悩み
               </Typography>
             </Button>
-          </Link>
-        </Grid>
-        <Grid item xs={6}>
-          <Link to={`/user/${user_id}/memo`} style={{ textDecoration: 'none' }}>
+          </Grid>
+          <Grid item xs={6}>
             <Button
               variant='contained'
               fullWidth
-              sx={{
-                height: 200,
-                backgroundColor: 'white',
-                color: 'black',
-                borderColor: 'black',
-                borderWidth: 2,
-                borderStyle: 'solid'
-              }}
+              sx={fieldStyle}
+              onClick={() => navigate(`/user/${user_id}/memo`)}
             >
               <Typography variant='h5' align='center'>
                 メモ
               </Typography>
             </Button>
-          </Link>
+          </Grid>
         </Grid>
       </Grid>
-    </Container>
+    </div >
   );
 }
 
