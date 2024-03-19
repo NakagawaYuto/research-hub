@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import UserCard from '../components/UserCard';
 import AddButton from '../components/AddButton';
+import TroubleTimeline from '../components/TroubleTimeline';
 
 const baseURL = 'http://127.0.0.1:8080/users/';
 const troubleURL = 'http://127.0.0.1:8080/trouble/trouble/';
@@ -48,36 +49,28 @@ const HomePage = () => {
       <Header />
 
       <Box sx={{ flexGrow: 1, padding: '20px' }}>
-        <Grid container spacing={4}>
-          <Grid item xs={6}>
+        <Grid container spacing={4} justifyContent="center">
+          <Grid item xs={6} container justifyContent="center" sx={{ overflow: 'auto', maxHeight: '90vh' }}>
             {users.map((user) => (
-              <UserCard key={user.id} user={user} />
+              <Grid item key={user.id} xs={12} container justifyContent="center">
+                <UserCard user={user} />
+              </Grid>
             ))}
+            <AddButton onClick={() => navigate('/user/add/')}></AddButton>
           </Grid>
           <Grid item xs={6}>
             <Typography variant='h4' gutterBottom>
-              タイムライン
+              悩みタイムライン
             </Typography>
             {troubles.map((trouble) => (
-              <Card key={trouble.id} sx={{ marginBottom: '20px' }}>
-                <CardContent>
-                  <Typography variant='h5' component='div'>
-                    {trouble.title}
-                  </Typography>
-                  <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
-                    作成日: {trouble.created_date}
-                  </Typography>
-                  <Typography variant='body2'>
-                    {trouble.body}
-                  </Typography>
-                </CardContent>
+              <Box key={trouble.id}>
+                <TroubleTimeline trouble={trouble} />
                 <Divider />
-              </Card>
+              </Box>
             ))}
           </Grid>
         </Grid>
       </Box>
-      <AddButton onClick={() => navigate('/user/add/')}></AddButton>
     </div>
   );
 };

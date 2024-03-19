@@ -10,7 +10,7 @@ const UserCard = ({ user }) => {
     };
 
     return (
-        <Card sx={{ mb: 2 }} onClick={handleCardClick} style={{ cursor: 'pointer' }}>
+        <Card sx={{ mb: 4, width: '70%', }} onClick={handleCardClick} style={{ cursor: 'pointer' }}>
             <CardContent>
                 <Typography variant='h5'>{user.name}</Typography>
                 <Typography color='textSecondary'>{user.student_id}</Typography>

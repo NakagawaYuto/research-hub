@@ -12,7 +12,7 @@ const AddButton = ({ onClick }) => {
                     borderRadius: '50',
                     position: 'fixed',
                     bottom: 50,
-                    right: 50,
+                    left: '44%',
                     boxShadow: '3px 3px 3px rgba(0,0,0,0.3)',
                 }}
                 onClick={() => { onClick() }}
