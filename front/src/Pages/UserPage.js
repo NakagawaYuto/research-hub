@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Grid, IconButton, Typography } from '@mui/material';
+import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Header from '../components/Header';
 import EditModal from '../components/EditModal';
 
 const baseURL = 'http://127.0.0.1:8080/users/';
+const todoURL = 'http://127.0.0.1:8080/todo/todo/';
 
 const pageStyle = {
   backgroundColor: '#f5f5f5',
@@ -14,18 +15,19 @@ const pageStyle = {
 };
 
 const fieldStyle = {
-  height: 200,
+  height: 220,
   backgroundColor: 'white',
   color: 'black',
-  borderColor: 'black',
-  borderWidth: 2,
-  borderStyle: 'solid'
+  '&:hover': {
+    backgroundColor: 'primary',
+  }
 };
 
 const UserPage = () => {
   const [user, setUser] = useState(null);
   const [theme, setTheme] = useState('');
   const [novelty, setNovelty] = useState('');
+  const [todo, setTodo] = useState(null);
   const [themeModalOpen, setThemeModalOpen] = useState(false);
   const [noveltyModalOpen, setNoveltyModalOpen] = useState(false);
   const { user_id } = useParams();
@@ -38,6 +40,11 @@ const UserPage = () => {
         setUser(response.data);
         setTheme(response.data.research_theme);
         setNovelty(response.data.novelty);
+
+        const todoResponse = await axios.get(`${todoURL}`);
+        const userTodos = todoResponse.data.filter(todo => todo.user === parseInt(user_id) && !todo.done);
+        const earliestTodo = userTodos.sort((a, b) => new Date(a.deadline) - new Date(b.deadline))[0];
+        setTodo(earliestTodo);
       } catch (error) {
         console.error(error);
       }
@@ -78,22 +85,26 @@ const UserPage = () => {
           </IconButton>
         </Grid>
         <Grid item xs={6}>
-          <Typography variant='h4' style={{ fontFamily: 'Meiryo' }} align='center' sx={{ mt: 4, mb: 6 }}>
+          <Typography variant='h3' style={{ fontFamily: 'Meiryo' }} align='center' sx={{ mt: 4, mb: 6 }}>
             {user ? user.name : 'Loading...'}
           </Typography>
         </Grid>
       </Grid>
 
       <Grid container item xs={12} justifyContent="center">
-        <Grid container item xs={8} justifyContent="center" spacing={4}>
-          <Grid item xs={12}>
+        <Grid container item xs={8} justifyContent="center" spacing={6}>
+          <Grid item xs={8}>
             <Button
               variant='contained'
               fullWidth
               onClick={() => setThemeModalOpen(true)}
-              sx={fieldStyle}
+              sx={{
+                height: 75,
+                backgroundColor: 'white',
+                color: 'black'
+              }}
             >
-              <Typography variant='h5' align='center'>
+              <Typography variant='h4' align='center'>
                 {theme || '研究テーマ'}
               </Typography>
             </Button>
@@ -106,17 +117,35 @@ const UserPage = () => {
               onSave={saveTheme}
             />
           </Grid>
-          <Grid item xs={6}>
-            <Button
-              variant='contained'
-              fullWidth
-              onClick={() => setNoveltyModalOpen(true)}
-              sx={fieldStyle}
-            >
-              <Typography variant='h5' align='center' sx={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
-                {novelty || '新規性'}
-              </Typography>
-            </Button>
+          <Grid item xs={6} justifyContent="flex-start">
+            {novelty ? (
+              <Button
+                variant='contained'
+                fullWidth
+                onClick={() => setNoveltyModalOpen(true)}
+                sx={fieldStyle}
+              >
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <Typography variant='h4' align='center' sx={{ mb: 3 }}>
+                    新規性
+                  </Typography>
+                  <Typography variant='h5' align='center' sx={{ whiteSpace: 'pre-wrap', overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
+                    {novelty}
+                  </Typography>
+                </Box>
+              </Button>
+            ) : (
+              <Button
+                variant='contained'
+                fullWidth
+                onClick={() => setNoveltyModalOpen(true)}
+                sx={fieldStyle}
+              >
+                <Typography variant='h4' align='center'>
+                  新規性
+                </Typography>
+              </Button>
+            )}
             <EditModal
               open={noveltyModalOpen}
               onClose={() => setNoveltyModalOpen(false)}
@@ -129,16 +158,37 @@ const UserPage = () => {
             />
           </Grid>
           <Grid item xs={6}>
-            <Button
-              variant='contained'
-              fullWidth
-              sx={fieldStyle}
-              onClick={() => navigate(`/user/${user_id}/todo`)}
-            >
-              <Typography variant='h5' align='center'>
-                TODO
-              </Typography>
-            </Button>
+            {todo ? (
+              <Button
+                variant='contained'
+                fullWidth
+                onClick={() => navigate(`/user/${user_id}/todo`)}
+                sx={fieldStyle}
+              >
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <Typography variant='h4' align='center' sx={{ mb: 3 }}>
+                    TODO
+                  </Typography>
+                  <Typography variant='h5' align='center' sx={{ whiteSpace: 'pre-wrap', overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical' }}>
+                    {todo.title}
+                  </Typography>
+                  <Typography variant='h5' align='center'>
+                    {new Date(todo.deadline).toLocaleDateString()}
+                  </Typography>
+                </Box>
+              </Button>
+            ) : (
+              <Button
+                variant='contained'
+                fullWidth
+                onClick={() => navigate(`/user/${user_id}/todo`)}
+                sx={fieldStyle}
+              >
+                <Typography variant='h4' align='center'>
+                  TODO
+                </Typography>
+              </Button>
+            )}
           </Grid>
           <Grid item xs={6}>
             <Button
@@ -147,7 +197,7 @@ const UserPage = () => {
               sx={fieldStyle}
               onClick={() => navigate(`/user/${user_id}/trouble`)}
             >
-              <Typography variant='h5' align='center'>
+              <Typography variant='h4' align='center'>
                 課題・悩み
               </Typography>
             </Button>
@@ -159,7 +209,7 @@ const UserPage = () => {
               sx={fieldStyle}
               onClick={() => navigate(`/user/${user_id}/memo`)}
             >
-              <Typography variant='h5' align='center'>
+              <Typography variant='h4' align='center'>
                 メモ
               </Typography>
             </Button>

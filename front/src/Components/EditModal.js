@@ -12,13 +12,12 @@ const EditModal = ({ open, onClose, title, value, onChange, onSave, multiline = 
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 400,
+            width: 500,
             bgcolor: 'background.paper',
-            border: '2px solid #000',
             boxShadow: 24,
             p: 4,
         }}>
-            <Typography id={`${title}-modal-title`} variant="h6" component="h2">
+            <Typography id={`${title}-modal-title`} variant="h5" component="h2">
                 {title}
             </Typography>
             <TextField
@@ -26,7 +25,7 @@ const EditModal = ({ open, onClose, title, value, onChange, onSave, multiline = 
                 multiline={multiline}
                 rows={rows}
                 variant='outlined'
-                placeholder={`Please enter ${title.toLowerCase()}.`}
+                placeholder={`${title.toLowerCase()}を入力してください。`}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 sx={{ mt: 2 }}
@@ -35,7 +34,11 @@ const EditModal = ({ open, onClose, title, value, onChange, onSave, multiline = 
                 variant='contained'
                 color='primary'
                 onClick={onSave}
-                sx={{ mt: 2 }}
+                sx={{
+                    mt: 2,
+                    display: 'block',
+                    mx: 'auto',
+                }}
             >
                 保存
             </Button>
