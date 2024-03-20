@@ -50,7 +50,12 @@ const CommentList = ({ comments }) => {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '18px', fontWeight: 'nomal', color: '#333' }}>
-                        {comment.body}
+                        {comment.body.split('\n').map((line, index) => (
+                          <React.Fragment key={index}>
+                            {line}
+                            <br />
+                          </React.Fragment>
+                        ))}
                       </Typography>
                       <CommentDetailButton comment_id={comment.id}></CommentDetailButton>
                     </div>
