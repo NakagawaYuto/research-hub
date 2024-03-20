@@ -1,6 +1,6 @@
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 
-const EditModal = ({ open, onClose, title, value, onChange, onSave, multiline = false, rows = 1 }) => (
+const EditModal = ({ open, onClose, title, value, onChange, onSave, multiline = false, rows = 1, placeholder }) => (
     <Modal
         open={open}
         onClose={onClose}
@@ -25,7 +25,7 @@ const EditModal = ({ open, onClose, title, value, onChange, onSave, multiline = 
                 multiline={multiline}
                 rows={rows}
                 variant='outlined'
-                placeholder={`${title.toLowerCase()}を入力してください。`}
+                placeholder={placeholder || `${title.toLowerCase()}を入力してください。`}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 sx={{ mt: 2 }}

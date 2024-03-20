@@ -35,7 +35,7 @@ const HomePage = () => {
       const sortedData = response.data.sort((a, b) => new Date(b.updated_date) - new Date(a.updated_date));
       setTroubles(sortedData);
     } catch (error) {
-      console.error('There was an error fetching the troubles:', error);
+      console.error(error);
     }
   };
 

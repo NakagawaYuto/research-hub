@@ -42,7 +42,7 @@ const TroubleTimeline = ({ trouble, users }) => {
                     <Typography variant='h5'>{truncatedTitle}</Typography>
                 </div>
                 <div style={{ flexGrow: 3, textAlign: 'right' }}>
-                    <Typography variant='h8'>{userName}</Typography>
+                    <Typography color='textSecondary'>{userName}</Typography>
                 </div>
             </CardContent>
         </Grid>
