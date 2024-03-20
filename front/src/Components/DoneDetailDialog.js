@@ -8,8 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import {useParams} from 'react-router-dom';
-const baseURL = "http://127.0.0.1:8080/todo/todo/"
-const detailURL = "http://127.0.0.1:8080/todo/detail/"
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -25,6 +24,9 @@ export default function AlertDialogSlide(
   }) {
   const [open, setOpen] = React.useState(false);
   const {user_id} = useParams();
+  
+  const detailURL = "http://127.0.0.1:8080/todo/detail/"
+
   // const [done, setDone] = React.useState(null);
 
   const handleClose = () => {
@@ -49,7 +51,7 @@ export default function AlertDialogSlide(
       department:id,
     })
     .then(() => {
-      axios.get(`${detailURL}`).then((response) => {
+      axios.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
         setDetails(response.data);
         });
     })

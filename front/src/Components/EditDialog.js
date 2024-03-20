@@ -51,7 +51,7 @@ export default function AlertDialogSlide(
       .then(() => {
         setEditedTitle('');
         setEditedDeadline('');
-        axios.get(`${baseURL}`).then((response) => {
+        axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
           setBlogs(response.data);
          }); 
       })

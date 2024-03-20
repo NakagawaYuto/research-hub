@@ -47,7 +47,7 @@ export default function AlertDialogSlide(
       user: user_id,
     })
     .then(() => {
-      axios.get(`${baseURL}`).then((response) => {
+      axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
         setBlogs(response.data);
         });
     })

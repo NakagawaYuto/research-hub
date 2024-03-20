@@ -26,8 +26,6 @@ import AddDialog from '../components/AddDialog';
 // import BlogEditButton from '../components/BlogEditButton';
 
 
-const baseURL = "http://127.0.0.1:8080/todo/todo/"
-const detailURL = "http://127.0.0.1:8080/todo/detail/"
 
 
 const Home = () => {
@@ -49,9 +47,12 @@ const Home = () => {
  
   const [done, setDone] = React.useState(null);
   const details_for_this_blog = []
+  const {user_id}=useParams();
+  const baseURL = "http://127.0.0.1:8080/todo/todo/"
+  const detailURL = "http://127.0.0.1:8080/todo/detail/"
  
 
-  const {user_id}=useParams();
+ 
   const pageStyle = {
     backgroundColor: '#f5f5f5', // 薄いグレー
     minHeight: '100vh', // 画面全体の高さに背景を広げる
@@ -65,10 +66,10 @@ const Home = () => {
   React.useEffect(() => 
     {
      
-      axios.get(`${baseURL}`).then((response) => {
+      axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
         setBlogs(response.data);
        });
-      axios.get(`${detailURL}`).then((response) => {
+      axios.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
         console.log("GETのレスポンスのデータ (ここにデータはある): ", response.data);
         setDetails(response.data);
         console.log("setDetail直後のdetails (まだデータが入ってない, setは速度遅め) : ", details);
@@ -103,7 +104,7 @@ const Home = () => {
     const deadlineOk = deadline.length == 10;
    
     if (titleOk && deadlineOk) {
-      await axios.post(`${baseURL}`, {
+      await axios.post(`${baseURL}`+"?user="+String(user_id), {
         title: String(title),
         deadline: String(deadline),
         user: user_id,
@@ -112,7 +113,7 @@ const Home = () => {
       .then(() => {
         setTitle('');
         setDeadline('');
-        axios.get(`${baseURL}`).then((response) => {
+        axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
           setBlogs(response.data);
          });
         
@@ -129,7 +130,7 @@ const Home = () => {
     axios.delete(`${baseURL}`+String(id)+'/')
     .then(() => {
       setBlogs([]);
-      axios.get(`${baseURL}`).then((response) => {
+      axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
         setBlogs(response.data);
       });
     })

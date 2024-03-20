@@ -4,10 +4,13 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 
-const detailURL = "http://127.0.0.1:8080/todo/detail/";
+
 
 const DetailLogCards = ({ id }) => {
+    const { user_id } = useParams();
+    const detailURL = "http://127.0.0.1:8080/todo/detail/?user=" + String(user_id);
     const [details, setDetails] = useState(null);
 
     useEffect(() => {

@@ -7,8 +7,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import {useParams} from 'react-router-dom';
 
-const baseURL = "http://127.0.0.1:8080/todo/todo/"
-const detailURL = "http://127.0.0.1:8080/todo/detail/"
+
 
 const Logpage = () => {
   const [blogs, setBlogs] = React.useState(null);
@@ -21,10 +20,12 @@ const Logpage = () => {
   };
  
   const {user_id}=useParams();
+  const baseURL = "http://127.0.0.1:8080/todo/todo/"
+  // const detailURL = "http://127.0.0.1:8080/todo/detail/?user=" + String(user_id)
   React.useEffect(() => 
   {
     
-    axios.get(`${baseURL}`).then((response) => {
+    axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
       setBlogs(response.data);
      });
     

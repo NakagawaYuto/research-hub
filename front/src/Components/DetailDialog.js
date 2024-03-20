@@ -50,7 +50,7 @@ export default function AlertDialogSlide(
         </DialogContent>
         <DialogContent>
           <DetailLogCards
-            Detail={details}
+            // Detail={details}
             id={Target}
           />
         </DialogContent>

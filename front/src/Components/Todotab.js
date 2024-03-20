@@ -25,9 +25,12 @@ const detailURL = "http://127.0.0.1:8080/todo/detail/"
 
 
 
+
+
+
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
-
+  
   return (
     <div
       role="tabpanel"
@@ -88,7 +91,7 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
     console.log(blogs[newValue]);
     console.log(blogs[newValue].id);
     Target(blogs[newValue].id);
-    axios.get(`${baseURL}`).then((response) => {
+    axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
       setBlogs(response.data); // blogsを更新
     });
     
@@ -99,7 +102,7 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
     const deadlineOk = deadline.length == 10;
    
     if (titleOk && deadlineOk) {
-      await axios.post(`${detailURL}`, {
+      await axios.post(`${detailURL}`+"?user="+String(user_id), {
         detail_title: String(title),
         detail_deadline: String(deadline),
         department: id,
@@ -108,7 +111,7 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
       .then(() => {
         setTitle('');
         setDeadline('');
-        axios.get(`${detailURL}`).then((response) => {
+        axios.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
           setDetails(response.data);
          });
         
@@ -120,7 +123,7 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
     axios.delete(`${detailURL}`+String(id)+'/')
     .then(() => {
       setDetails([]);
-      axios.get(`${detailURL}`).then((response) => {
+      axios.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
         setDetails(response.data);
       });
     })
