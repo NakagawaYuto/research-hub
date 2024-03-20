@@ -87,12 +87,12 @@ export default function AlertDialogSlide(
 
         
     
-        <DialogActions>
+        
 
 
 
 
-
+        <DialogContent>
         <Grid item>
           <TextField
             id="alert-dialog-slide-description"
@@ -103,7 +103,7 @@ export default function AlertDialogSlide(
             style={{ 
               margin: 20, 
               fontFamily:'serif',
-              width: '20vw',
+              width: '40vw',
             }}
             onChange={(e)=>{setEditedTitle(e.target.value)}}
           />
@@ -118,10 +118,12 @@ export default function AlertDialogSlide(
             style={{ 
               margin: 20, 
               fontFamily:'serif',
-              width: '20vw',
+              width: '40vw',
             }}
             onChange={(e)=>{setEditedDeadline(e.target.value)}}
           />
+          </DialogContent>
+          <DialogActions>
 
 
           <Button onClick={()=> {

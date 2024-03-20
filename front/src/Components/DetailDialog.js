@@ -41,6 +41,13 @@ export default function AlertDialogSlide(
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
+        PaperProps={{
+          sx: {
+            width: '55%', // 幅を80%に設定する
+            maxWidth: 'none' // 最大幅を無効にする
+          }
+        }}
+       
       >
         <DialogTitle fontFamily='Meiryo'>{"詳細"}</DialogTitle>
         <DialogContent>

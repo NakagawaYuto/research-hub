@@ -72,11 +72,15 @@ export default function AlertDialogSlide(
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
+        PaperProps={{
+          sx: {
+            width: '500px' // 幅を変更する
+          }}}
       >
         <DialogTitle>{"作業の完了"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            完了しますか？
+            この作業を完了しますか？
           </DialogContentText>
         </DialogContent>
         <DialogActions>

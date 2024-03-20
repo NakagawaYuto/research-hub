@@ -76,6 +76,7 @@ export default function AlertDialogSlide(
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
+       
       >
         <DialogTitle>{"編集"}</DialogTitle>
         <DialogContent>
@@ -90,13 +91,13 @@ export default function AlertDialogSlide(
 
         
     
-        <DialogActions>
+        
 
 
 
 
 
-        <Grid item>
+          <DialogContent>
           <TextField
             id="alert-dialog-slide-description"
             label="追加する作業"
@@ -106,11 +107,11 @@ export default function AlertDialogSlide(
             style={{ 
               margin: 20, 
               fontFamily:'serif',
-              width: '20vw',
+              width: '40vw',
             }}
             onChange={(e)=>{setEditedTitle(e.target.value)}}
           />
-          </Grid>
+       
         
           <TextField
             id="alert-dialog-slide-description"
@@ -121,10 +122,12 @@ export default function AlertDialogSlide(
             style={{ 
               margin: 20, 
               fontFamily:'serif',
-              width: '20vw',
+              width: '40vw',
             }}
             onChange={(e)=>{setEditedDeadline(e.target.value)}}
           />
+          </DialogContent>
+          <DialogActions>
 
 
           <Button onClick={()=> {
