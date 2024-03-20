@@ -8,6 +8,8 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useParams, useNavigate } from 'react-router-dom';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import IconButton from '@mui/material/IconButton';
 
 // 自作コンポーネント
 import BlogCards from '../components/BlogCards';
@@ -151,6 +153,14 @@ const Home = () => {
   return (
     <div style={pageStyle}>
       <Header />
+      <Grid item xs={3}>
+          <IconButton onClick={() => navigate(`/user/${user_id}/`)} style={{ fontFamily: 'Meiryo', fontSize: '20px', fontWeight: 'bold', color: '#666', marginTop: '0px', marginLeft: '20px' }}>
+            <ArrowBackIosIcon />
+            <Typography>
+              戻る
+            </Typography>
+          </IconButton>
+        </Grid>
     <Box sx={{ flexGrow: 1 }}>
 
       {/* <Grid container alignItems='center' justify='center' direction="column">
@@ -244,25 +254,9 @@ const Home = () => {
        
       
       </Box>
-      <Button 
-          variant="contained" 
-          onClick={() => {
-            navigate(`/user/${user_id}/log/`);
-          }}
-          style={{
-            width: 100,
-            color: "#e0f2f1",
-            fontSize: 25,
-            fontFamily:'serif',
-            background: '#1976d2',
-            padding: 3,
-            borderRadius: 5,
-            boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
-          }}
-          size="large"
-      >ログ</Button>
+      
 
-     <Grid container justifyContent="flex-end">
+     <Grid container justifyContent="flex-end" >
       <Grid item>
       
       <DeleteButton 
@@ -334,6 +328,34 @@ const Home = () => {
         setBlogs={setBlogs}
         
       /> 
+
+
+      <Grid container justifyContent="flex-end">
+      <Grid item>
+      
+      <Button 
+          variant="contained" 
+          onClick={() => {
+            navigate(`/user/${user_id}/log/`);
+          }}
+          style={{
+            width: 100,
+            color: "#e0f2f1",
+            fontSize: 25,
+            fontFamily:'serif',
+            background: '#1976d2',
+            padding: 3,
+            borderRadius: 5,
+            boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
+            marginRight: 20
+           
+            
+            
+          }}
+          size="large"
+      >ログ</Button>
+      </Grid>
+      </Grid>
    
 
 
