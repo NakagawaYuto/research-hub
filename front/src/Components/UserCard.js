@@ -1,6 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const UserCard = ({ user }) => {
     const navigate = useNavigate();
