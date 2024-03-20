@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Grid, Typography, Card, CardContent, Divider } from '@mui/material';
+import { Box, Grid, Typography, Card } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import UserCard from '../components/UserCard';
@@ -32,7 +32,7 @@ const HomePage = () => {
   const fetchTroubles = async () => {
     try {
       const response = await axios.get(troubleURL);
-      const sortedData = response.data.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
+      const sortedData = response.data.sort((a, b) => new Date(b.updated_date) - new Date(a.updated_date));
       setTroubles(sortedData);
     } catch (error) {
       console.error('There was an error fetching the troubles:', error);
@@ -50,7 +50,7 @@ const HomePage = () => {
 
       <Box sx={{ flexGrow: 1, padding: '20px' }}>
         <Grid container spacing={4} justifyContent="center">
-          <Grid item xs={6} container justifyContent="center" sx={{ overflow: 'auto', maxHeight: '90vh' }}>
+          <Grid item xs={7} container justifyContent="center" sx={{ overflow: 'auto', maxHeight: '90vh' }}>
             {users.map((user) => (
               <Grid item key={user.id} xs={12} container justifyContent="center">
                 <UserCard user={user} />
@@ -58,16 +58,15 @@ const HomePage = () => {
             ))}
             <AddButton onClick={() => navigate('/user/add/')}></AddButton>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={5} container justifyContent="center" sx={{ overflow: 'auto', maxHeight: '90vh' }}>
             <Typography variant='h4' gutterBottom>
               悩みタイムライン
             </Typography>
-            {troubles.map((trouble) => (
-              <Box key={trouble.id}>
-                <TroubleTimeline trouble={trouble} />
-                <Divider />
-              </Box>
-            ))}
+            <Card sx={{ mb: 4, width: '70%' }}>
+              {troubles.map((trouble) => (
+                <TroubleTimeline key={trouble.id} trouble={trouble} users={users} />
+              ))}
+            </Card>
           </Grid>
         </Grid>
       </Box>
