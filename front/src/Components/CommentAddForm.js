@@ -5,13 +5,13 @@ import Grid from '@mui/material/Grid';
 
 
 
-const CommentAddForm = ({ postId }) => {
+const CommentAddForm = ({ trouble_id }) => {
   //const navigate = useNavigate();
   const [name, setName] = useState('');
   const [body, setBody] = useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
 
-  const baseURL = "http://127.0.0.1:8080/comment/"
+  const baseURL = "http://127.0.0.1:8080/trouble/comment/";
 
   const addComment = () => {
     const nameOk = name.length !== 0;
@@ -20,7 +20,7 @@ const CommentAddForm = ({ postId }) => {
       axios.post(baseURL, {
         name: String(name),
         body: String(body),
-        trouble:String(postId),
+        trouble:String(trouble_id),
       })
       .then(() => {
         setName('');
@@ -82,5 +82,6 @@ const CommentAddForm = ({ postId }) => {
     </div>
   );
 };
+
 
 export default CommentAddForm;
