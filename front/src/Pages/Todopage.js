@@ -7,7 +7,9 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import IconButton from '@mui/material/IconButton';
 
 // 自作コンポーネント
 import BlogCards from '../components/BlogCards';
@@ -19,12 +21,13 @@ import EditDialog from '../components/EditDialog';
 import DoneButton from '../components/Donebutton';
 import DoneDialog from '../components/DoneDialog';
 import CustomTabPanel from '../components/Todotab';
+import Header from '../components/Header';
+import AddButton from '../components/AddButton';
+import AddDialog from '../components/AddDialog';
 
 // import BlogEditButton from '../components/BlogEditButton';
 
 
-const baseURL = "http://127.0.0.1:8080/todo/"
-const detailURL = "http://127.0.0.1:8080/detail/"
 
 
 const Home = () => {
@@ -39,12 +42,23 @@ const Home = () => {
   const [Target, setTarget] = React.useState(null);
   const [editTarget, setEditTarget] = React.useState(null);
   const [doneTarget, setDoneTarget] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+ 
+
+  
  
   const [done, setDone] = React.useState(null);
   const details_for_this_blog = []
+  const {user_id}=useParams();
+  const baseURL = "http://127.0.0.1:8080/todo/todo/"
+  const detailURL = "http://127.0.0.1:8080/todo/detail/"
  
 
-
+ 
+  const pageStyle = {
+    backgroundColor: '#f5f5f5', // 薄いグレー
+    minHeight: '100vh', // 画面全体の高さに背景を広げる
+  };
  
 
 
@@ -54,18 +68,21 @@ const Home = () => {
   React.useEffect(() => 
     {
      
-    
-      axios.get(baseURL).then((response) => {
+      axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
         setBlogs(response.data);
        });
-      axios.get(detailURL).then((response) => {
+      axios.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
+        console.log("GETのレスポンスのデータ (ここにデータはある): ", response.data);
         setDetails(response.data);
+        console.log("setDetail直後のdetails (まだデータが入ってない, setは速度遅め) : ", details);
       });
+    
     
     
       
     }, []);
   if (!blogs) return null;
+  if (!details) return null;
   if (details !== null){
     for (let i = 0; i < details.length; i++) {
       if(details[i].department === blogs.id){
@@ -73,6 +90,10 @@ const Home = () => {
       }
     }
   }
+  else{
+    console.log("details null!  ここの実行が早い.");
+  }
+ 
   
 
 
@@ -85,15 +106,16 @@ const Home = () => {
     const deadlineOk = deadline.length == 10;
    
     if (titleOk && deadlineOk) {
-      await axios.post(baseURL, {
+      await axios.post(`${baseURL}`+"?user="+String(user_id), {
         title: String(title),
         deadline: String(deadline),
+        user: user_id,
         
       })
       .then(() => {
         setTitle('');
         setDeadline('');
-        axios.get(baseURL).then((response) => {
+        axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
           setBlogs(response.data);
          });
         
@@ -106,11 +128,11 @@ const Home = () => {
 
 
   const deleteBlog = (id) => {
-    console.log(baseURL+String(id)+'/');
-    axios.delete(baseURL+String(id)+'/')
+    console.log(`${baseURL}`+String(id)+'/');
+    axios.delete(`${baseURL}`+String(id)+'/')
     .then(() => {
       setBlogs([]);
-      axios.get(baseURL).then((response) => {
+      axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
         setBlogs(response.data);
       });
     })
@@ -119,31 +141,43 @@ const Home = () => {
 
 
 
-  
-
-
-
-
 
   
 
+
+
+
+
+  
+  
   return (
-    <>
+    <div style={pageStyle}>
+      <Header />
+      
+      <Grid item xs={3}>
+          <IconButton onClick={() => navigate(`/user/${user_id}/`)} style={{ fontFamily: 'Meiryo', fontSize: '20px', fontWeight: 'bold', color: '#666', marginTop: '0px', marginLeft: '20px' }}>
+            <ArrowBackIosIcon />
+            <Typography>
+              戻る
+            </Typography>
+          </IconButton>
+        </Grid>
+    
+     
     <Box sx={{ flexGrow: 1 }}>
 
-      <Grid container alignItems='center' justify='center' direction="column">
-        <Grid item>
+      {/* <Grid container alignItems='center' justify='center' direction="column">
+       
           <Typography variant="h3" gutterBottom style={{ margin: 20, fontFamily:'serif' }}>
             Todolist
           </Typography>
-        </Grid>
-        
-      </Grid>
+      </Grid> */}
+      
 
-      <BlogCards 
+      {/* <BlogCards 
         Blogs={blogs}
         Target={setTarget}
-      />
+      /> */}
 
       {/* <BlogEditButton/> */}
 
@@ -158,8 +192,8 @@ const Home = () => {
       autoComplete="off"
     >
       <Grid container alignItems='center' justify='center' direction="column">
-        <Grid item>
-          <Typography 
+       
+          {/* <Typography 
             variant="h4" 
             style={{ 
               margin: 20, 
@@ -167,11 +201,11 @@ const Home = () => {
             }}
           >
             Todoの追加
-          </Typography>
-        </Grid>
-        <Grid item>
-        <Grid item>
-          <TextField
+          </Typography> */}
+        
+        
+        
+          {/* <TextField
             id="outlined-multiline-flexible"
             label="追加する作業"
             multiline
@@ -179,14 +213,14 @@ const Home = () => {
             value={title}
             style={{ 
               margin: 20, 
-              fontFamily:'serif',
+              fontFamily: 'Meiryo',
               width: '50vw',
             }}
             onChange={(e)=>{setTitle(e.target.value)}}
-          />
-          </Grid>
+          /> */}
+          
         
-          <TextField
+          {/* <TextField
             id="outlined-multiline-flexible"
             label="期限(YYYY-MM-DD)"
             multiline
@@ -194,16 +228,14 @@ const Home = () => {
             value={deadline}
             style={{ 
               margin: 20, 
-              fontFamily:'serif',
+              fontFamily: 'Meiryo',
               width: '50vw',
             }}
             onChange={(e)=>{setDeadline(e.target.value)}}
-          />
-        </Grid>
+          /> */}
         
         
-      
-          <Button 
+          {/* <Button 
             variant="contained" 
             onClick={() => {
               addBlog();
@@ -213,25 +245,27 @@ const Home = () => {
               color: "#e0f2f1",
               fontSize: 25,
               fontFamily: 'serif',
-              background: "#3c3c3c",
+              background: '#1976d2',
               padding: 3,
               borderRadius: 5,
               boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
             }}
             size="large"
-          >追加</Button>
+          >追加</Button> */}
         </Grid>
         
        
       
       </Box>
+      
 
-
+     <Grid container justifyContent="flex-end" >
+      <Grid item>
+      
       <DeleteButton 
         Target={Target}
         delTarget={setDelTarget}
         
-       
       />
       <EditButton 
         Target={Target}
@@ -245,23 +279,25 @@ const Home = () => {
      
       
       />
-      <Button 
-            variant="contained" 
-            onClick={() => {
-              navigate('/log/');
-            }}
-            style={{
-              width: 100,
-              color: "#e0f2f1",
-              fontSize: 25,
-              fontFamily: 'serif',
-              background: "#3c3c3c",
-              padding: 3,
-              borderRadius: 5,
-              boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
-            }}
-            size="large"
-          >ログ</Button>
+      <AddButton 
+          setOpen={setOpen}
+          />
+      </Grid>
+      </Grid>
+     
+      
+      
+          
+          
+          <AddDialog 
+           open={open}
+           setOpen = {setOpen}
+           title = {title}
+           setTitle = {setTitle}
+           deadline = {deadline}
+           setDeadline = {setDeadline}
+           addBlog ={addBlog}
+          />
 
 
 
@@ -281,15 +317,46 @@ const Home = () => {
       />
       <DoneDialog 
         doneTarget={doneTarget}
-        setDoneTarget={setDoneTarget}
+        // setDoneTarget={setDoneTarget}
         setBlogs={setBlogs}
-        deleteBlog={deleteBlog}
+        // deleteBlog={deleteBlog}
        
       />
+      
       <CustomTabPanel
-        blogs={blogs}
-        details={details}
-      />
+        todo={blogs} 
+        details={details} 
+        setDetails={setDetails}
+        Target={setTarget}
+        setBlogs={setBlogs}
+        
+      /> 
+          <Grid container justifyContent="flex-end">
+      <Grid item>
+      
+      <Button 
+          variant="contained" 
+          onClick={() => {
+            navigate(`/user/${user_id}/log/`);
+          }}
+          style={{
+            width: 100,
+            color: "#e0f2f1",
+            fontSize: 25,
+            fontFamily:'serif',
+            background: '#115293',
+            padding: 3,
+            borderRadius: 5,
+            boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
+            marginRight: 20
+           
+            
+            
+          }}
+          size="large"
+      >ログ</Button>
+      </Grid>
+      </Grid>
 
 
 
@@ -299,7 +366,7 @@ const Home = () => {
 
 
 
-    </>
+    </div>
   );
 };
 

@@ -3,8 +3,8 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActionArea from '@mui/material/CardActionArea';
-import { useNavigate } from 'react-router-dom';
-const detailURL = "http://127.0.0.1:8080/detail/"
+import { useParams,useNavigate } from 'react-router-dom';
+const detailURL = "http://127.0.0.1:8080/todo/detail/?user="+String(user_id)
 
 
 const Tododetail = ({ Target }) => {
@@ -12,7 +12,7 @@ const Tododetail = ({ Target }) => {
   const navigate = useNavigate();
   var Cards = [];
   const [details, setDetails] = React.useState(null);
-  axios.get(detailURL).then((response) => {
+  axios.get(`${detailURL}`).then((response) => {
     setDetails(response.data);
    });
    if (details !== null){
