@@ -3,6 +3,11 @@ gunicorn>=19.9.0,<20.0
 djangorestframework
 django-cors-headers
 
+djangorestframework-simplejwt  # for login
+djoser
+mysqlclient==2.2.0
+python-dotenv
+
 # for developing
 autopep8==2.0.2
 flake8==6.0.0
