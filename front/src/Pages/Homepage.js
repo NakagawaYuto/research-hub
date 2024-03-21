@@ -4,7 +4,7 @@ import { Box, Grid, Typography, Card, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import UserCard from '../components/UserCard';
-import AddButton from '../components/AddButton';
+import AddUserButton from '../components/AddUserButton';
 import TroubleTimeline from '../components/TroubleTimeline';
 
 const baseURL = 'http://127.0.0.1:8080/users/';
@@ -76,7 +76,7 @@ const HomePage = () => {
                   <UserCard user={user} onTagClick={handleTagClick} />
                 </Grid>
               ))}
-              <AddButton onClick={() => navigate('/user/add/')}></AddButton>
+              <AddUserButton onClick={() => navigate('/user/add/')}></AddUserButton>
             </div>
           </Grid>
           <Grid item xs={5} container justifyContent="center" sx={{ overflow: 'auto', maxHeight: '90vh' }}>
