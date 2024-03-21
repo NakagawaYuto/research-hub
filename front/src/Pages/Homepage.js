@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Box, Grid, Typography, Card, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -7,8 +6,10 @@ import UserCard from '../components/UserCard';
 import AddUserButton from '../components/AddUserButton';
 import TroubleTimeline from '../components/TroubleTimeline';
 
-const baseURL = 'http://127.0.0.1:8080/users/';
-const troubleURL = 'http://127.0.0.1:8080/trouble/trouble/';
+import createAxiosInstance from '../createAxiosInstance';
+
+const baseURL = 'users/';
+const troubleURL = 'trouble/trouble/';
 
 const pageStyle = {
   backgroundColor: '#f5f5f5',
@@ -32,7 +33,10 @@ const HomePage = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(baseURL);
+      const ax = createAxiosInstance();
+      const response = await ax.get(baseURL).catch((err) => {
+        navigate('/login');
+      });
       setUsers(response.data);
     } catch (error) {
       console.error(error);
@@ -41,7 +45,10 @@ const HomePage = () => {
 
   const fetchTroubles = async () => {
     try {
-      const response = await axios.get(troubleURL);
+      const ax = createAxiosInstance();
+      const response = await ax.get(troubleURL).catch((err) => {
+        navigate('/login');
+      });
       const sortedData = response.data.sort((a, b) => new Date(b.updated_date) - new Date(a.updated_date));
       setTroubles(sortedData);
     } catch (error) {

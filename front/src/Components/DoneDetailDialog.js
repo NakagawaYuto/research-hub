@@ -1,5 +1,5 @@
 import * as React from 'react';
-import axios from "axios";
+import createAxiosInstance from '../createAxiosInstance';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -25,7 +25,7 @@ export default function AlertDialogSlide(
   const [open, setOpen] = React.useState(false);
   const {user_id} = useParams();
   
-  const detailURL = "http://127.0.0.1:8080/todo/detail/"
+  const detailURL = "todo/detail/"
 
   // const [done, setDone] = React.useState(null);
 
@@ -35,15 +35,15 @@ export default function AlertDialogSlide(
   };
   const doneTodo= async(Target) =>{
     let todo = null;
-    
-    await axios.get(`${detailURL}`+String(Target)+'/').then((response) => {
+    const ax = createAxiosInstance();
+    await ax.get(`${detailURL}`+String(Target)+'/').then((response) => {
       console.log(response.data);
       todo = response.data;
       // setDone(response.data);
     });
      
     
-    await axios.put(`${detailURL}`+String(Target)+'/', {
+    await ax.put(`${detailURL}`+String(Target)+'/', {
       id:todo.id,
       detail_title:String(todo.detail_title),
       detail_deadline: String(todo.detail_deadline),
@@ -51,7 +51,7 @@ export default function AlertDialogSlide(
       department:id,
     })
     .then(() => {
-      axios.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
+      ax.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
         setDetails(response.data);
         });
     })

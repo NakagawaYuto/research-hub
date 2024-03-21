@@ -1,5 +1,5 @@
 import * as React from 'react';
-import axios from "axios";
+import createAxiosInstance from '../createAxiosInstance';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -13,7 +13,7 @@ import {useParams} from 'react-router-dom';
 
 
 
-const baseURL = "http://127.0.0.1:8080/todo/todo/"
+const baseURL = "todo/todo/"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -43,7 +43,8 @@ export default function AlertDialogSlide(
     
     if (titleOk && deadlineOk) {
       console.log(`${baseURL}`+String(editTarget)+'/');
-      await axios.put(`${baseURL}`+String(editTarget)+'/', {
+      const ax = createAxiosInstance();
+      await ax.put(`${baseURL}`+String(editTarget)+'/', {
         title: String(edited_title),
         deadline: String(edited_deadline),
         user: user_id,
@@ -51,7 +52,7 @@ export default function AlertDialogSlide(
       .then(() => {
         setEditedTitle('');
         setEditedDeadline('');
-        axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
+        ax.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
           setBlogs(response.data);
          }); 
       })

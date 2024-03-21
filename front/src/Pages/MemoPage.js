@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Grid, IconButton, TextField, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Header from '../components/Header';
 
-const baseURL = 'http://127.0.0.1:8080/users/';
+import createAxiosInstance from '../createAxiosInstance';
+
+
+const baseURL = 'users/';
 
 const pageStyle = {
   backgroundColor: '#f5f5f5',
@@ -26,7 +28,8 @@ const MemoPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${baseURL}${user_id}/`);
+        const ax = createAxiosInstance();
+        const response = await ax.get(`${baseURL}${user_id}/`);
         setMemo(response.data.memo);
       } catch (error) {
         console.error(error);
@@ -38,7 +41,8 @@ const MemoPage = () => {
 
   const saveMemo = async (updatedMemo) => {
     try {
-      await axios.patch(`${baseURL}${user_id}/`, { memo: updatedMemo });
+      const ax = createAxiosInstance();
+      await ax.patch(`${baseURL}${user_id}/`, { memo: updatedMemo });
     } catch (error) {
       console.error(error);
     }

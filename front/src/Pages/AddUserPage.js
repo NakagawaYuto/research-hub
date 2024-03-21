@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Header from '../components/Header';
 
-const baseURL = 'http://127.0.0.1:8080/users/';
+import createAxiosInstance from '../createAxiosInstance';
+
+
+const baseURL = 'users/';
 
 const pageStyle = {
   backgroundColor: '#f5f5f5',
@@ -42,7 +44,8 @@ const AddUserPage = () => {
     };
 
     try {
-      const response = await axios.post(baseURL, newUser);
+      const ax = createAxiosInstance();
+      const response = await ax.post(baseURL, newUser);
       console.log(response.data);
       navigate('/');
     } catch (error) {

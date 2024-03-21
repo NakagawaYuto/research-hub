@@ -1,5 +1,4 @@
 import * as React from 'react';
-import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
 import Typography from '@mui/material/Typography';
@@ -11,6 +10,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DetailCard from '../components/DetailCard';
 import CommentCards from '../components/CommentCards';
 import Header from '../components/Header';
+
+import createAxiosInstance from '../createAxiosInstance';
 
 
 const pageStyle = {
@@ -24,10 +25,11 @@ const TroubleDetailPage = () => {
   const { user_id } = useParams();
   const [trouble, setTrouble] = React.useState(null);
   const navigate = useNavigate();
-  const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/";
+  const baseURL = "trouble/trouble/" + String(trouble_id) + "/";
 
   React.useEffect(() => {
-    axios.get(baseURL).then((response) => {
+    const ax = createAxiosInstance();
+    ax.get(baseURL).then((response) => {
       setTrouble(response.data);
     });
   }, []);

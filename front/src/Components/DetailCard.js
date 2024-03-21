@@ -1,5 +1,4 @@
 import * as React from 'react';
-import axios from "axios";
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -12,6 +11,7 @@ import Avatar from '@mui/material/Avatar';
 
 import DateConvert from './DateConvert';
 import DetailButton from './DetailButton';
+import createAxiosInstance from '../createAxiosInstance';
 
 
 const DetailCard = () => {
@@ -20,16 +20,17 @@ const DetailCard = () => {
   const [users, setUsers] = React.useState(null);
   const { trouble_id } = useParams();
   const { user_id } = useParams();
-  const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/"
-
+  const baseURL = "trouble/trouble/" + String(trouble_id) + "/"
+  const userURL = "users/"
 
   React.useEffect(() => {
-    axios.get(baseURL).then((response) => {
+    const ax = createAxiosInstance();
+    ax.get(baseURL).then((response) => {
       setTrouble(response.data);
     });
 
     //ユーザーデータ取得
-    axios.get("http://127.0.0.1:8080/users/").then((userResponse) => {
+    ax.get(userURL).then((userResponse) => {
       setUsers(userResponse.data);
     });
   }, []

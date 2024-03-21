@@ -1,5 +1,4 @@
 import * as React from 'react';
-import axios from "axios";
 
 // 外部コンポーネント
 import Box from '@mui/material/Box';
@@ -25,8 +24,7 @@ import Header from '../components/Header';
 import AddButton from '../components/AddButton';
 import AddDialog from '../components/AddDialog';
 
-// import BlogEditButton from '../components/BlogEditButton';
-
+import createAxiosInstance from '../createAxiosInstance';
 
 
 
@@ -50,8 +48,8 @@ const Home = () => {
   const [done, setDone] = React.useState(null);
   const details_for_this_blog = []
   const {user_id}=useParams();
-  const baseURL = "http://127.0.0.1:8080/todo/todo/"
-  const detailURL = "http://127.0.0.1:8080/todo/detail/"
+  const baseURL = "todo/todo/"
+  const detailURL = "todo/detail/"
  
 
  
@@ -67,11 +65,11 @@ const Home = () => {
   // 初回ロード時の処理を記述する.
   React.useEffect(() => 
     {
-     
-      axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
+      const ax = createAxiosInstance();
+      ax.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
         setBlogs(response.data);
        });
-      axios.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
+        ax.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
         console.log("GETのレスポンスのデータ (ここにデータはある): ", response.data);
         setDetails(response.data);
         console.log("setDetail直後のdetails (まだデータが入ってない, setは速度遅め) : ", details);
@@ -106,7 +104,8 @@ const Home = () => {
     const deadlineOk = deadline.length == 10;
    
     if (titleOk && deadlineOk) {
-      await axios.post(`${baseURL}`+"?user="+String(user_id), {
+      const ax = createAxiosInstance();
+      await ax.post(`${baseURL}`+"?user="+String(user_id), {
         title: String(title),
         deadline: String(deadline),
         user: user_id,
@@ -115,7 +114,8 @@ const Home = () => {
       .then(() => {
         setTitle('');
         setDeadline('');
-        axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
+        const ax = createAxiosInstance();
+        ax.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
           setBlogs(response.data);
          });
         
@@ -129,10 +129,11 @@ const Home = () => {
 
   const deleteBlog = (id) => {
     console.log(`${baseURL}`+String(id)+'/');
-    axios.delete(`${baseURL}`+String(id)+'/')
+    const ax = createAxiosInstance();
+    ax.delete(`${baseURL}`+String(id)+'/')
     .then(() => {
       setBlogs([]);
-      axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
+      ax.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
         setBlogs(response.data);
       });
     })

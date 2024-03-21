@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Button, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 
+import createAxiosInstance from '../createAxiosInstance';
 
 
 const CommentAddForm = ({ trouble_id }) => {
@@ -11,13 +11,14 @@ const CommentAddForm = ({ trouble_id }) => {
   const [body, setBody] = useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
 
-  const baseURL = "http://127.0.0.1:8080/trouble/comment/";
+  const baseURL = "trouble/comment/";
 
   const addComment = () => {
     const nameOk = name.length !== 0;
     const bodyOk = body.length !== 0;
     if (nameOk && bodyOk) {
-      axios.post(baseURL, {
+      const ax = createAxiosInstance();
+      ax.post(baseURL, {
         name: String(name),
         body: String(body),
         trouble:String(trouble_id),

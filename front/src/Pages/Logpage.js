@@ -1,5 +1,4 @@
 import * as React from 'react';
-import axios from "axios";
 import LogCards from '../components/LogCards';
 import DetailDialog from '../components/DetailDialog';
 import Header from '../components/Header';
@@ -9,6 +8,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
+import createAxiosInstance from '../createAxiosInstance';
 
 
 const Logpage = () => {
@@ -23,12 +23,12 @@ const Logpage = () => {
   };
  
   const {user_id}=useParams();
-  const baseURL = "http://127.0.0.1:8080/todo/todo/"
+  const baseURL = "todo/todo/"
   // const detailURL = "http://127.0.0.1:8080/todo/detail/?user=" + String(user_id)
   React.useEffect(() => 
   {
-    
-    axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
+    const ax = createAxiosInstance();
+    ax.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
       setBlogs(response.data);
      });
     

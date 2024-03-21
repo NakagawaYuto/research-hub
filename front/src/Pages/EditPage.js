@@ -1,5 +1,4 @@
 import * as React from 'react';
-import axios from "axios";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
@@ -14,12 +13,15 @@ import Avatar from '@mui/material/Avatar';
 
 import Header from '../components/Header';
 
+import createAxiosInstance from '../createAxiosInstance';
+
 
 const Edit = () => {
   const navigate = useNavigate();
   const { trouble_id } = useParams();
   const { user_id } = useParams();
-  const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/";
+  const baseURL = "trouble/trouble/" + String(trouble_id) + "/";
+  const userURL = "users/"
   const [trouble, setTrouble] = React.useState(null);
   const [title, setTitle] = React.useState('');
   const [body, setBody] = React.useState('');
@@ -34,14 +36,15 @@ const Edit = () => {
 
   // 初回ロード時の処理を記述する.
   React.useEffect(() => {
-    axios.get(baseURL).then((response) => {
+    const ax = createAxiosInstance();
+    ax.get(baseURL).then((response) => {
       const { title, body } = response.data;
       setTitle(title);
       setBody(body);
       setTrouble(response.data);
     });
     //ユーザーデータ取得
-    axios.get("http://127.0.0.1:8080/users/").then((userResponse) => {
+    ax.get(userURL).then((userResponse) => {
       setUsers(userResponse.data);
     });
   }, []);
@@ -54,7 +57,8 @@ const Edit = () => {
     const titleOk = title.length !== 0;
     const bodyOk = body.length !== 0;
     if (titleOk && bodyOk) {
-      axios.patch(baseURL, { //patchで上書きする
+      const ax = createAxiosInstance();
+      ax.patch(baseURL, { //patchで上書きする
         title: String(title),
         body: String(body),
       })
