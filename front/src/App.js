@@ -5,9 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from './pages/Homepage';
 import UserPage from './pages/UserPage';
 import AddUserPage from './pages/AddUserPage';
-import ThemePage from './pages/ThemePage';
 import MemoPage from './pages/MemoPage';
-import NoveltyPage from './pages/NoveltyPage';
 import TodoPage from './pages/Todopage';
 import LogPage from './pages/Logpage';
 import TroublePage from './pages/TroublePage';
@@ -23,9 +21,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/user/add" element={<AddUserPage />} />
         <Route path="/user/:user_id" element={<UserPage />} />
-        <Route path="/user/:user_id/theme" element={<ThemePage />} />
         <Route path="/user/:user_id/memo" element={<MemoPage />} />
-        <Route path="/user/:user_id/novelty" element={<NoveltyPage />} />
       
         <Route path="/user/:user_id/todo/" element={<TodoPage/>} />
         <Route path="/user/:user_id/log/" element={<LogPage/>} />
