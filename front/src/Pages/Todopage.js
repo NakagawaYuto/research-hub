@@ -261,50 +261,37 @@ const Home = () => {
 
      <Grid container justifyContent="flex-end" >
       <Grid item>
-      
-      <DeleteButton 
-        Target={Target}
-        delTarget={setDelTarget}
-        
-      />
-      <EditButton 
-        Target={Target}
-        editTarget={setEditTarget}
-        
-       
-      />
-      <DoneButton 
-        Target={Target}
-        doneTarget={setDoneTarget}
-     
-      
-      />
-      <AddButton 
+        <AddButton 
           setOpen={setOpen}
-          />
-      </Grid>
-      </Grid>
-     
+        />
       
-      
+        <DeleteButton 
+          Target={Target}
+          delTarget={setDelTarget}
           
+        />
+        <EditButton 
+          Target={Target}
+          editTarget={setEditTarget}
           
-          <AddDialog 
-           open={open}
-           setOpen = {setOpen}
-           title = {title}
-           setTitle = {setTitle}
-           deadline = {deadline}
-           setDeadline = {setDeadline}
-           addBlog ={addBlog}
-          />
+        
+        />
+        <DoneButton 
+          Target={Target}
+          doneTarget={setDoneTarget}
+        />
 
-
-
-
-
-    
-      
+      </Grid>
+    </Grid>    
+      <AddDialog 
+        open={open}
+        setOpen = {setOpen}
+        title = {title}
+        setTitle = {setTitle}
+        deadline = {deadline}
+        setDeadline = {setDeadline}
+        addBlog ={addBlog}
+      />
       <DeleteConfirmDialog 
         delTarget={delTarget}
         setDelTarget={setDelTarget}
@@ -322,16 +309,14 @@ const Home = () => {
         // deleteBlog={deleteBlog}
        
       />
-      
       <CustomTabPanel
         todo={blogs} 
         details={details} 
         setDetails={setDetails}
         Target={setTarget}
         setBlogs={setBlogs}
-        
       /> 
-          <Grid container justifyContent="flex-end">
+    <Grid container justifyContent="flex-end">
       <Grid item>
       
       <Button 
@@ -348,15 +333,12 @@ const Home = () => {
             padding: 3,
             borderRadius: 5,
             boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
-            marginRight: 20
-           
-            
-            
+            marginRight: 20            
           }}
           size="large"
       >ログ</Button>
       </Grid>
-      </Grid>
+    </Grid>
 
 
 

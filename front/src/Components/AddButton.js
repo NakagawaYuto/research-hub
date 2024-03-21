@@ -1,33 +1,44 @@
-import IconButton from '@mui/material/IconButton';
-import AddIcon from '@mui/icons-material/Add';
+import * as React from 'react';
 
-const AddButton = ({ onClick }) => {
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+import EditIcon from '@mui/icons-material/Edit';
+import Add from '@mui/icons-material/Add';
+
+const Addbutton = ({setOpen}) => {
+
+    
     return (
-        <>
-            <IconButton
-                edge='start'
-                aria-label='menu'
-                style={{
-                    background: '#007bff',
-                    borderRadius: '50',
-                    position: 'fixed',
-                    bottom: 50,
-                    left: '52%',
-                    boxShadow: '3px 3px 3px rgba(0,0,0,0.3)',
-                }}
-                onClick={() => { onClick() }}
-            >
-                <AddIcon
-                    fontSize='large'
-                    style={{
-                        color: '#eceff1',
-                        width: 50,
-                        height: 50
-                    }}
-                />
-            </IconButton>
-        </>
+      
+
+
+      
+        
+        <IconButton 
+                  aria-label="delete" 
+                  size="inherit"
+                  style={{ 
+                    background: '#1976d2', 
+                    margin:5,
+                    boxShadow: '2px 2px 2px rgba(0,0,0,0.3)'
+                  }}
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                >
+                  <Add
+                    fontSize="large"
+                    style={{ color: '#eceff1' }}
+                  />
+                </IconButton>
     )
 }
-
-export default AddButton;
+  
+  
+export default Addbutton;
