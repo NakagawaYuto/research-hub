@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography } from '@mui/material';
+import { Card, CardContent, Typography, Chip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const tagURL = 'http://127.0.0.1:8080/techtags/';
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, onTagClick }) => {
     const navigate = useNavigate();
     const [techTags, setTechTags] = useState([]);
 
@@ -23,18 +23,32 @@ const UserCard = ({ user }) => {
         navigate(`/user/${user.id}`);
     };
 
-    const techTagNames = user.tech_tags.map(tagId => {
-        const tag = techTags.find(t => t.id === tagId);
-        return tag ? tag.name : '';
-    }).join(', ');
+    const handleTagClick = (tagId) => {
+        onTagClick(tagId);
+    };
 
     return (
-        <Card sx={{ mb: 4, width: '70%' }} onClick={handleCardClick} style={{ cursor: 'pointer' }}>
-            <CardContent>
+        <Card sx={{ width: '70%' }} onClick={handleCardClick} style={{ cursor: 'pointer' }}>
+            <CardContent style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
                 <Typography variant='h5'>{user.name}</Typography>
                 <Typography color='textSecondary'>{user.student_id}</Typography>
                 <Typography color='textSecondary'>{user.research_theme}</Typography>
-                <Typography color='textSecondary'>{techTagNames}</Typography>
+                <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                    {user.tech_tags.map(tagId => {
+                        const tag = techTags.find(t => t.id === tagId);
+                        return tag ? (
+                            <Chip
+                                key={tag.id}
+                                label={tag.name}
+                                style={{ margin: '2px' }}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleTagClick(tag.id);
+                                }}
+                            />
+                        ) : null;
+                    })}
+                </div>
             </CardContent>
         </Card>
     );

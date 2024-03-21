@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Grid, Typography, Card } from '@mui/material';
+import { Box, Grid, Typography, Card, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import UserCard from '../components/UserCard';
@@ -18,7 +18,17 @@ const pageStyle = {
 const HomePage = () => {
   const [users, setUsers] = useState([]);
   const [troubles, setTroubles] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const navigate = useNavigate();
+
+  const handleTagClick = (tagId) => {
+    const filtered = users.filter(user => user.tech_tags.includes(tagId));
+    setFilteredUsers(filtered);
+  };
+
+  const resetFilter = () => {
+    setFilteredUsers(users);
+  };
 
   const fetchUsers = async () => {
     try {
@@ -44,19 +54,30 @@ const HomePage = () => {
     fetchTroubles();
   }, []);
 
+  useEffect(() => {
+    setFilteredUsers(users);
+  }, [users]);
+
   return (
     <div style={pageStyle}>
       <Header />
 
       <Box sx={{ flexGrow: 1, padding: '20px' }}>
-        <Grid container spacing={4} justifyContent="center">
+        <Grid container justifyContent="center">
           <Grid item xs={7} container justifyContent="center" sx={{ overflow: 'auto', maxHeight: '90vh' }}>
-            {users.map((user) => (
-              <Grid item key={user.id} xs={12} container justifyContent="center">
-                <UserCard user={user} />
-              </Grid>
-            ))}
-            <AddButton onClick={() => navigate('/user/add/')}></AddButton>
+            <Box sx={{ width: '95%', display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+              <Button variant="contained" onClick={resetFilter}>
+                フィルタリングを解除
+              </Button>
+            </Box>
+            <div style={{ minHeight: '100%', width: '95%', display: 'flex', flexDirection: 'column' }}>
+              {filteredUsers.map((user) => (
+                <Grid item key={user.id} xs={12} container justifyContent="center" style={{ margin: '10px', maxHeight: '20vh' }}>
+                  <UserCard user={user} onTagClick={handleTagClick} />
+                </Grid>
+              ))}
+              <AddButton onClick={() => navigate('/user/add/')}></AddButton>
+            </div>
           </Grid>
           <Grid item xs={5} container justifyContent="center" sx={{ overflow: 'auto', maxHeight: '90vh' }}>
             <Typography variant='h4' gutterBottom>
