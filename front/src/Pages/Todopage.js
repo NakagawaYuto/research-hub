@@ -153,6 +153,7 @@ const Home = () => {
   return (
     <div style={pageStyle}>
       <Header />
+      
       <Grid item xs={3}>
           <IconButton onClick={() => navigate(`/user/${user_id}/`)} style={{ fontFamily: 'Meiryo', fontSize: '20px', fontWeight: 'bold', color: '#666', marginTop: '0px', marginLeft: '20px' }}>
             <ArrowBackIosIcon />
@@ -161,6 +162,8 @@ const Home = () => {
             </Typography>
           </IconButton>
         </Grid>
+    
+     
     <Box sx={{ flexGrow: 1 }}>
 
       {/* <Grid container alignItems='center' justify='center' direction="column">
@@ -328,9 +331,7 @@ const Home = () => {
         setBlogs={setBlogs}
         
       /> 
-
-
-      <Grid container justifyContent="flex-end">
+          <Grid container justifyContent="flex-end">
       <Grid item>
       
       <Button 
@@ -343,7 +344,7 @@ const Home = () => {
             color: "#e0f2f1",
             fontSize: 25,
             fontFamily:'serif',
-            background: '#1976d2',
+            background: '#115293',
             padding: 3,
             borderRadius: 5,
             boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
@@ -356,7 +357,6 @@ const Home = () => {
       >ログ</Button>
       </Grid>
       </Grid>
-   
 
 
 
