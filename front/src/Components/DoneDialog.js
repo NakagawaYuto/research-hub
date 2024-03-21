@@ -7,7 +7,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-const baseURL = "http://127.0.0.1:8080/todo/"
+import {useParams} from 'react-router-dom';
+const baseURL = "http://127.0.0.1:8080/todo/todo/"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -16,11 +17,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function AlertDialogSlide(
   {
     doneTarget, 
-    setDoneTarget,
+   
     setBlogs,
     
   }) {
   const [open, setOpen] = React.useState(false);
+  const {user_id} = useParams();
   // const [done, setDone] = React.useState(null);
 
   const handleClose = () => {
@@ -30,21 +32,22 @@ export default function AlertDialogSlide(
   const doneTodo= async(Target) =>{
     let todo = null;
     
-    await axios.get(baseURL+String(Target)+'/').then((response) => {
+    await axios.get(`${baseURL}`+String(Target)+'/').then((response) => {
       console.log(response.data);
       todo = response.data;
       // setDone(response.data);
     });
      
     
-    await axios.put(baseURL+String(Target)+'/', {
+    await axios.put(`${baseURL}`+String(Target)+'/', {
       id:todo.id,
       title:String(todo.title),
       deadline: String(todo.deadline),
       done: true,
+      user: user_id,
     })
     .then(() => {
-      axios.get(baseURL).then((response) => {
+      axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
         setBlogs(response.data);
         });
     })
@@ -65,11 +68,15 @@ export default function AlertDialogSlide(
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
+        PaperProps={{
+          sx: {
+            width: '500px' // 幅を変更する
+          }}}
       >
         <DialogTitle>{"作業の完了"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            完了しますか？
+            この作業を完了しますか？
           </DialogContentText>
         </DialogContent>
         <DialogActions>

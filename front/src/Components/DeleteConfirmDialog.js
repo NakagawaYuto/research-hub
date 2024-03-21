@@ -39,6 +39,10 @@ export default function AlertDialogSlide(
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
+        PaperProps={{
+          sx: {
+            width: '500px' // 幅を変更する
+          }}}
       >
         <DialogTitle>{"削除確認"}</DialogTitle>
         <DialogContent>

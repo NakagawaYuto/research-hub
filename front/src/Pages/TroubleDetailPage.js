@@ -57,5 +57,4 @@ const TroubleDetailPage = () => {
   );
 };
 
-
 export default TroubleDetailPage;
