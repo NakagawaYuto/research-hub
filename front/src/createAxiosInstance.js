@@ -20,7 +20,7 @@ const createAxiosInstance = () => {
   
   
     if(access_token !== undefined){ // アクセストークンが存在するなら
-      return axios.post('http://localhost:8080/auth/jwt/verify',{  // アクセストークンのチェック
+      return axios.post('https://mkr7ke6tvz.ap-northeast-1.awsapprunner.com/auth/jwt/verify',{  // アクセストークンのチェック
         token:access_token,
       }).then(res => {
         // すべての処理が終了した後に実行する
@@ -30,7 +30,7 @@ const createAxiosInstance = () => {
         if(err.response.status === 401){
           // 検証結果が401の場合リフレッシュを試す
           const refresh_token = cookies1.get('refreshtoken');
-          return axios.post('http://localhost:8080/auth/jwt/refresh',{
+          return axios.post('https://mkr7ke6tvz.ap-northeast-1.awsapprunner.com/auth/jwt/refresh',{
             refresh: refresh_token,
           }).then(res => {
             // トークンを更新した後にリクエストを送信
