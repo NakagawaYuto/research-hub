@@ -260,15 +260,10 @@ const Home = () => {
       
 
      <Grid container justifyContent="flex-end" >
-      <Grid item>
-        <AddButton 
-          setOpen={setOpen}
-        />
-      
+      <Grid item>     
         <DeleteButton 
           Target={Target}
           delTarget={setDelTarget}
-          
         />
         <EditButton 
           Target={Target}
@@ -279,6 +274,10 @@ const Home = () => {
         <DoneButton 
           Target={Target}
           doneTarget={setDoneTarget}
+        />
+
+        <AddButton 
+          setOpen={setOpen}
         />
 
       </Grid>
