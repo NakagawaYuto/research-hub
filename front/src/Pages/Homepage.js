@@ -63,16 +63,16 @@ const HomePage = () => {
       <Header />
 
       <Box sx={{ flexGrow: 1, padding: '20px' }}>
-        <Grid container justifyContent="center">
-          <Grid item xs={7} container justifyContent="center" sx={{ overflow: 'auto', maxHeight: '90vh' }}>
+        <Grid container justifyContent="center" alignItems="flex-start">
+          <Grid item xs={7} container justifyContent="center" alignItems="flex-start" sx={{ overflow: 'auto', maxHeight: '90vh' }}>
             <Box sx={{ width: '95%', display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
-              <Button variant="contained" onClick={resetFilter}>
+              <Button variant="contained" onClick={resetFilter} sx={{ width: '180px', height: '50px' }}>
                 フィルタリングを解除
               </Button>
             </Box>
-            <div style={{ minHeight: '100%', width: '95%', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ width: '95%', display: 'flex', flexDirection: 'column' }}>
               {filteredUsers.map((user) => (
-                <Grid item key={user.id} xs={12} container justifyContent="center" style={{ margin: '10px', maxHeight: '20vh' }}>
+                <Grid item key={user.id} xs={12} container justifyContent="center" alignItems="flex-start" style={{ margin: '10px', maxHeight: '20vh' }}>
                   <UserCard user={user} onTagClick={handleTagClick} />
                 </Grid>
               ))}
