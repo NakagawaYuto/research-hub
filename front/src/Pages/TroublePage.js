@@ -26,7 +26,7 @@ const Home = () => {
   const { user_id } = useParams();
 
   const baseURL = "trouble/trouble/?user=" + String(user_id);
-  const userURL = "user/";
+  const userURL = "users/";
 
 
   function goToAddPage() {
