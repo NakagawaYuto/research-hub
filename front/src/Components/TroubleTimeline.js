@@ -7,7 +7,7 @@ const TroubleTimeline = ({ trouble, users }) => {
     const navigate = useNavigate();
 
     const handleCardClick = () => {
-        navigate(`/trouble/${trouble.id}`);
+        navigate(`/user/${trouble.user}/trouble/${trouble.id}`);
     };
 
     const [maxTitleLength, setMaxTitleLength] = useState(0);
