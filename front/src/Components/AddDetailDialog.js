@@ -40,6 +40,12 @@ export default function AlertDialogSlide(
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
+        PaperProps={{
+          sx: {
+            width: '45%', // 幅を80%に設定する
+            maxWidth: 'none' // 最大幅を無効にする
+          }
+        }}
       >
         <DialogTitle>{"作業の詳細の追加"}</DialogTitle>
         <DialogContent>
