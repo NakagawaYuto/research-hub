@@ -78,13 +78,14 @@ const DetailCard = () => {
 
                 <Divider style={{ width: '48vw', marginTop: '10px', marginBottom: '10px' }} />
 
-
-                {trouble.body.split('\n').map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    <br />
-                  </React.Fragment>
-                ))}
+                <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '18px', fontWeight: 'nomal', color: '#333' }}>
+                  {trouble.body.split('\n').map((line, index) => (
+                    <React.Fragment key={index}>
+                      {line}
+                      <br />
+                    </React.Fragment>
+                  ))}
+                </Typography>
               </Grid>
               <Grid item xs={1} />
             </Grid>
