@@ -4,9 +4,11 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import axios from "axios";
 
 import DeleteMessage from './DeleteMessage';
+
+import createAxiosInstance from '../createAxiosInstance';
+
 
 const overlayStyle = {
   position: 'fixed',
@@ -40,11 +42,12 @@ const buttonStyle = {
 };
 
 const CommentDeleteConfirmCard = ({ onNoClick, comment_id }) => {
-  const baseURL = "http://127.0.0.1:8080/trouble/comment/" + String(comment_id) + "/";
+  const baseURL = "trouble/comment/" + String(comment_id) + "/";
   const [isDeleted, setIsDeleted] = useState(false);
 
+  const ax = createAxiosInstance();
   const deleteTrouble = () => { //削除する
-    axios.delete(baseURL).then(() => {
+    ax.delete(baseURL).then(() => {
       window.location.reload();
       setIsDeleted(true);
     });

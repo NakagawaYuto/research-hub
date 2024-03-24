@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Chip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import createAxiosInstance from '../createAxiosInstance';
 
-const tagURL = 'http://127.0.0.1:8080/techtags/';
+const tagURL = 'techtags/';
 
 const UserCard = ({ user, onTagClick }) => {
     const navigate = useNavigate();
     const [techTags, setTechTags] = useState([]);
 
     useEffect(() => {
-        axios.get(`${tagURL}`)
+        const ax = createAxiosInstance();
+        ax.get(`${tagURL}`)
             .then(response => {
                 setTechTags(response.data);
             })

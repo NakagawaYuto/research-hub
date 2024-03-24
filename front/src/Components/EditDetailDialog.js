@@ -1,5 +1,5 @@
 import * as React from 'react';
-import axios from "axios";
+import createAxiosInstance from '../createAxiosInstance';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -12,9 +12,7 @@ import Grid from '@mui/material/Grid';
 import {useParams} from 'react-router-dom';
 
 
-
-const baseURL = "http://127.0.0.1:8080/todo/todo/"
-const detailURL = "http://127.0.0.1:8080/todo/detail/"
+const detailURL = "todo/detail/"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -26,8 +24,6 @@ export default function AlertDialogSlide(
     setEditTarget,
     setDetails,
     id,
-  
-   
   }) {
  
   const [open, setOpen] = React.useState(false);
@@ -45,8 +41,9 @@ export default function AlertDialogSlide(
     const deadlineOk = edited_deadline.length == 10;
     
     if (titleOk && deadlineOk) {
+      const ax = createAxiosInstance();
       console.log(`${detailURL}`+String(editTarget)+'/');
-      await axios.put(`${detailURL}`+String(editTarget)+'/', {
+      await ax.put(`${detailURL}`+String(editTarget)+'/', {
         detail_title: String(edited_title),
         detail_deadline: String(edited_deadline),
         department: id,
@@ -54,7 +51,7 @@ export default function AlertDialogSlide(
       .then(() => {
         setEditedTitle('');
         setEditedDeadline('');
-        axios.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
+        ax.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
           setDetails(response.data);
          }); 
       })

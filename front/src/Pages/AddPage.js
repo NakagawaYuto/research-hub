@@ -1,5 +1,4 @@
 import * as React from 'react';
-import axios from "axios";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
@@ -13,6 +12,9 @@ import Avatar from '@mui/material/Avatar';
 
 import Header from '../components/Header';
 
+import createAxiosInstance from '../createAxiosInstance';
+
+
 const Add = () => {
   const navigate = useNavigate();
   const [title, setTitle] = React.useState('');
@@ -21,7 +23,7 @@ const Add = () => {
   const [errorMessage, setErrorMessage] = React.useState('');
   const { user_id } = useParams();
 
-  const baseURL = "http://127.0.0.1:8080/trouble/trouble/";
+  const baseURL = "trouble/trouble/";
 
   const pageStyle = {
     backgroundColor: '#f5f5f5', // 薄いグレー
@@ -30,7 +32,8 @@ const Add = () => {
 
   React.useEffect(() => {
     //ユーザーデータ取得
-    axios.get("http://127.0.0.1:8080/users/").then((userResponse) => {
+    const ax = createAxiosInstance();
+    ax.get("users/").then((userResponse) => {
       setUsers(userResponse.data);
     });
   }, []);
@@ -46,7 +49,8 @@ const Add = () => {
     const titleOk = title.length !== 0;
     const bodyOk = body.length !== 0;
     if (titleOk && bodyOk) {
-      axios.post(baseURL, {
+      const ax = createAxiosInstance();
+      ax.post(baseURL, {
         title: String(title),
         body: String(body),
         user: String(user_id),

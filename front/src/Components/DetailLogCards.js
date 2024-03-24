@@ -3,18 +3,18 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import axios from "axios";
+import createAxiosInstance from '../createAxiosInstance';
 import { useParams } from 'react-router-dom';
-
 
 
 const DetailLogCards = ({ id }) => {
     const { user_id } = useParams();
-    const detailURL = "http://127.0.0.1:8080/todo/detail/?user=" + String(user_id);
+    const detailURL = "todo/detail/?user=" + String(user_id);
     const [details, setDetails] = useState(null);
 
     useEffect(() => {
-        axios.get(detailURL)
+        const ax = createAxiosInstance();
+        ax.get(detailURL)
             .then((response) => {
                 console.log("GETのレスポンスのデータ (ここにデータはある): ", response.data);
                 setDetails(response.data);

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Header from '../components/Header';
 import EditModal from '../components/EditModal';
 
-const baseURL = 'http://127.0.0.1:8080/users/';
-const tagURL = 'http://127.0.0.1:8080/techtags/';
-const todoURL = 'http://127.0.0.1:8080/todo/todo/';
+import createAxiosInstance from '../createAxiosInstance';
+
+
+const baseURL = 'users/';
+const tagURL = 'techtags/';
+const todoURL = 'todo/todo/';
 
 const pageStyle = {
   backgroundColor: '#f5f5f5',
@@ -39,17 +41,18 @@ const UserPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userResponse = await axios.get(`${baseURL}${user_id}/`);
+        const ax = createAxiosInstance();
+        const userResponse = await ax.get(`${baseURL}${user_id}/`);
         setUser(userResponse.data);
         setTheme(userResponse.data.research_theme);
         setNovelty(userResponse.data.novelty);
 
-        const todoResponse = await axios.get(`${todoURL}`);
+        const todoResponse = await ax.get(`${todoURL}`);
         const userTodos = todoResponse.data.filter(todo => todo.user === parseInt(user_id) && !todo.done);
         const earliestTodo = userTodos.sort((a, b) => new Date(a.deadline) - new Date(b.deadline))[0];
         setTodo(earliestTodo);
 
-        const tagsResponse = await axios.get(tagURL);
+        const tagsResponse = await ax.get(tagURL);
         const tags = tagsResponse.data.reduce((acc, tag) => {
           acc[tag.id] = tag.name;
           return acc;
@@ -66,13 +69,15 @@ const UserPage = () => {
   const saveTechtag = async () => {
     try {
       const techtagArray = Array.from(new Set(techtag.split(/[\s　]+/).filter(tag => tag !== '')));
-      const existingTagsResponse = await axios.get(`${tagURL}`);
+      const ax = createAxiosInstance();
+
+      const existingTagsResponse = await ax.get(`${tagURL}`);
       const existingTags = existingTagsResponse.data.map(tag => tag.name);
       let techTagIds = [];
 
       for (const tagName of techtagArray) {
         if (!existingTags.includes(tagName)) {
-          const newTagResponse = await axios.post(`${tagURL}`, { name: tagName });
+          const newTagResponse = await ax.post(`${tagURL}`, { name: tagName });
           techTagIds.push(newTagResponse.data.id);
         } else {
           const existingTag = existingTagsResponse.data.find(tag => tag.name === tagName);
@@ -80,7 +85,7 @@ const UserPage = () => {
         }
       }
 
-      await axios.patch(`${baseURL}${user_id}/`, { tech_tags: techTagIds });
+      await ax.patch(`${baseURL}${user_id}/`, { tech_tags: techTagIds });
       setTechtagModalOpen(false);
     } catch (error) {
       console.error(error);
@@ -89,7 +94,8 @@ const UserPage = () => {
 
   const saveTheme = async () => {
     try {
-      await axios.patch(`${baseURL}${user_id}/`, { research_theme: theme });
+      const ax = createAxiosInstance();
+      await ax.patch(`${baseURL}${user_id}/`, { research_theme: theme });
       setThemeModalOpen(false);
     } catch (error) {
       console.error(error);
@@ -98,7 +104,8 @@ const UserPage = () => {
 
   const saveNovelty = async () => {
     try {
-      await axios.patch(`${baseURL}${user_id}/`, { novelty: novelty });
+      const ax = createAxiosInstance();
+      await ax.patch(`${baseURL}${user_id}/`, { novelty: novelty });
       setNoveltyModalOpen(false);
     } catch (error) {
       console.error(error);

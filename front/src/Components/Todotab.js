@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import axios from "axios";
 import DetailCards from './DetailCards';
 import DeleteButton from '../components/DeleteButton';
 import DeleteConfirmDialog from '../components/DeleteConfirmDialog';
@@ -19,8 +18,11 @@ import AddDetailDialog from '../components/AddDetailDialog';
 import AddDetailButton from '../components/AddDetailButton';
 import { useParams } from 'react-router-dom';
 
-const baseURL = "http://127.0.0.1:8080/todo/todo/"
-const detailURL = "http://127.0.0.1:8080/todo/detail/"
+import createAxiosInstance from '../createAxiosInstance';
+
+
+const baseURL = "todo/todo/"
+const detailURL = "todo/detail/"
 
 
 
@@ -91,7 +93,9 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
     console.log(blogs[newValue]);
     console.log(blogs[newValue].id);
     Target(blogs[newValue].id);
-    axios.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
+
+    const ax = createAxiosInstance();
+    ax.get(`${baseURL}`+"?user="+String(user_id)).then((response) => {
       setBlogs(response.data); // blogsを更新
     });
     
@@ -102,7 +106,8 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
     const deadlineOk = deadline.length == 10;
    
     if (titleOk && deadlineOk) {
-      await axios.post(`${detailURL}`+"?user="+String(user_id), {
+      const ax = createAxiosInstance();
+      await ax.post(`${detailURL}`+"?user="+String(user_id), {
         detail_title: String(title),
         detail_deadline: String(deadline),
         department: id,
@@ -111,7 +116,7 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
       .then(() => {
         setTitle('');
         setDeadline('');
-        axios.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
+        ax.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
           setDetails(response.data);
          });
         
@@ -120,10 +125,11 @@ export default function BasicTabs ({todo,details,setDetails,Target,setBlogs}) {
   }
   const deletedetail = (id) => {
     console.log(`${detailURL}`+String(id)+'/');
-    axios.delete(`${detailURL}`+String(id)+'/')
+    const ax = createAxiosInstance();
+    ax.delete(`${detailURL}`+String(id)+'/')
     .then(() => {
       setDetails([]);
-      axios.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
+      ax.get(`${detailURL}`+"?user="+String(user_id)).then((response) => {
         setDetails(response.data);
       });
     })

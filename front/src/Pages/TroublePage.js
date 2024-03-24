@@ -1,6 +1,4 @@
 import * as React from 'react';
-import axios from "axios";
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
@@ -21,6 +19,8 @@ import TroubleAddButton from '../components/TroubleAddButton';
 import Header from '../components/Header';
 import DateConvert from '../components/DateConvert';
 import DetailButton from '../components/DetailButton';
+
+import createAxiosInstance from '../createAxiosInstance';
 
 
 const pageStyle = {
@@ -46,7 +46,9 @@ const Home = () => {
   const navigate = useNavigate();
   const { user_id } = useParams();
 
-  const baseURL = "http://127.0.0.1:8080/trouble/trouble/?user=" + String(user_id);
+  const baseURL = "trouble/trouble/?user=" + String(user_id);
+  const userURL = "users/";
+
 
   function goToAddPage() {
     navigate('/user/' + String(user_id) + '/add/');
@@ -75,11 +77,12 @@ const Home = () => {
 
   // 初回ロード時の処理を記述する.
   React.useEffect(() => {
-    axios.get(baseURL).then((response) => {
+    const ax = createAxiosInstance();
+    ax.get(baseURL).then((response) => {
       setTroubles(response.data);
     });
     //ユーザーデータ取得
-    axios.get("http://127.0.0.1:8080/users/").then((userResponse) => {
+    ax.get(userURL).then((userResponse) => {
       setUsers(userResponse.data);
     });
   }, []);

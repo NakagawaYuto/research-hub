@@ -4,8 +4,8 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import axios from "axios";
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import createAxiosInstance from '../createAxiosInstance';
 
 //import DeleteMessage from './DeleteMessage';
 
@@ -41,14 +41,15 @@ const buttonStyle = {
 };
 
 const DeleteConfirmCard = ({ onNoClick, trouble_id }) => {
-  const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/";
+  const baseURL = "trouble/trouble/" + String(trouble_id) + "/";
   const [isDeleted, setIsDeleted] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { user_id } = useParams();
 
   const deleteTrouble = () => { //削除する
-    axios.delete(baseURL).then(() => {
+    const ax = createAxiosInstance();
+    ax.delete(baseURL).then(() => {
       if (location.pathname === '/user/' + String(user_id) + '/trouble/') {
         // '/' の場合の処理
         window.location.reload();

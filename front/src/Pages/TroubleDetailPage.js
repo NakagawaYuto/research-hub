@@ -2,6 +2,10 @@ import * as React from 'react';
 import axios from "axios";
 import { useState, useEffect } from 'react';
 import { Button, TextField, Typography } from '@mui/material';
+
+import { useParams, useNavigate } from "react-router-dom";
+
+import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { useParams, useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
@@ -17,6 +21,8 @@ import CommentDetailButton from '../components/CommentDetailButton';
 import DateConvert from '../components/DateConvert';
 import DetailCard from '../components/DetailCard';
 import Header from '../components/Header';
+
+import createAxiosInstance from '../createAxiosInstance';
 
 
 const pageStyle = {
@@ -44,6 +50,8 @@ const TroubleDetailPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isDeleted, setIsDeleted] = useState(false);
   const navigate = useNavigate();
+
+  // mainここから
   const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/";
   const commentBaseURL = "http://127.0.0.1:8080/trouble/comment/";
 
@@ -68,6 +76,7 @@ const TroubleDetailPage = () => {
       setErrorMessage('全ての項目を入力してください');
     }
   }
+  // mainここまで
 
   const deleteComment = (comment_id) => { //削除する
     const commentDeleteURL = "http://127.0.0.1:8080/trouble/comment/" + String(comment_id) + "/";
@@ -81,8 +90,13 @@ const TroubleDetailPage = () => {
     });
   }
 
+  // deploy
+  const baseURL = "trouble/trouble/" + String(trouble_id) + "/";
+  // deployここまで
+
   React.useEffect(() => {
-    axios.get(baseURL).then((response) => {
+    const ax = createAxiosInstance();
+    ax.get(baseURL).then((response) => {
       setTrouble(response.data);
     });
   }, []);
