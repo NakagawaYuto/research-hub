@@ -22,6 +22,13 @@ const DetailCard = () => {
   const { user_id } = useParams();
   const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/"
 
+  const deleteTrouble = (trouble_id) => { //削除する
+    const troubleDeleteURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/";
+
+    axios.delete(troubleDeleteURL).then(() => {
+      navigate('/user/' + String(user_id) + '/trouble/');
+    });
+  }
 
   React.useEffect(() => {
     axios.get(baseURL).then((response) => {
@@ -66,7 +73,7 @@ const DetailCard = () => {
                       {userName}
                     </Typography>
                   </div>
-                  <DetailButton trouble_id={trouble_id}></DetailButton>
+                  <DetailButton trouble_id={trouble_id} deleteTrouble={deleteTrouble}></DetailButton>
                 </div>
 
                 <Typography variant="h4" align="left" style={{ fontFamily: 'Meiryo', fontSize: '30px', fontWeight: 'bold', color: '#333', marginTop: '10px', marginBottom: '10px' }}>
@@ -78,13 +85,14 @@ const DetailCard = () => {
 
                 <Divider style={{ width: '48vw', marginTop: '10px', marginBottom: '10px' }} />
 
-
-                {trouble.body.split('\n').map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    <br />
-                  </React.Fragment>
-                ))}
+                <Typography variant="body1" align="left" style={{ fontFamily: 'Meiryo', fontSize: '18px', fontWeight: 'nomal', color: '#333' }}>
+                  {trouble.body.split('\n').map((line, index) => (
+                    <React.Fragment key={index}>
+                      {line}
+                      <br />
+                    </React.Fragment>
+                  ))}
+                </Typography>
               </Grid>
               <Grid item xs={1} />
             </Grid>

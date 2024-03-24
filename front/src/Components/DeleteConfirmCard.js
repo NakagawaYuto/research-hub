@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import axios from "axios";
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
-import DeleteMessage from './DeleteMessage';
+//import DeleteMessage from './DeleteMessage';
 
 const overlayStyle = {
   position: 'fixed',
@@ -76,7 +76,6 @@ const DeleteConfirmCard = ({ onNoClick, trouble_id }) => {
           </Card>
         </Grid>
       </Grid>
-      {isDeleted && <DeleteMessage />}
     </div>
   );
 };
