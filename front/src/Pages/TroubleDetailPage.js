@@ -5,9 +5,7 @@ import { Button, TextField, Typography } from '@mui/material';
 
 import { useParams, useNavigate } from "react-router-dom";
 
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import { useParams, useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -52,14 +50,15 @@ const TroubleDetailPage = () => {
   const navigate = useNavigate();
 
   // mainここから
-  const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/";
-  const commentBaseURL = "http://127.0.0.1:8080/trouble/comment/";
+  const baseURL = "trouble/trouble/" + String(trouble_id) + "/";
+  const commentBaseURL = "trouble/comment/";
 
   const addComment = () => {
     const nameOk = name.length !== 0;
     const bodyOk = body.length !== 0;
     if (nameOk && bodyOk) {
-      axios.post(commentBaseURL, {
+      const ax = createAxiosInstance();
+      ax.post(commentBaseURL, {
         name: String(name),
         body: String(body),
         trouble: String(trouble_id),
@@ -67,7 +66,7 @@ const TroubleDetailPage = () => {
         .then(() => {
           setName('');
           setBody('');
-          axios.get(baseURL).then((response) => {
+          ax.get(baseURL).then((response) => {
             setTrouble(response.data);
           });
         })
@@ -79,20 +78,17 @@ const TroubleDetailPage = () => {
   // mainここまで
 
   const deleteComment = (comment_id) => { //削除する
-    const commentDeleteURL = "http://127.0.0.1:8080/trouble/comment/" + String(comment_id) + "/";
+    const commentDeleteURL = "trouble/comment/" + String(comment_id) + "/";
+    const ax = createAxiosInstance();
     
-    axios.delete(commentDeleteURL).then(() => {
+    ax.delete(commentDeleteURL).then(() => {
       setIsDeleted(true);
-      axios.get(baseURL).then((response) => {
+      ax.get(baseURL).then((response) => {
         setTrouble(response.data);
         setTimeout(() => setIsDeleted(false), 1000);
       });
     });
   }
-
-  // deploy
-  const baseURL = "trouble/trouble/" + String(trouble_id) + "/";
-  // deployここまで
 
   React.useEffect(() => {
     const ax = createAxiosInstance();

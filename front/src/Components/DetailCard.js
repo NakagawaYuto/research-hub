@@ -21,22 +21,18 @@ const DetailCard = () => {
   const { trouble_id } = useParams();
   const { user_id } = useParams();
 
-  // mainここから
-  const baseURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/"
+  const baseURL = "trouble/trouble/" + String(trouble_id) + "/"
 
   const deleteTrouble = (trouble_id) => { //削除する
-    const troubleDeleteURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/";
+    const troubleDeleteURL = "trouble/trouble/" + String(trouble_id) + "/";
+    const ax = createAxiosInstance();
 
-    axios.delete(troubleDeleteURL).then(() => {
+    ax.delete(troubleDeleteURL).then(() => {
       navigate('/user/' + String(user_id) + '/trouble/');
     });
   }
-  // mainここまで
-  
-  // deploy
-  const baseURL = "trouble/trouble/" + String(trouble_id) + "/"
+
   const userURL = "users/"
-  // deployここまで
 
   React.useEffect(() => {
     const ax = createAxiosInstance();

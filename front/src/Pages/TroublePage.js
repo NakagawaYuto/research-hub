@@ -64,11 +64,12 @@ const Home = () => {
 
 
   const deleteTrouble = (trouble_id) => { //削除する
-    const troubleDeleteURL = "http://127.0.0.1:8080/trouble/trouble/" + String(trouble_id) + "/";
+    const troubleDeleteURL = "trouble/trouble/" + String(trouble_id) + "/";
 
-    axios.delete(troubleDeleteURL).then(() => {
+    const ax = createAxiosInstance();
+    ax.delete(troubleDeleteURL).then(() => {
       setIsDeleted(true);
-      axios.get(baseURL).then((response) => {
+      ax.get(baseURL).then((response) => {
         setTroubles(response.data);
         setTimeout(() => setIsDeleted(false), 1000);
       });
