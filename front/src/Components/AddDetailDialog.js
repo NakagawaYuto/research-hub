@@ -7,6 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import TextField from '@mui/material/TextField';
+import TodoDatePicker from '../components/TodoDatePicker';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -69,7 +70,7 @@ export default function AlertDialogSlide(
           />
           
         
-          <TextField
+          {/* <TextField
             id="outlined-multiline-flexible"
             label="期限(YYYY-MM-DD)"
             multiline
@@ -81,6 +82,9 @@ export default function AlertDialogSlide(
               width: '40vw',
             }}
             onChange={(e)=>{setDeadline(e.target.value)}}
+          /> */}
+          <TodoDatePicker 
+          setDeadline={setDeadline}
           />
        
        
