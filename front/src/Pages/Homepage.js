@@ -79,15 +79,19 @@ const HomePage = () => {
               <AddUserButton onClick={() => navigate('/user/add/')}></AddUserButton>
             </div>
           </Grid>
-          <Grid item xs={5} container justifyContent="center" sx={{ overflow: 'auto', maxHeight: '90vh' }}>
-            <Typography variant='h4' gutterBottom>
-              悩みタイムライン
-            </Typography>
-            <Card sx={{ mb: 4, width: '70%' }}>
-              {troubles.map((trouble) => (
-                <TroubleTimeline key={trouble.id} trouble={trouble} users={users} />
-              ))}
-            </Card>
+          <Grid item xs={5} container justifyContent="center" >
+            <Grid item xs={12} container justifyContent="center">
+              <Typography variant='h4' gutterBottom>
+                悩みタイムライン
+              </Typography>
+            </Grid>
+            <Grid item xs={12} container justifyContent="center" sx={{ overflow: 'auto', maxHeight: '80vh' }}>
+              <Card sx={{ mb: 4, width: '70%' }}>
+                {troubles.map((trouble) => (
+                  <TroubleTimeline key={trouble.id} trouble={trouble} users={users} />
+                ))}
+              </Card>
+            </Grid>
           </Grid>
         </Grid>
       </Box>
