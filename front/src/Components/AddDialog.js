@@ -23,8 +23,16 @@ export default function AlertDialogSlide({
   addBlog,
 }) {
 
+  const [forceUpdateKey, setForceUpdateKey] = React.useState(Date.now());
+
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleAddTodo = () => {
+    addBlog();
+    // 再描画をトリガーするため、forceUpdateKey を更新する
+    setForceUpdateKey(Date.now());
   };
 
   return (
@@ -64,13 +72,14 @@ export default function AlertDialogSlide({
           />
           
           <TodoDatePicker 
+            key={forceUpdateKey}
             setDeadline={setDeadline}
             style={{ flex: 1 }} // 高さを均等に分割する
           />
           <div style={{ marginBottom: 20 }} />
           <Button 
             variant="contained" 
-            onClick={addBlog}
+            onClick={handleAddTodo}
             style={{
               width: 100,
               color: "#e0f2f1",

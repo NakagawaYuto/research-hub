@@ -15,7 +15,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function AlertDialogSlide(
   {
-    
     open,
     setOpen,
     title,
@@ -26,12 +25,17 @@ export default function AlertDialogSlide(
     id,
   }) {
 
+  const [forceUpdateKey, setForceUpdateKey] = React.useState(Date.now());
+
   const handleClose = () => {
     setOpen(false);
   };
 
-  // delTargetが変更されたら，dialogを開く.
- 
+  const handleAddDetail = () => {
+    adddetail(id);
+    // 再描画をトリガーするため、forceUpdateKey を更新する
+    setForceUpdateKey(Date.now());
+  };
 
   return (
     <div>
@@ -55,7 +59,7 @@ export default function AlertDialogSlide(
           </DialogContentText>
         </DialogContent>
         <DialogContent style={{ display: 'flex', flexDirection: 'column' }}>
-        <TextField
+          <TextField
             id="outlined-multiline-flexible"
             label="追加する作業"
             multiline
@@ -68,33 +72,15 @@ export default function AlertDialogSlide(
             }}
             onChange={(e)=>{setTitle(e.target.value)}}
           />
-          
-        
-          {/* <TextField
-            id="outlined-multiline-flexible"
-            label="期限(YYYY-MM-DD)"
-            multiline
-            maxRows={4}
-            value={deadline}
-            style={{ 
-              margin: 20, 
-              fontFamily:'serif',
-              width: '40vw',
-            }}
-            onChange={(e)=>{setDeadline(e.target.value)}}
-          /> */}
           <TodoDatePicker 
-          setDeadline={setDeadline}
-          style={{ flex: 1 }}
+            key={forceUpdateKey} // 再描画をトリガーするために key を変更する
+            setDeadline={setDeadline}
+            style={{ flex: 1 }}
           />
           <div style={{ marginBottom: 20 }} />
-       
-       
-        <Button 
+          <Button 
             variant="contained" 
-            onClick={() => {
-              adddetail(id);
-            }}
+            onClick={handleAddDetail}
             style={{
               width: 100,
               color: "#e0f2f1",
@@ -103,15 +89,12 @@ export default function AlertDialogSlide(
               background: '#1976d2',
               padding: 3,
               borderRadius: 5,
-            
             }}
             size="large"
           >追加</Button>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=> {
-            handleClose()
-          }}>閉じる</Button>
+          <Button onClick={handleClose}>閉じる</Button>
         </DialogActions>
       </Dialog>
     </div>
