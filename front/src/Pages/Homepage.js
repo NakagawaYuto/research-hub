@@ -85,8 +85,8 @@ const HomePage = () => {
                 悩みタイムライン
               </Typography>
             </Grid>
-            <Grid item xs={12} container justifyContent="center" sx={{ overflow: 'auto', maxHeight: '80vh' }}>
-              <Card sx={{ mb: 4, width: '70%' }}>
+            <Grid item xs={12} container justifyContent="center" sx={{ overflow: 'auto', height: '80vh', bgcolor: 'white', p: 0, m: 4, display: 'flex', flexDirection: 'column' }}>
+              <Card sx={{ width: '100%', overflow: 'auto', flex: '1 0 auto', bgcolor: 'white', boxShadow: 'none', m: 0 }}>
                 {troubles.map((trouble) => (
                   <TroubleTimeline key={trouble.id} trouble={trouble} users={users} />
                 ))}
