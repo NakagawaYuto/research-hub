@@ -54,7 +54,7 @@ export default function AlertDialogSlide(
             追加する作業を入力してください．
           </DialogContentText>
         </DialogContent>
-        <DialogContent>
+        <DialogContent style={{ display: 'flex', flexDirection: 'column' }}>
         <TextField
             id="outlined-multiline-flexible"
             label="追加する作業"
@@ -62,9 +62,9 @@ export default function AlertDialogSlide(
             maxRows={4}
             value={title}
             style={{ 
-              margin: 20, 
-              fontFamily:'serif',
-              width: '40vw',
+              marginBottom: 20, 
+              fontFamily: 'Meiryo',
+              flex: 1 // 高さを均等に分割する
             }}
             onChange={(e)=>{setTitle(e.target.value)}}
           />
@@ -85,7 +85,9 @@ export default function AlertDialogSlide(
           /> */}
           <TodoDatePicker 
           setDeadline={setDeadline}
+          style={{ flex: 1 }}
           />
+          <div style={{ marginBottom: 20 }} />
        
        
         <Button 
@@ -101,7 +103,7 @@ export default function AlertDialogSlide(
               background: '#1976d2',
               padding: 3,
               borderRadius: 5,
-              boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
+            
             }}
             size="large"
           >追加</Button>

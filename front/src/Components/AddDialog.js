@@ -13,24 +13,19 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide(
-  {
-    
-    open,
-    setOpen,
-    title,
-    setTitle,
-    deadline,
-    setDeadline,
-    addBlog,
-  }) {
+export default function AlertDialogSlide({
+  open,
+  setOpen,
+  title,
+  setTitle,
+  deadline,
+  setDeadline,
+  addBlog,
+}) {
 
   const handleClose = () => {
     setOpen(false);
   };
-
-  // delTargetが変更されたら，dialogを開く.
- 
 
   return (
     <div>
@@ -42,7 +37,7 @@ export default function AlertDialogSlide(
         aria-describedby="alert-dialog-slide-description"
         PaperProps={{
           sx: {
-            width: '45%', // 幅を80%に設定する
+            width: '45%', // 幅を45%に設定する
             maxWidth: 'none' // 最大幅を無効にする
           }
         }}
@@ -53,46 +48,29 @@ export default function AlertDialogSlide(
             追加する作業を入力してください．
           </DialogContentText>
         </DialogContent>
-        <DialogContent>
-        <TextField
+        <DialogContent style={{ display: 'flex', flexDirection: 'column' }}>
+          <TextField
             id="outlined-multiline-flexible"
             label="追加する作業"
             multiline
             maxRows={4}
             value={title}
             style={{ 
-              margin: 20, 
+              marginBottom: 20, 
               fontFamily: 'Meiryo',
-              width: '40vw',
+              flex: 1 // 高さを均等に分割する
             }}
             onChange={(e)=>{setTitle(e.target.value)}}
           />
           
-        
-          {/* <TextField
-            id="outlined-multiline-flexible"
-            label="期限(YYYY-MM-DD)"
-            multiline
-            maxRows={4}
-            value={deadline}
-            style={{ 
-              margin: 20, 
-              fontFamily: 'Meiryo',
-              width: '40vw',
-            }}
-            onChange={(e)=>{setDeadline(e.target.value)}}
-          /> */}
-
-         <TodoDatePicker 
-          setDeadline={setDeadline}
-        />
-        
-        
+          <TodoDatePicker 
+            setDeadline={setDeadline}
+            style={{ flex: 1 }} // 高さを均等に分割する
+          />
+          <div style={{ marginBottom: 20 }} />
           <Button 
             variant="contained" 
-            onClick={() => {
-              addBlog();
-            }}
+            onClick={addBlog}
             style={{
               width: 100,
               color: "#e0f2f1",
@@ -101,15 +79,14 @@ export default function AlertDialogSlide(
               background: '#1976d2',
               padding: 3,
               borderRadius: 5,
-              boxShadow: '5px 5px 5px rbga(0,0,0,0.3)',
+            
+            
             }}
             size="large"
           >追加</Button>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=> {
-            handleClose()
-          }}>閉じる</Button>
+          <Button onClick={handleClose}>閉じる</Button>
         </DialogActions>
       </Dialog>
     </div>
