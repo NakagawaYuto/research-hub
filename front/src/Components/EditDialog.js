@@ -10,6 +10,7 @@ import Slide from '@mui/material/Slide';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import {useParams} from 'react-router-dom';
+import TodoDatePicker from '../components/TodoDatePicker';
 
 
 
@@ -31,6 +32,7 @@ export default function AlertDialogSlide(
   const [open, setOpen] = React.useState(false);
   const [edited_title, setEditedTitle] = React.useState();
   const [edited_deadline, setEditedDeadline] = React.useState();
+  const [forceUpdateKey, setForceUpdateKey] = React.useState(Date.now());
   const {user_id}=useParams()
 
   const handleClose = () => {
@@ -98,8 +100,8 @@ export default function AlertDialogSlide(
 
 
 
-        <DialogContent>
-        <Grid item>
+        <DialogContent style={{ display: 'flex', flexDirection: 'column' }}>
+        
           <TextField
             id="alert-dialog-slide-description"
             label="追加する作業"
@@ -107,15 +109,22 @@ export default function AlertDialogSlide(
             maxRows={4}
             value={edited_title}
             style={{ 
-              margin: 20, 
-              fontFamily:'serif',
-              width: '40vw',
+              marginBottom: 20, 
+              fontFamily: 'Meiryo',
+              flex: 1 // 高さを均等に分割する
             }}
             onChange={(e)=>{setEditedTitle(e.target.value)}}
           />
-          </Grid>
+          
+          <TodoDatePicker 
+            key={forceUpdateKey}
+            setDeadline={setEditedDeadline}
+            style={{ flex: 1 }} // 高さを均等に分割する
+          />
         
-          <TextField
+         
+        
+          {/* <TextField
             id="alert-dialog-slide-description"
             label="期限(YYYY-MM-DD)"
             multiline
@@ -127,13 +136,15 @@ export default function AlertDialogSlide(
               width: '40vw',
             }}
             onChange={(e)=>{setEditedDeadline(e.target.value)}}
-          />
-          </DialogContent>
+          /> */}
+        </DialogContent>
+        
           <DialogActions>
 
 
           <Button onClick={()=> {
             editBlog(editTarget);
+            setForceUpdateKey(Date.now());
             
             handleClose()
           }}>完了</Button>
