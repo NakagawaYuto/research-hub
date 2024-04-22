@@ -12,12 +12,15 @@ import TroublePage from './pages/TroublePage';
 import AddPage from './pages/AddPage';
 import TroubleDetailPage from './pages/TroubleDetailPage';
 import EditPage from './pages/EditPage';
+import LoginPage from './pages/LoginPage';
 
 
 function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/login/" element={<LoginPage />} />
+
         <Route path="/" element={<HomePage />} />
         <Route path="/user/add" element={<AddUserPage />} />
         <Route path="/user/:user_id" element={<UserPage />} />
