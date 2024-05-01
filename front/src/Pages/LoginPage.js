@@ -41,9 +41,13 @@ const Login = (props) => {
         history.push('/');
       })
       .catch(err => {
-        // alert("UsernameかPasswordが違います");
-        // alert("UsernameかPasswordが違います");
+        if(err.response.status === 401){
+          alert("UsernameかPasswordが違います");
+        }
       });
+
+      //トークンの保存が終わってからリダイレクト
+      navigate('/')
   };
 
   return (
@@ -110,7 +114,7 @@ const Login = (props) => {
                 </Grid>
 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Button type="submit" variant="contained" color="primary" style={{ marginTop: '15px', height: '50px', width: 'calc(100% - 100px)'  }} { ...navigate('/')}>
+                  <Button type="submit" variant="contained" color="primary" style={{ marginTop: '15px', height: '50px', width: 'calc(100% - 100px)'  }}>
                     <Typography style={{ fontFamily: 'Meiryo', fontWeight: 'bold' }} >
                       ログイン
                     </Typography>
